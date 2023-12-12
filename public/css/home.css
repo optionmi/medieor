@@ -1,0 +1,52 @@
+.ellipse-clip {
+    clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.posts-clip {
+    clip-path: polygon(
+        100% 0,
+        100% 85%,
+        60% 85%,
+        50% 100%,
+        40% 85%,
+        0 85%,
+        0 0
+    );
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("../fonts/Montserrat-Regular.ttf");
+}
+
+* {
+    font-family: Montserrat;
+}
+
+.soil-bg {
+    background-image: url("../img/soil-bg.png");
+    background-size: cover;
+    height: 95vh;
+    width: 100%;
+}
+
+.bg1 {
+    background-image: url("../img/1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.bg2 {
+    background-image: url("../img/2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.bg3 {
+    background-image: url("../img/3.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
