@@ -50,3 +50,6 @@
     background-position: center;
     background-size: cover;
 }
+.leading-section-1 {
+    line-height: 4rem !important;
+}

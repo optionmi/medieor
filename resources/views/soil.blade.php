@@ -1,61 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
+@include('partials.header')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Medieor</title>
-
-    <!-- Fonts -->
-
-    <!-- Styles -->
-    @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
-</head>
-
-<body>
-
-    <header class="py-2 text-white bg-[#a48159]">
-        <div class="container flex flex-col items-center justify-between mx-auto sm:flex-row">
-            <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
-                <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" />
-                <img src={{ asset('img/space.png') }} alt="Space" width="55" />
-                <img src={{ asset('img/fire.png') }} alt="Fire" width="55" />
-                <img src={{ asset('img/water.png') }} alt="Water" width="55" />
-                <img src={{ asset('img/soil.png') }} alt="Soil" width="55" />
-                <img src={{ asset('img/air.png') }} alt="Air" width="55" />
-            </div>
-            <ul class="flex justify-end w-full gap-6 px-4 py-2 sm:w-2/5">
-                <li class="flex flex-col items-center gap-2">
-                    <div>
-                        <i class="fa-regular fa-user fa-2xl"></i>
-                    </div>
-                    <span>Account</span>
-                </li>
-                <li class="flex flex-col items-center gap-2">
-                    <div>
-                        <i class="fa-solid fa-cart-shopping fa-2xl"></i>
-                    </div>
-                    <span>Cart</span>
-                </li>
-                <li class="flex flex-col items-center gap-2">
-                    <div>
-                        <i class="fa-solid fa-bars fa-2xl"></i>
-                    </div>
-                    <span>Menu</span>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-
+@section('content')
     <section class="mb-10">
         <div class="relative">
             <div class="relative soil-bg">
-                <div
-                    class="flex flex-col items-center p-5 text-4xl leading-snug text-white sm:text-6xl sm:absolute bottom-60 right-20">
+                <div class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20">
                     <h1>The contribution of</h1>
                     <h1>(Soil - Mitti)</h1>
                     <h1>
@@ -78,7 +28,7 @@
     <main class="container mx-auto my-5">
         <section class="flex flex-col justify-between gap-5 sm:flex-row ">
             <div class="w-full p-5 sm:w-3/5">
-                <h1 class="text-4xl leading-normal sm:text-5xl">
+                <h1 class="text-4xl leading-section-1 sm:text-5xl">
                     My Contribution in healing <br />
                     <span class="font-bold"> Mitti</span> of the
                     <span class="font-bold"> earth</span>
@@ -134,6 +84,10 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="flex justify-center my-5">
+                        <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm" href="#">Explore
+                            More</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -153,7 +107,8 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
-                <button class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
+                <button data-modal-target="start-new-topic" data-modal-toggle="start-new-topic"
+                    class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
                     Start New Topic
                 </button>
 
@@ -198,8 +153,8 @@
 
                     <li
                         class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
-                        <div>
-                            <img src="{{ asset('img/no-avatar.png') }}" width={100} height={100} alt="avatar" />
+                        <div class="w-20 h-20 bg-white rounded-full sm:w-40 sm:h-40">
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
                         </div>
 
                         <div>
@@ -214,17 +169,17 @@
                             </p>
                         </div>
 
-                        <div class="flex flex-col items-center justify-between w-52">
+                        <div class="flex flex-col items-center justify-between w-56">
                             <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
                                 <span class="text-xl">89</span>
                             </div>
                             <div class="flex flex-col items-center w-full text-gray-500">
                                 <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <FaEye size={15} color="#ced2d3" />
+                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
                                     <span>1560</span>
                                 </div>
                                 <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <FaClock size={13} color="#ced2d3" />
+                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
                                     <span>24 min</span>
                                 </div>
                             </div>
@@ -232,8 +187,8 @@
                     </li>
                     <li
                         class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
-                        <div>
-                            <img src="{{ asset('img/no-avatar.png') }}" width={100} height={100} alt="avatar" />
+                        <div class="w-20 h-20 bg-white rounded-full sm:w-40 sm:h-40">
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
                         </div>
 
                         <div>
@@ -248,17 +203,17 @@
                             </p>
                         </div>
 
-                        <div class="flex flex-col items-center justify-between w-52">
+                        <div class="flex flex-col items-center justify-between w-56">
                             <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
                                 <span class="text-xl">89</span>
                             </div>
                             <div class="flex flex-col items-center w-full text-gray-500">
                                 <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <FaEye size={15} color="#ced2d3" />
+                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
                                     <span>1560</span>
                                 </div>
                                 <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <FaClock size={13} color="#ced2d3" />
+                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
                                     <span>24 min</span>
                                 </div>
                             </div>
@@ -267,6 +222,7 @@
 
                 </ul>
             </div>
+
             <div class="w-full sm:w-2/5 xl:w-1/3">
                 <div class="p-5 bg-white rounded-md">
                     <h1 class="mb-10 text-xl ">Categories</h1>
@@ -357,6 +313,50 @@
     </section>
     <footer class="p-10 bg-[#a48159]"></footer>
 
-</body>
-
-</html>
+    <!-- start-new-topic modal -->
+    <div id="start-new-topic" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-[#00000088]">
+        <div class="relative w-full max-w-2xl max-h-full p-4">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Terms of Service
+                    </h3>
+                    <button type="button"
+                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="start-new-topic">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 space-y-4 md:p-5">
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        With less than a month to go before the European Union enacts new consumer privacy laws for its
+                        citizens, companies around the world are updating their terms of service agreements to comply.
+                    </p>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
+                        and is meant to ensure a common set of data rights in the European Union. It requires
+                        organizations to notify users as soon as possible of high-risk data breaches that could
+                        personally affect them.
+                    </p>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-4 border-t border-gray-200 rounded-b md:p-5 dark:border-gray-600">
+                    <button data-modal-hide="start-new-topic" type="button"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
+                        accept</button>
+                    <button data-modal-hide="start-new-topic" type="button"
+                        class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
