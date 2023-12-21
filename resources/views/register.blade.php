@@ -35,7 +35,7 @@
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="confirm_password">Confirm Password</label>
-                                <input type="confirm_password" name="confirm_password" id="confirm_password"
+                                <input type="password" name="confirm_password" id="confirm_password"
                                     class="w-full p-2 border border-gray-300 rounded-md" placeholder="Confirm Password"
                                     required>
                             </div>
