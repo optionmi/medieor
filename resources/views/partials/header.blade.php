@@ -1,7 +1,8 @@
 <header class="py-2 text-white bg-[#a48159]">
     <div class="container flex flex-col items-center justify-between mx-auto sm:flex-row">
         <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
-            <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" />
+            <a href="{{ route('home') }}">
+                <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" /></a>
             <img src={{ asset('img/space.png') }} alt="Space" width="55" />
             <img src={{ asset('img/fire.png') }} alt="Fire" width="55" />
             <img src={{ asset('img/water.png') }} alt="Water" width="55" />

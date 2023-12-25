@@ -85,8 +85,8 @@
                         </li>
                     </ul>
                     <div class="flex justify-center my-5">
-                        <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm" href="#">Explore
-                            More</a>
+                        <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm"
+                            href="{{ route('groups') }}">Explore Groups</a>
                     </div>
                 </div>
             </div>
