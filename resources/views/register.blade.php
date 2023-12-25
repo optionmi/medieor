@@ -12,16 +12,25 @@
                         <h1 class="text-2xl font-bold">Register a new account</h1>
                     </div>
                     <div class="my-5">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <form action="" method="POST">
+                            @csrf
                             <div class="mb-5">
                                 <label class="text-sm" for="name">Name</label>
-                                <input type="text" name="name" id="name"
-                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Full Name" required />
+                                <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Full Name" required />
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="email">Email</label>
-                                <input type="email" name="email" id="email"
-                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required>
+                                <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="phone">Phone</label>
@@ -30,12 +39,11 @@
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="password">Password</label>
-                                <input type="password" name="password" id="password"
-                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password" required>
+                                <input type="password" name="password" id="password" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password" required>
                             </div>
                             <div class="mb-5">
-                                <label class="text-sm" for="confirm_password">Confirm Password</label>
-                                <input type="password" name="confirm_password" id="confirm_password"
+                                <label class="text-sm" for="password_confirmation">Confirm Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation"
                                     class="w-full p-2 border border-gray-300 rounded-md" placeholder="Confirm Password"
                                     required>
                             </div>
