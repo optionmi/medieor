@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\GroupController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +33,5 @@ Route::get('/register', function () {
 Route::get('/soil/groups', function () {
     return view('groups');
 })->name('groups');
+
+Route::get('/groups', [GroupController::class, 'index'])->name('web.group');

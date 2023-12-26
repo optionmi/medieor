@@ -23,19 +23,16 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                     <tbody>
-                        @foreach ([(object) ['name' => 'Mitti for all'], (object) ['name' => 'My Mitti '], (object) ['name' => 'Mitti i saved'], (object) ['name' => 'Heal Mitti']] as $group)
+                        @foreach ($groups as $group)
                             <tr
                                 class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" class="w-1/2 px-6 py-4 sm:w-3/4">
                                     <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $group->name }}</h1>
+                                        {{ $group->title }}</h1>
                                     <small>Public Group</small><br>
                                     <small>900 members</small>
                                     {{-- <p>{{ $group->description }}</p> --}}
-                                    <p class="my-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-                                        eligendi aliquid
-                                        debitis dolore autem iure quo, praesentium ratione iusto temporibus fuga provident
-                                        facere odio fugit voluptate voluptates, iste quam veniam!</p>
+                                    <p class="my-4">{{ $group->description }}</p>
                                 </th>
                                 <td class="w-1/2 px-6 py-4 text-center sm:w-1/4">
                                     <a href="#"
