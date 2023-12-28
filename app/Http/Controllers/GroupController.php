@@ -35,4 +35,48 @@ class GroupController extends Controller
         $groups = $this->group->allActive();
         return view('groups', compact('groups'));
     }
+
+    public function create(Request $request)
+    {
+        $validator = validator()->make(request()->all(), [
+            'name' => 'required|max:100',
+            'description' => 'required|max:500',
+            'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+        ], [
+            'name.required' => 'Title is required',
+            'description.required' => 'Description is required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 1, 'message' => $validator->errors()->first()]);
+        }
+
+        $data = [
+            'title' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'created_by' => auth()->id(),
+        ];
+
+        $this->category->store($data);
+
+        return response()->json(['error' => 1, 'message' => 'Group created successfully']);
+    }
+
+    public function join(Request $request)
+    {
+        // dd($request->all());
+        $data = [
+            'user_id' => auth()->id(),
+            'group_id' => $request->id,
+        ];
+
+        $user = auth()->user();
+
+        // $user->groups()->detach();
+
+        $user->groups()->syncWithoutDetaching([$request->id]);
+
+        return response()->json(['error' => 0, 'message' => 'Joined successfully']);
+    }
 }

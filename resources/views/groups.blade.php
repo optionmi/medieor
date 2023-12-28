@@ -18,8 +18,6 @@
                 </div>
             </div>
 
-
-
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                     <tbody>
@@ -34,9 +32,21 @@
                                     <p class="my-4">{{ $group->description }}</p>
                                 </th>
                                 <td class="w-1/2 px-6 py-4 text-center sm:w-1/4">
-                                    <a href="#"
-                                        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Join
-                                        Group</a>
+                                    @if(auth()->user())
+                                        @if(in_array($group->id, auth()->user()->groups->pluck('id')->toArray()))
+                                        <a href="#" data-id="{{ $group->id }}"
+                                            class="focus:outline-none text-white bg-gray-400 hover:bg-gray-500 focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Joined
+                                        </a>
+                                        @else
+                                        <a href="#" data-id="{{ $group->id }}"
+                                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 join-group">Join Group
+                                        </a>
+                                        @endif
+                                    @else
+                                    <a href="#" data-id="{{ $group->id }}"
+                                        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 join-group">Join Group
+                                    </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -73,7 +83,9 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5">
+                <form class="p-4 md:p-5" action="{{ route('web.create.group') }}" method="POST" id="save-group-form">
+                    @csrf
+                    <input type="hidden" name="description" value="2">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="col-span-2">
                             <label for="name"
@@ -86,7 +98,7 @@
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group
                                 Description</label>
-                            <textarea id="description" rows="4"
+                            <textarea id="description" rows="4" name="description"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Write group description here"></textarea>
                         </div>
@@ -105,4 +117,119 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $('#save-group-form').submit(function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var submitUrl = form.attr('action');
+            var method = form.attr('method');
+
+            var submitButton = form.find('button[type="submit"]');
+            submitButton.html('<i class="fas fa-2x fa-sync-alt fa-spin"></i>');
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: submitUrl,
+                type: method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+                    submitButton.html('Save changes');
+                    $('#save-group-form')[0].reset();
+                    $('#create-new-group').hide();
+
+                    if(data.error == true) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message,
+                            icon: 'error',
+                            showConfirmButton: true,
+                        }).then((value) => {
+                            
+                        });
+                        return false;
+                    } else {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            showConfirmButton: true,
+                        }).then((value) => {
+                            
+                        });
+                    }
+                },
+                error: function(error) {
+                    submitButton.html('Save changes');
+                    const errorMessage = error.responseJSON.message;
+                    console.error('Error:', errorMessage);
+                    if(errorMessage == 'Unauthenticated.') {
+                        $('#create-new-group').hide();
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please login to create group',
+                            icon: 'error',
+                            showConfirmButton: true,
+                        }).then((value) => {
+                            
+                        });
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $('.join-group').click(function(event) {
+            event.preventDefault();
+
+            const groupId = $(this).data('id');
+            const $button = $(this);
+
+            $.ajax({
+                url: "{{ route('web.join.group') }}",
+                method: 'POST',
+                data: {
+                    id: groupId,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        showConfirmButton: true,
+                    }).then((value) => {
+                        $button.text('Joined');
+                        $button.removeClass('bg-green-700 hover:bg-green-800 join-group').addClass('bg-gray-400 hover:bg-gray-500');
+                    });
+                },
+                error: function(error) {
+                    console.error(error);
+                    const errorMessage = error.responseJSON.message;
+                    if(errorMessage == 'Unauthenticated.') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please login to join group',
+                            icon: 'error',
+                            showConfirmButton: true,
+                        }).then((value) => {
+                            
+                        });
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

@@ -32,3 +32,9 @@ Route::get('/register', function () {
 
 
 Route::get('/groups', [GroupController::class, 'index'])->name('web.groups');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
+    Route::post('/join-group', [GroupController::class, 'join'])->name('web.join.group');
+});
