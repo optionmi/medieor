@@ -31,7 +31,6 @@
                                         {{ $group->title }}</h1>
                                     <small>Public Group</small><br>
                                     <small>900 members</small>
-                                    {{-- <p>{{ $group->description }}</p> --}}
                                     <p class="my-4">{{ $group->description }}</p>
                                 </th>
                                 <td class="w-1/2 px-6 py-4 text-center sm:w-1/4">

@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('soil');
-})->name('home');
+})->name('web.home');
 
 Route::get('/login', function () {
     return view('login');
@@ -30,8 +30,5 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/soil/groups', function () {
-    return view('groups');
-})->name('groups');
 
-Route::get('/groups', [GroupController::class, 'index'])->name('web.group');
+Route::get('/groups', [GroupController::class, 'index'])->name('web.groups');
