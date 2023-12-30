@@ -4,10 +4,10 @@
 @section('content')
     <section class="mb-10">
         <div class="relative">
-            <div class="relative soil-bg">
+            <div class="relative water-bg">
                 <div class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20">
                     <h1>The contribution of</h1>
-                    <h1>(Soil - Mitti)</h1>
+                    <h1>(Water - Jal)</h1>
                     <h1>
                         in <span class="font-bold">healing</span> the
                         <span class="font-bold"> earth</span>
@@ -30,14 +30,15 @@
             <div class="w-full p-5 sm:w-3/5">
                 <h1 class="text-4xl leading-section-1 sm:text-5xl">
                     My Contribution in healing <br />
-                    <span class="font-bold"> Mitti</span> of the
+                    <span class="font-bold"> Jal</span> of the
                     <span class="font-bold"> earth</span>
                 </h1>
                 <p class="my-5 text-2xl">
-                    Bring to the table win-win survival strategies to ensure proactive
-                    domination. At the end of the day, going forward, a new normal
-                    that has evolved from generation X is on the runway heading
-                    towards a streamlined cloud solution.
+                    The nurturer, nourisher and healer. How Jal contributes to the
+                    healing ?. The Jal washes away the sins. It cleanses the tired
+                    face of the wanderer. Jal has the power to renew. They say 60%
+                    percent of our body is water. It nurtures the plants and turns
+                    them into blossoming trees.
                 </p>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
@@ -63,7 +64,7 @@
                     <ul>
                         <li key={i} class="flex justify-between py-5 border-b-2 border-gray-600">
                             <div>
-                                <h2 class="text-xl">Mitti for all</h2>
+                                <h2 class="text-xl">Jal for all</h2>
                                 <span class="text-gray-500">Public Group</span>
                             </div>
                             <div class="text-gray-500 text-end">
@@ -74,7 +75,7 @@
                         </li>
                         <li key={i} class="flex justify-between py-5 border-b-2 border-gray-600">
                             <div>
-                                <h2 class="text-xl">Mitti for all</h2>
+                                <h2 class="text-xl">Jal for all</h2>
                                 <span class="text-gray-500">Public Group</span>
                             </div>
                             <div class="text-gray-500 text-end">
@@ -86,7 +87,7 @@
                     </ul>
                     <div class="flex justify-center my-5">
                         <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm"
-                            href="{{ route('web.soil.groups') }}">Explore Groups</a>
+                            href="{{ route('web.water.groups') }}">Explore Groups</a>
                     </div>
                 </div>
             </div>

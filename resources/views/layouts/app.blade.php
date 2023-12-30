@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/community-home.css') }}">
 
     @yield('styles')
 </head>

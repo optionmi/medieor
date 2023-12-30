@@ -19,8 +19,30 @@ use App\Http\Controllers\GroupController;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('soil');
+    return view('home');
 })->name('web.home');
+
+
+Route::get('/space', function () {
+    return view('space');
+})->name('web.space');
+
+Route::get('/fire', function () {
+    return view('fire');
+})->name('web.fire');
+
+Route::get('/water', function () {
+    return view('water');
+})->name('web.water');
+
+Route::get('/soil', function () {
+    return view('soil');
+})->name('web.soil');
+
+Route::get('/air', function () {
+    return view('air');
+})->name('web.air');
+
 
 Route::get('/login', function () {
     return view('login');
@@ -31,8 +53,15 @@ Route::get('/register', function () {
 });
 
 
-Route::get('/groups', [GroupController::class, 'index'])->name('web.groups');
+Route::get('/space/groups', [GroupController::class, 'index'])->name('web.space.groups');
+Route::get('/fire/groups', [GroupController::class, 'index'])->name('web.fire.groups');
+Route::get('/water/groups', [GroupController::class, 'index'])->name('web.water.groups');
+Route::get('/soil/groups', [GroupController::class, 'index'])->name('web.soil.groups');
+Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.groups');
 
+Route::get('/group-join-requests', function () {
+    return view('group-join-requests');
+})->name('web.group-join-requests');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
