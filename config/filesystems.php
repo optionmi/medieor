@@ -55,6 +55,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'group_image' => [
+            'driver' => 'local',
+            'root' => public_path('group_image'), // Set the desired root directory
+            'url' => env('APP_URL').'/group_image',
+            'visibility' => 'public',
+        ],
 
     ],
 

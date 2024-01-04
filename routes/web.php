@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,20 +45,13 @@ Route::get('/air', function () {
 })->name('web.air');
 
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-
 Route::get('/space/groups', [GroupController::class, 'index'])->name('web.space.groups');
 Route::get('/fire/groups', [GroupController::class, 'index'])->name('web.fire.groups');
 Route::get('/water/groups', [GroupController::class, 'index'])->name('web.water.groups');
 Route::get('/soil/groups', [GroupController::class, 'index'])->name('web.soil.groups');
 Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.groups');
+
+Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 
 Route::get('/group-join-requests', function () {
     return view('group-join-requests');

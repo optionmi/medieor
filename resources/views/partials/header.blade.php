@@ -3,8 +3,10 @@
         <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
             <a href="{{ route('web.home') }}">
                 <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" /></a>
-            <a href="{{ route('web.space') }}" title="Space"><img src={{ asset('img/space.png') }} alt="Space"
+            @foreach(\App\Models\Category::all() as $category)
+            <a href="{{ route('category.detail', $category->id) }}" title="Space"><img src={{ asset('img/space.png') }} alt="Space"
                     width="55" /></a>
+            @endforeach
             <a href="{{ route('web.fire') }}" title="Fire"><img src={{ asset('img/fire.png') }} alt="Fire"
                     width="55" /></a>
             <a href="{{ route('web.water') }}" title="Water"><img src={{ asset('img/water.png') }} alt="Water"

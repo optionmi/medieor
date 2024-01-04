@@ -110,9 +110,8 @@ class GroupController extends Controller
             $filename = $randomString . '.' . $extension;
             
             $path = $request->file('image_path')->storeAs('images', $filename, 'group_image');
-            $data['image_path'] = 'group_image/'. $path;
+            $data['image'] = 'group_image/'. $path;
         }
-        
 
         $group = $this->group->store($data, $id);
 

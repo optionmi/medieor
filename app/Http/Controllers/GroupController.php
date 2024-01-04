@@ -58,9 +58,9 @@ class GroupController extends Controller
             'created_by' => auth()->id(),
         ];
 
-        $this->category->store($data);
+        $this->group->store($data);
 
-        return response()->json(['error' => 1, 'message' => 'Group created successfully']);
+        return response()->json(['error' => 0, 'message' => 'Group created successfully']);
     }
 
     public function join(Request $request)
