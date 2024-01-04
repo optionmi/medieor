@@ -43,8 +43,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function groupRequest()
+    {
+        return $this->belongsToMany('\App\Models\Group', 'group_user', 'user_id', 'group_id')->wherePivot('status', 0);
+    }
+
     public function groups()
     {
-        return $this->belongsToMany('\App\Models\Group', 'group_user', 'user_id', 'group_id');
+        return $this->belongsToMany('\App\Models\Group', 'group_user', 'user_id', 'group_id')->wherePivot('status', 1);
+    }
+
+    public function ownedGroups()
+    {
+        return $this->hasMany('\App\Models\Group', 'created_by');
     }
 }

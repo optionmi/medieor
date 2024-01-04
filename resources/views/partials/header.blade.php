@@ -4,17 +4,9 @@
             <a href="{{ route('web.home') }}">
                 <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" /></a>
             @foreach(\App\Models\Category::all() as $category)
-            <a href="{{ route('category.detail', $category->id) }}" title="Space"><img src={{ asset('img/space.png') }} alt="Space"
+            <a href="{{ route('category.detail', $category->id) }}" title="Space"><img src={{ asset($category->logo_image) }} alt="Space"
                     width="55" /></a>
             @endforeach
-            <a href="{{ route('web.fire') }}" title="Fire"><img src={{ asset('img/fire.png') }} alt="Fire"
-                    width="55" /></a>
-            <a href="{{ route('web.water') }}" title="Water"><img src={{ asset('img/water.png') }} alt="Water"
-                    width="55" /></a>
-            <a href="{{ route('web.soil') }}" title="Soil"><img src={{ asset('img/soil.png') }} alt="Soil"
-                    width="55" /></a>
-            <a href="{{ route('web.air') }}" title="Air"><img src={{ asset('img/air.png') }} alt="Air"
-                    width="55" /></a>
         </div>
         <ul class="flex justify-end w-full gap-6 px-4 py-2 mt-2 sm:w-2/5">
             <li class="flex flex-col items-center gap-4">
@@ -55,7 +47,7 @@
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                         </li>
                         <li>
-                            <a href="{{ route('web.group-join-requests') }}"
+                            <a href="{{ route('web.group.join.requests') }}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Group
                                 Join Requests</a>
                         </li>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\CategoryRepository;
 use App\Repositories\GroupRepository;
+use App\Repositories\UserRepository;
 
 class GroupController extends Controller
 {
@@ -17,6 +18,8 @@ class GroupController extends Controller
      * @var GroupRepository
      */
     public $group;
+
+    public $user;
     /**
      * constructor for GroupController
      * 
@@ -24,10 +27,11 @@ class GroupController extends Controller
      *
      * @return void
      */
-    public function __construct(CategoryRepository $category, GroupRepository $group)
+    public function __construct(CategoryRepository $category, GroupRepository $group, UserRepository $user)
     {
         $this->category = $category;
         $this->group = $group;
+        $this->user = $user;
     }
 
     public function index()
@@ -65,7 +69,6 @@ class GroupController extends Controller
 
     public function join(Request $request)
     {
-        // dd($request->all());
         $data = [
             'user_id' => auth()->id(),
             'group_id' => $request->id,
@@ -73,10 +76,32 @@ class GroupController extends Controller
 
         $user = auth()->user();
 
-        // $user->groups()->detach();
+        $user->groupRequest()->syncWithoutDetaching([$request->id]);
 
-        $user->groups()->syncWithoutDetaching([$request->id]);
+        return response()->json(['error' => 0, 'message' => 'Requested to joined successfully']);
+    }
 
-        return response()->json(['error' => 0, 'message' => 'Joined successfully']);
+    public function joinRequest()
+    {
+        $user = auth()->user();
+        
+        $groups = $user->ownedGroups;
+
+        return view('group-join-requests', compact('groups'));
+    }
+
+    public function confirmJoinRequest()
+    {
+        $user = $this->user->find(request()->user);
+
+        if(request()->approve == "true") {
+            $user->groupRequest()->updateExistingPivot(request()->group, ['status' => 1]);
+            $msg = 'approved';
+        } else {
+            $user->groupRequest()->detach(request()->group);
+            $msg = 'declined';
+        }
+
+        return response()->json(['error' => 0, 'message' => 'Requested to joined '.$msg.' successfully']);
     }
 }
