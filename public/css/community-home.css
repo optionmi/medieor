@@ -77,3 +77,12 @@
 .leading-section-1 {
     line-height: 4rem !important;
 }
+
+.main-bg {
+    height: 95vh;
+    width: 100%;
+}
+.main-bg > img {
+    height: 100%;
+    width: 100%;
+}

@@ -4,7 +4,8 @@
 @section('content')
     <section class="mb-10">
         <div class="relative">
-            <div class="relative air-bg">
+            <div class="relative main-bg">
+                <img src="{{ asset('img/air.jpg') }}" alt="">
                 <div class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20">
                     <h1>The contribution of</h1>
                     <h1>({{ $category->title }})</h1>
@@ -57,18 +58,18 @@
                         Last Active Groups
                     </h1>
                     <ul>
-                        @foreach($category->groups as $group)
-                        <li key={i} class="flex justify-between py-5 border-b-2 border-gray-600">
-                            <div>
-                                <h2 class="text-xl">{{ $group->title }}</h2>
-                                <span class="text-gray-500">Public Group</span>
-                            </div>
-                            <div class="text-gray-500 text-end">
-                                <span>Created  {{ $group->created_at->diffForHumans() }}</span>
-                                <br />
-                                <span>800 members</span>
-                            </div>
-                        </li>
+                        @foreach ($category->groups as $group)
+                            <li key={i} class="flex justify-between py-5 border-b-2 border-gray-600">
+                                <div>
+                                    <h2 class="text-xl">{{ $group->title }}</h2>
+                                    <span class="text-gray-500">Public Group</span>
+                                </div>
+                                <div class="text-gray-500 text-end">
+                                    <span>Created {{ $group->created_at->diffForHumans() }}</span>
+                                    <br />
+                                    <span>800 members</span>
+                                </div>
+                            </li>
                         @endforeach
                     </ul>
                     <div class="flex justify-center my-5">
