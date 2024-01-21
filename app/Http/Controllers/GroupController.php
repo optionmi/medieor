@@ -84,17 +84,31 @@ class GroupController extends Controller
     public function joinRequest()
     {
         $user = auth()->user();
-        
+
         $groups = $user->ownedGroups;
 
         return view('group-join-requests', compact('groups'));
+    }
+    public function myGroups()
+    {
+        $user = auth()->user();
+
+        $groups = $user->groups;
+
+        return view('my-groups', compact('groups'));
+    }
+
+    public function groupDetail($id)
+    {
+        $group = $this->group->find($id);
+        return view('group-detail', compact('group'));
     }
 
     public function confirmJoinRequest()
     {
         $user = $this->user->find(request()->user);
 
-        if(request()->approve == "true") {
+        if (request()->approve == "true") {
             $user->groupRequest()->updateExistingPivot(request()->group, ['status' => 1]);
             $msg = 'approved';
         } else {
@@ -102,6 +116,6 @@ class GroupController extends Controller
             $msg = 'declined';
         }
 
-        return response()->json(['error' => 0, 'message' => 'Requested to joined '.$msg.' successfully']);
+        return response()->json(['error' => 0, 'message' => 'Requested to joined ' . $msg . ' successfully']);
     }
 }

@@ -75,7 +75,7 @@
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         Create New Group
                     </h3>
-                    <button type="button"
+                    <button id="closeCreateGroupModalBtn" type="button"
                         class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
                         data-modal-toggle="create-new-group">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -149,7 +149,7 @@
 
                         submitButton.html('Save changes');
                         $('#save-group-form')[0].reset();
-                        $('#create-new-group').hide();
+                        $('#closeCreateGroupModalBtn').click();
 
                         if (data.error == true) {
                             Swal.fire({

@@ -3,9 +3,9 @@
         <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
             <a href="{{ route('web.home') }}">
                 <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" /></a>
-            @foreach(\App\Models\Category::all() as $category)
-            <a href="{{ route('category.detail', $category->id) }}" title="Space"><img src={{ asset($category->logo_image) }} alt="Space"
-                    width="55" /></a>
+            @foreach (\App\Models\Category::all() as $category)
+                <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"><img
+                        src={{ asset($category->logo_image) }} alt="{{ $category->title }}" width="55" /></a>
             @endforeach
         </div>
         <ul class="flex justify-end w-full gap-6 px-4 py-2 mt-2 sm:w-2/5">
@@ -45,6 +45,11 @@
                         <li>
                             <a href="#"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('web.my.groups') }}"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
+                                Groups</a>
                         </li>
                         <li>
                             <a href="{{ route('web.group.join.requests') }}"

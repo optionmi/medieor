@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('partials.header')
 
 @section('content')
+    @include('partials.header')
     <section class="mb-10">
         <div class="relative">
             <div class="relative main-bg">

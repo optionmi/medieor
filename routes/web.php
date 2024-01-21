@@ -24,25 +24,25 @@ Route::get('/', function () {
 })->name('web.home');
 
 
-Route::get('/space', function () {
-    return view('space');
-})->name('web.space');
+// Route::get('/space', function () {
+//     return view('space');
+// })->name('web.space');
 
-Route::get('/fire', function () {
-    return view('fire');
-})->name('web.fire');
+// Route::get('/fire', function () {
+//     return view('fire');
+// })->name('web.fire');
 
-Route::get('/water', function () {
-    return view('water');
-})->name('web.water');
+// Route::get('/water', function () {
+//     return view('water');
+// })->name('web.water');
 
-Route::get('/soil', function () {
-    return view('soil');
-})->name('web.soil');
+// Route::get('/soil', function () {
+//     return view('soil');
+// })->name('web.soil');
 
-Route::get('/air', function () {
-    return view('air');
-})->name('web.air');
+// Route::get('/air', function () {
+//     return view('air');
+// })->name('web.air');
 
 
 Route::get('/space/groups', [GroupController::class, 'index'])->name('web.space.groups');
@@ -54,6 +54,8 @@ Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.grou
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 
 Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
+Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
+Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
