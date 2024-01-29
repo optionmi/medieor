@@ -53,11 +53,14 @@ Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.grou
 
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 
-Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
     Route::post('/join-group', [GroupController::class, 'join'])->name('web.join.group');
 
+    Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
+
     Route::post('/confirm-group-join-request', [GroupController::class, 'confirmJoinRequest'])->name('confirm.group.join.request');
+    Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.groups');
 });

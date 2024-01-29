@@ -34,9 +34,9 @@ class GroupController extends Controller
         $this->user = $user;
     }
 
-    public function index()
+    public function index($id)
     {
-        $groups = $this->group->allActive();
+        $category = $this->category->find($id);
         return view('groups', compact('groups'));
     }
 

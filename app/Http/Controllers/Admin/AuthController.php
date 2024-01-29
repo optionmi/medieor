@@ -27,7 +27,7 @@ class AuthController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin/group/index';
 
     /**
      * Create a new controller instance.

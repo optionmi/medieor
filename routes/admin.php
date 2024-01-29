@@ -13,7 +13,7 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
 
-Route::prefix('group')->group(function () {
+Route::middleware(['auth'])->prefix('group')->group(function () {
     Route::get('/index', [GroupController::class, 'index'])->name('admin.group.index');
     Route::get('/groups-data', [GroupController::class, 'paginatedGroups'])->name('admin.group.groups.data');
     Route::post('/store', [GroupController::class, 'store'])->name('admin.group.groups.store');
