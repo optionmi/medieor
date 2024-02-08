@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('partials.header')
 
 @section('content')
+    @include('partials.header')
     <section class="mb-10">
         <div class="relative">
             <div class="relative main-bg">
@@ -74,7 +74,7 @@
                     </ul>
                     <div class="flex justify-center my-5">
                         <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm"
-                            href="{{ route('web.air.groups') }}">Explore Groups</a>
+                            href="{{ route('web.groups', $category->id) }}">Explore Groups</a>
                     </div>
                 </div>
             </div>

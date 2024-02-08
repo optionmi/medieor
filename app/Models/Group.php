@@ -25,4 +25,9 @@ class Group extends Model
     {
         return $this->belongsToMany('\App\Models\User', 'group_user', 'group_id', 'user_id')->wherePivot('status', 1);
     }
+
+    public function posts()
+    {
+        return $this->hasMany('\App\Models\Post', 'group_id')->orderBy('created_at', 'desc');
+    }
 }

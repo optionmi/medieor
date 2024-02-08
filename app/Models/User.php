@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Models\Group', 'created_by');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('\App\Models\Like', 'user_id');
+    }
 }

@@ -83,6 +83,10 @@
 .l_height1 {
     line-height: 1;
 }
+#logo {
+    width: 55px;
+}
+
 @media (max-width: 500px) {
     #container {
         display: flex;

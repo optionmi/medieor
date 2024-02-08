@@ -123,7 +123,8 @@
                         <button @click="activeTab = 5" class="m-2 elementBtn" title="Air">
                             <img src="./img/air.png" alt="" />
                         </button> --}}
-                        <a href="{{ route('web.space') }}" class="m-2 elementBtn" title="Space"><img
+
+                        {{-- <a href="{{ route('web.space') }}" class="m-2 elementBtn" title="Space"><img
                                 src="./img/space.png" alt="Space" /></a>
                         <a href="{{ route('web.fire') }}" class="m-2 elementBtn" title="Fire"><img
                                 src="./img/fire.png" alt="Fire" /></a>
@@ -132,8 +133,14 @@
                         <a href="{{ route('web.soil') }}" class="m-2 elementBtn" title="Soil"><img
                                 src="./img/soil.png" alt="Soil" /></a>
                         <a href="{{ route('web.air') }}" class="m-2 elementBtn" title="Air"><img src="./img/air.png"
-                                alt="Air" /></a>
-                        <img style="width: 55px" src="{{ asset('img/logo.jpg') }}" alt="logo" />
+                                alt="Air" /></a> --}}
+
+                        @foreach (\App\Models\Category::all() as $category)
+                            <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
+                                class="m-2 elementBtn"><img src={{ asset($category->logo_image) }}
+                                    alt="{{ $category->title }}" /></a>
+                        @endforeach
+                        <img id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />
                     </div>
                 </div>
             </div>
