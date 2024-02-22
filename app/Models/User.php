@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Models\Like', 'user_id');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany('\App\Models\UserNotification', 'user_id');
+    }
 }

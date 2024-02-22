@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,11 @@ Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('categ
 
 Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
 Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
-Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
+
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
+    
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
     Route::post('/join-group', [GroupController::class, 'join'])->name('web.join.group');
 
@@ -57,5 +60,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('like')->group(function () {
         Route::post('/toggle', [LikeController::class, 'toggleLike'])->name('web.like.toggle');
         Route::post('/delete', [LikeController::class, 'destroy'])->name('web.like.delete');
+    });
+
+    Route::prefix('comment-reply')->group(function () {
+        Route::post('/save', [CommentReplyController::class, 'store'])->name('web.comment.reply.save');
+        // Route::post('/delete', [LikeController::class, 'destroy'])->name('web.like.delete');
     });
 });

@@ -41,14 +41,16 @@
 
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
 
     @yield('scripts')
     <script>
+        var $ = jQuery.noConflict();
         $(window).on('load', function() {
             $('#preloader').fadeOut('slow', function() {
                 $(this).remove();
