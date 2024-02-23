@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('like')->group(function () {
         Route::post('/toggle', [LikeController::class, 'toggleLike'])->name('web.like.toggle');
         Route::post('/delete', [LikeController::class, 'destroy'])->name('web.like.delete');
+    });
+
+    Route::prefix('comment-reply')->group(function () {
+        Route::post('/save', [CommentReplyController::class, 'store'])->name('web.comment.reply.save');
+        // Route::post('/delete', [LikeController::class, 'destroy'])->name('web.like.delete');
     });
 });
