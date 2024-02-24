@@ -112,23 +112,25 @@
         <div class="container flex flex-col mx-auto sm:flex-row">
             <div class="w-full sm:w-3/5 xl:w-2/3">
                 <div class="flex flex-wrap items-center justify-center gap-5 p-5">
-                    <i class="fa-solid fa-angle-left"></i>
-                    <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                        1
-                    </a>
-                    <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                        2
-                    </a>
-                    <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                        3
-                    </a>
-                    <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                        4
-                    </a>
-                    <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                        5
-                    </a>
-                    <i class="fa-solid fa-angle-right"></i>
+                    <i class="cursor-pointer fa-solid fa-angle-left" id="prevPage"></i>
+                    <div id="pagination" class="flex flex-wrap items-center justify-center gap-5 p-5">
+                        {{-- <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
+                            1
+                        </a>
+                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
+                            2
+                        </a>
+                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
+                            3
+                        </a>
+                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
+                            4
+                        </a>
+                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
+                            5
+                        </a> --}}
+                    </div>
+                    <i class="cursor-pointer fa-solid fa-angle-right" id="nextPage"></i>
                 </div>
 
                 {{-- {/* <div class="w-full sm:w-2/5 xl:w-1/3"></div> */} --}}
@@ -137,9 +139,9 @@
 
         <div class="container flex flex-col gap-5 mx-auto sm:flex-row">
             <div class="w-full px-5 sm:w-3/5 xl:w-2/3">
-                <ul class="flex flex-col gap-5">
+                <ul class="flex flex-col gap-5" id="cardContainer">
 
-                    <li
+                    {{-- <li
                         class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
                         <div class="w-20 h-20 bg-white rounded-full sm:w-40 sm:h-40">
                             <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
@@ -206,7 +208,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </div>
@@ -348,4 +350,103 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            const cardsPerPage = 4; // Adjust as per your requirement
+            let currentPage = 1;
+            let totalPages;
+
+            fetch('https://jsonplaceholder.typicode.com/posts')
+                .then((response) => response.json())
+                .then((posts) => {
+                    function displayCards(cards) {
+                        const container = $("#cardContainer");
+                        container.empty();
+
+                        const startIndex = (currentPage - 1) * cardsPerPage;
+                        const endIndex = startIndex + cardsPerPage;
+
+                        for (let i = startIndex; i < endIndex && i < cards.length; i++) {
+                            container.append(`<li
+                        class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
+                        <div class="w-20 h-20 bg-white rounded-full shrink-0">
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
+                        </div>
+
+                        <div>
+                            <h1 class="text-2xl font-semibold">
+                                ${posts[i].title}
+                            </h1>
+                            <p class="py-2">
+                                ${posts[i].body}
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-center justify-between w-56">
+                            <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
+                                <span class="text-xl">89</span>
+                            </div>
+                            <div class="flex flex-col items-center w-full text-gray-500">
+                                <div class="flex items-center justify-center w-full gap-2 text-sm">
+                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
+                                    <span>1560</span>
+                                </div>
+                                <div class="flex items-center justify-center w-full gap-2 text-sm">
+                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
+                                    <span>24 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>`);
+                        }
+                    }
+
+                    function displayPagination(cards) {
+                        totalPages = Math.ceil(cards.length / cardsPerPage);
+                        const paginationContainer = $("#pagination");
+                        paginationContainer.empty();
+
+                        for (let i = 1; i <= totalPages; i++) {
+                            if (i === currentPage) {
+                                paginationContainer.append(
+                                    `<span class="page bg-[#888888] py-2 px-4 text-white font-bold rounded-sm cursor-pointer" data-page="${i}">${i}</span>`
+                                );
+                                continue;
+                            }
+                            paginationContainer.append(
+                                `<span class="page bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm cursor-pointer" data-page="${i}">${i}</span>`
+                            );
+                        }
+
+                        $(".page").click(function() {
+                            currentPage = parseInt($(this).attr("data-page"));
+                            displayCards(posts);
+                            displayPagination(posts);
+                        });
+                    }
+
+                    $("#prevPage").click(function() {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            displayCards(posts);
+                            displayPagination(posts);
+                        }
+                    });
+
+                    $("#nextPage").click(function() {
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            displayCards(posts);
+                            displayPagination(posts);
+                        }
+                    });
+
+                    // Initial display
+                    displayCards(posts);
+                    displayPagination(posts);
+                });
+        });
+    </script>
 @endsection
