@@ -33,12 +33,15 @@ Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('categ
 
 
 Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
-Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
+
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
+
+    Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
     
+    Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
+
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
     Route::post('/join-group', [GroupController::class, 'join'])->name('web.join.group');
 
