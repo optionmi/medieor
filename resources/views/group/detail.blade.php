@@ -461,7 +461,7 @@
                         }
                     },
                     error: function(error) {
-                        console.error('Error:', errorMessage);
+                        console.error('Error:', error.message);
                     }
                 });
             });
@@ -534,12 +534,10 @@
             });
 
 
-            // Edit Comment
-            // When the edit button is clicked
             $j(document).on('click', '.edit-button', function(e) {
                 // Get the current comment content
                 var currentContent = $(this).siblings('div').find('p').text();
-
+                console.log('llllllllllllllll', $(this).data('url'))
                 // Replace the comment content with an input field, pre-filled with the current content
                 $(this).siblings('div').find('p').replaceWith(
                     '<input type="text" class="edit-field" value="' + currentContent + '">');
@@ -560,17 +558,37 @@
             // When the save button is clicked
             $j(document).on('click', '.save-button', function() {
                 // Get the new comment content
+                var thisContext = $(this);
                 var newContent = $(this).siblings('div').find('input').val();
+                console.log('ssaavvee', $(this).data('url'));
 
-                // Replace the input field with a p tag containing the new content
-                $(this).siblings('div').find('input').replaceWith(
-                    '<p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' + newContent +
-                    '</p>');
+                var newParagraph = '<p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' + newContent + '</p>';
+                        $(this).siblings('div').find('input').replaceWith(newParagraph);
 
-                // Change the save button back to an edit button
-                $(this).html('<i class="fa-solid fa-pencil"></i>').addClass('edit-button').removeClass(
-                    'save-button');
+                        // Change the save button back to an edit button
+                        $(this).html('<i class="fa-solid fa-pencil"></i>').addClass('edit-button').removeClass('save-button');
+
+                // Send a POST AJAX request to update the comment
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).data('url'),
+                    data: {
+                        content: newContent
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        // Replace the input field with a p tag containing the new content
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error responses
+                        console.error(xhr.responseText);
+                    }
+                });
             });
+
             // End edit comment
         });
 
@@ -595,7 +613,7 @@
                     var replyDiv =
                         '<div class="flex items-start justify-end gap-2 reply"><img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture"><div class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700"><div class="flex items-center space-x-2 rtl:space-x-reverse"><span class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span><span class="text-sm font-normal text-gray-500 dark:text-gray-400">Now</span></div><p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
                         replyText +
-                        '</p></div><button class="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600 edit-button" type="button"><i class="fa-solid fa-pencil"></i></button></div>';
+                        '</p></div><button data-url="' + response.data.update_url + '"class="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600 edit-button" type="button"><i class="fa-solid fa-pencil"></i></button></div>';
                     $j('#' + commentId + ' .replies').append(replyDiv);
                 },
                 error: function(error) {

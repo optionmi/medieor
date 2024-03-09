@@ -23,10 +23,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.group.join.request') }}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Group Join Request
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.categories.groups') }}" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             Categories
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.topic.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Topic
                         </p>
                     </a>
                 </li>

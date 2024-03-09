@@ -21,7 +21,7 @@
                 <div class="w-20 h-20 bg-white rounded-full bg3"></div>
             </div>
             <div class="bg-[#a48159cc] absolute bottom-0 left-0 right-0 h-24 p-2 ellipse-clip">
-                {{-- {/* <div class="container relative flex justify-around mx-auto"></div> */} --}}
+
             </div>
         </div>
     </section>
@@ -114,101 +114,17 @@
                 <div class="flex flex-wrap items-center justify-center gap-5 p-5">
                     <i class="cursor-pointer fa-solid fa-angle-left" id="prevPage"></i>
                     <div id="pagination" class="flex flex-wrap items-center justify-center gap-5 p-5">
-                        {{-- <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                            1
-                        </a>
-                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                            2
-                        </a>
-                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                            3
-                        </a>
-                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                            4
-                        </a>
-                        <a class="bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm" href="#">
-                            5
-                        </a> --}}
+                        
                     </div>
                     <i class="cursor-pointer fa-solid fa-angle-right" id="nextPage"></i>
                 </div>
 
-                {{-- {/* <div class="w-full sm:w-2/5 xl:w-1/3"></div> */} --}}
             </div>
         </div>
 
         <div class="container flex flex-col gap-5 mx-auto sm:flex-row">
             <div class="w-full px-5 sm:w-3/5 xl:w-2/3">
                 <ul class="flex flex-col gap-5" id="cardContainer">
-
-                    {{-- <li
-                        class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
-                        <div class="w-20 h-20 bg-white rounded-full sm:w-40 sm:h-40">
-                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
-                        </div>
-
-                        <div>
-                            <h1 class="text-2xl font-semibold">
-                                What Instagram ads will look like
-                            </h1>
-                            <p class="py-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Dolore eaque dolorum fuga est? Autem tempora facere sed
-                                nisi! Ullam, asperiores laboriosam! Vitae modi beatae
-                                voluptates autem vero commodi minima expedita.
-                            </p>
-                        </div>
-
-                        <div class="flex flex-col items-center justify-between w-56">
-                            <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
-                                <span class="text-xl">89</span>
-                            </div>
-                            <div class="flex flex-col items-center w-full text-gray-500">
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
-                                    <span>1560</span>
-                                </div>
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
-                                    <span>24 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li
-                        class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
-                        <div class="w-20 h-20 bg-white rounded-full sm:w-40 sm:h-40">
-                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
-                        </div>
-
-                        <div>
-                            <h1 class="text-2xl font-semibold">
-                                What Instagram ads will look like
-                            </h1>
-                            <p class="py-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Dolore eaque dolorum fuga est? Autem tempora facere sed
-                                nisi! Ullam, asperiores laboriosam! Vitae modi beatae
-                                voluptates autem vero commodi minima expedita.
-                            </p>
-                        </div>
-
-                        <div class="flex flex-col items-center justify-between w-56">
-                            <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
-                                <span class="text-xl">89</span>
-                            </div>
-                            <div class="flex flex-col items-center w-full text-gray-500">
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
-                                    <span>1560</span>
-                                </div>
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
-                                    <span>24 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li> --}}
 
                 </ul>
             </div>
@@ -359,7 +275,7 @@
             let currentPage = 1;
             let totalPages;
 
-            fetch('https://jsonplaceholder.typicode.com/posts')
+            fetch("{{route('topic.all', $category->id)}}")
                 .then((response) => response.json())
                 .then((posts) => {
                     function displayCards(cards) {
@@ -395,7 +311,7 @@
                                 </div>
                                 <div class="flex items-center justify-center w-full gap-2 text-sm">
                                     <i class="fa-solid fa-clock text-[#ced2d3]"></i>
-                                    <span>24 min</span>
+                                    <span>${posts[i].formated_created_at}</span>
                                 </div>
                             </div>
                         </div>

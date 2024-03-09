@@ -39,7 +39,7 @@ class GroupController extends Controller
     {
         $category = $this->category->find($id);
         $groups = $category->groups;
-        return view('group.index', compact('groups'));
+        return view('group.index', compact('groups', 'category'));
     }
 
     public function create(Request $request)

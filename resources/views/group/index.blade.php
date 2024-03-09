@@ -89,7 +89,7 @@
                 <!-- Modal body -->
                 <form class="p-4 md:p-5" action="{{ route('web.create.group') }}" method="POST" id="save-group-form">
                     @csrf
-                    <input type="hidden" name="description" value="2">
+                    <input type="hidden" name="category_id" value="{{$category->id}}">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="col-span-2">
                             <label for="name"

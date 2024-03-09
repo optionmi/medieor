@@ -57,6 +57,7 @@ class CommentReplyController extends Controller
             'error' => false,
             'message' => 'Comment reply created successfully',
             'comment_reply' => $commentReply,
+            'update_url' => route('web.comment.reply.update', $commentReply->id)
         ];
 
         return response()->json(compact('data'), 201);
@@ -83,8 +84,44 @@ class CommentReplyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = validator()->make($request->all(), [
+            'content' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            $data = [
+                'error' => true,
+                'message' => 'Validation error',
+                'errors' => $validator->errors(),
+            ];
+            return response()->json(compact('data'), 400);
+        }
+
+        $commentReply = CommentReply::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the comment reply
+        if (auth()->user()->id !== $commentReply->user_id) {
+            $data = [
+                'error' => true,
+                'message' => 'Unauthorized. You do not have permission to update this comment reply.',
+            ];
+            return response()->json(compact('data'), 403);
+        }
+
+        // Update the comment reply
+        $commentReply->update([
+            'content' => $request->input('content'),
+        ]);
+
+        $data = [
+            'error' => false,
+            'message' => 'Comment reply updated successfully',
+            'comment_reply' => $commentReply,
+        ];
+
+        return response()->json(compact('data'), 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

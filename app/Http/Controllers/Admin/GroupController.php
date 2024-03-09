@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\GroupRepository;
 use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class GroupController extends Controller
 {
@@ -161,5 +162,64 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function joinRequest()
+    {
+        $groups = $this->group->findAll();
+        return view('admin.groups.join-request', compact('groups'));
+    }
+
+    public function userJoinRequest()
+    {
+        $group = $this->group->find(request()->group_id);
+
+        $users = $group->userRequest;
+
+        $users = $this->collectionModifier($users, $group);
+
+        $count = $users->count();
+
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $users
+        );
+
+        return response()->json($data);
+    }
+
+    protected function collectionModifier($users, $group)
+    {
+        return $users->map(function($user) use ($group) {
+            $user->created_at_formated = $user->created_at->format('d M, Y');
+            $user->status_formated = $user->status == 1 ? 'Active' : 'Inactive';
+            $user->image_formated = '<div class="form-group"><div class="form-check form-check-inline">
+                <input data-group="'.$group->id.'" data-user="'.$user->id.'" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="approveRadio" value="true">
+                <label class="form-check-label" for="approveRadio">Approve</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input data-group="'.$group->id.'" data-user="'.$user->id.'" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="disapproveRadio" value="false">
+                <label class="form-check-label" for="disapproveRadio">Disapprove</label>
+            </div></div>';
+            return $user;
+        });
+    }
+
+    public function toggleJoinRequest()
+    {
+        $user = User::find(request()->user_id);
+
+        if (request()->status == "true") {
+            $user->groupRequest()->updateExistingPivot(request()->group_id, ['status' => 1]);
+            $msg = 'approved';
+        } else {
+            $user->groupRequest()->detach(request()->group_id);
+            $msg = 'declined';
+        }
+
+        return response()->json(['error' => 0, 'message' => 'Requested to joined ' . $msg . ' successfully']);
     }
 }

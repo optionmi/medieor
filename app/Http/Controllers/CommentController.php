@@ -87,10 +87,51 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request data
+        $validator = validator()->make($request->all(), [
+            'content' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            $data = [
+                'error' => true,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ];
+
+            return response()->json(compact('data'), 400);
+        }
+
+        // Find the comment by ID
+        $comment = Comment::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the comment
+        if (auth()->user()->id !== $comment->user_id) {
+            $data = [
+                'error' => true,
+                'message' => 'Unauthorized. You do not have permission to update this comment.',
+            ];
+
+            return response()->json(compact('data'), 403);
+        }
+
+        // Update the comment
+        $comment->update([
+            'content' => $request->input('content'),
+        ]);
+
+        // Prepare the JSON response
+        $data = [
+            'error' => false,
+            'message' => 'Comment updated successfully',
+            'comment' => $comment,
+        ];
+
+        return response()->json(compact('data'));
     }
+
 
     /**
      * Remove the specified resource from storage.

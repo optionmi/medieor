@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentReplyController;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('comment')->group(function () {
         Route::post('/save', [CommentController::class, 'store'])->name('web.comment.save');
         Route::post('/post-comments', [CommentController::class, 'comments'])->name('web.post.comments');
+        Route::post('/update/{id}', [CommentController::class, 'update'])->name('web.comment.update');
     });
 
     Route::prefix('like')->group(function () {
@@ -67,6 +69,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('comment-reply')->group(function () {
         Route::post('/save', [CommentReplyController::class, 'store'])->name('web.comment.reply.save');
-        // Route::post('/delete', [LikeController::class, 'destroy'])->name('web.like.delete');
+        Route::put('/update-comment/{id}', [CommentReplyController::class, 'update'])->name('web.comment.reply.update');
+    });
+
+    Route::prefix('topic')->group(function () {
+        Route::get('/all/{category_id}', [TopicController::class, 'index'])->name('topic.all');
     });
 });
