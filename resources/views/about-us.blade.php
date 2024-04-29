@@ -195,14 +195,14 @@
     </section>
 
     <section>
-        <div class="p-5 bg-yellow-100">
+        {{-- <div class="p-5 bg-yellow-100">
             <div class="container mx-auto">
 
                 <h1 class="py-5 text-5xl font-semibold text-center">WHO WILL SAVE SOIL?</h1>
                 <img src="https://images.consciousplanet.org/save-soil/_next/static/media/tree-banner.1ef702ed.jpg?auto=format&fit=max&w=2048&q=10"
                     alt="">
             </div>
-        </div>
+        </div> --}}
         <div class="container flex justify-center py-10 mx-auto">
             <div class="px-5 sm:w-2/3">
                 <p>1990s. Rural Tamil Nadu. A group of people sat under the shade of a generous leafy tree, with eyes
