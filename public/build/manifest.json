@@ -1,0 +1,17 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-3ec86c1a.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-1ca3beaf.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-fabb6531.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}

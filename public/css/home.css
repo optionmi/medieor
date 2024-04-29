@@ -1,28 +1,28 @@
 @font-face {
-    font-family: "somethingwild";
-    src: url("../fonts/somethingwild-Regular.woff");
+  font-family: "somethingwild";
+  src: url("../fonts/somethingwild-Regular.woff");
 }
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 [x-cloak] {
-    display: none !important;
+  display: none !important;
 }
 .card {
-    color: white;
+  color: white;
 }
 /* background image */
 .root {
-    background: url("../img/bg.jpg") no-repeat top;
-    /* background: url("../img/bg.jpg") no-repeat top; */
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    background-attachment: fixed;
+  background: url("../img/bg.jpg") no-repeat top;
+  /* background: url("../img/bg.jpg") no-repeat top; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 /* .root {
   background: url("../img/bg.jpg") no-repeat top;
@@ -31,78 +31,86 @@
   background-size: 100% auto;
 } */
 .btn-container img {
-    width: 100%;
+  width: 100%;
 }
+.dropdown-toggle::after {
+  display: none;
+}
+
 .elementBtn {
-    height: 50px;
-    width: 50px;
-    outline: none;
-    border: none;
-    background: transparent;
-    cursor: pointer;
+  height: 55px;
+  width: 55px;
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 #imgRight {
-    width: 100%;
-    pointer-events: none;
+  width: 100%;
+  pointer-events: none;
 }
 #close {
-    cursor: pointer;
+  cursor: pointer;
 }
 #tagline {
-    font-family: "somethingwild";
-    font-size: 4rem;
+  font-family: "somethingwild";
+  font-size: 3rem;
 }
 .f_size1 {
-    font-size: 3.3rem;
+  font-size: 3.3rem;
 }
 .f_size2 {
-    font-size: 5.2rem;
+  font-size: 5.2rem;
 }
 .f_size3 {
-    font-size: 2.6rem;
+  font-size: 2.6rem;
 }
 /* Utilities */
 .bg-transparent {
-    background-color: transparent;
+  background-color: transparent;
 }
 .bg-space {
-    background-color: #1f344355;
+  background-color: #1f344355;
 }
 .bg-fire {
-    background-color: #c0771855;
+  background-color: #c0771855;
 }
 .bg-water {
-    background-color: #0e86c155;
+  background-color: #0e86c155;
 }
 .bg-soil {
-    background-color: #30a54655;
+  background-color: #30a54655;
 }
 .bg-air {
-    background-color: #aa805a55;
+  background-color: #aa805a55;
 }
 .l_height1 {
-    line-height: 1;
+  line-height: 1;
 }
 #logo {
-    width: 55px;
+  width: 55px;
+}
+
+.carousel-item .card {
+  min-height: 350px;
 }
 
 @media (max-width: 500px) {
-    #container {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-    .btn-container {
-        margin-top: 2rem;
-        /* position: absolute;
+  #container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .btn-container {
+    margin-top: 2rem;
+    /* position: absolute;
     bottom: 0;
     left: 0;
     right: 0; */
-    }
-    .el_card {
-        height: 373px;
-    }
-    .root {
-        max-width: max-content;
-    }
+  }
+  .el_card {
+    height: 373px;
+  }
+  .root {
+    max-width: max-content;
+  }
 }

@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('home');
 })->name('web.home');
 
+Route::get('/about-us', function () {
+    return view('about-us');
+})->name('web.about.us');
+
 Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.groups');
 
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
@@ -40,7 +44,7 @@ Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->nam
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
-    
+
     Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
 
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');

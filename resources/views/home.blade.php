@@ -7,17 +7,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medieor</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
     <!-- Alpine js -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+    <script defer src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </head>
 
 <body>
-    <div x-data="{ activeTab: 0, }" class="root">
+    <div x-data="{ activeTab: 1, }" class="root">
+        <header class="container py-2 d-flex justify-content-end">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-bars fa-2xl"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('web.about.us') }}">About Us</a></li>
+                    <li><a class="dropdown-item" href="#">Our Propose, Our Goal</a></li>
+                    <li><a class="dropdown-item" href="#">Contact us</a></li>
+                </ul>
+            </div>
+        </header>
         <div id="container" class="container mx-auto row">
             <div class="mb-4 col-lg-4 d-flex flex-column justify-content-between">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="mt-5 flex-column justify-content-between">
+                                <div class="p-3 bg-transparent shadow card">
+                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
+                                    <h4 class="mt-5 text-center">
+                                        Will pollution win or you will win in wiping it out
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="mt-5 flex-column justify-content-between">
+                                <div class="p-3 bg-transparent shadow card">
+                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
+                                    <h4 class="mt-5 text-center">
+                                        Let us make a waters blue, not brown
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="mt-5 flex-column justify-content-between">
+                                <div class="p-3 bg-transparent shadow card">
+                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
+                                    <h4 class="mt-5 text-center">
+                                        Love yourself, Say No to Pollution
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="mt-5 flex-column justify-content-between">
+                                <div class="p-3 bg-transparent shadow card">
+                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
+                                    <h4 class="mt-5 text-center">
+                                        Consume responsibly to get your health back
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="mt-5 flex-column justify-content-between">
+                                <div class="p-3 bg-transparent shadow card">
+                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
+                                    <h4 class="mt-5 text-center">
+                                        Environment is for enjoying, not for destroying
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p id="tagline" class="mt-5 text-center">
+                        WE WILL 'HEAL IT TOGETHER'
+                    </p>
+                </div>
                 <!-- Default Tab -->
-                <div class="mt-5 flex-column justify-content-between" :class="activeTab == 0 ? 'd-flex' : 'd-none'"
+                {{-- <div class="mt-5 flex-column justify-content-between" :class="activeTab == 0 ? 'd-flex' : 'd-none'"
                     x-clock>
                     <div class="p-3 bg-transparent shadow card">
                         <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
@@ -27,9 +109,9 @@
                     <p id="tagline" class="mt-5 text-center text-nowrap">
                         WE WILL 'HEAL IT TOGETHER'
                     </p>
-                </div>
+                </div> --}}
                 <!-- Space Tab -->
-                <div x-show="activeTab == 1 " class="p-3 mt-5 shadow card el_card bg-space" x-cloak>
+                {{-- <div x-show="activeTab == 1 " class="p-3 mt-5 shadow card el_card bg-space" x-cloak>
                     <span class="mt-0 mb-2 text-end">
                         <img @click="activeTab = 0" id="close" src="{{ asset('img/close.svg') }}" alt="close" />
                     </span>
@@ -42,9 +124,9 @@
                         the humbleness we need. It gives us the ability to act. In time,
                         all things happen, trees grow, water moves and air travels.
                     </p>
-                </div>
+                </div> --}}
                 <!-- Fire Tab -->
-                <div x-show="activeTab == 2" class="p-3 mt-5 shadow card el_card bg-fire" x-cloak>
+                {{-- <div x-show="activeTab == 2" class="p-3 mt-5 shadow card el_card bg-fire" x-cloak>
                     <span class="mt-0 mb-2 text-end">
                         <img @click="activeTab = 0" id="close" src="{{ asset('img/close.svg') }}" alt="close" />
                     </span>
@@ -57,9 +139,9 @@
                         destroys and burns the bacteria.Without it our earth will be no
                         better than Neptune. Without it life may not be possible.
                     </p>
-                </div>
+                </div> --}}
                 <!-- Water Tab -->
-                <div x-show="activeTab == 3" class="p-3 mt-5 shadow card el_card bg-water" x-cloak>
+                {{-- <div x-show="activeTab == 3" class="p-3 mt-5 shadow card el_card bg-water" x-cloak>
                     <span class="mt-0 mb-2 text-end">
                         <img @click="activeTab = 0" id="close" src="{{ asset('img/close.svg') }}" alt="close" />
                     </span>
@@ -72,9 +154,9 @@
                         percent of our body is water. It nurtures the plants and turns
                         them into blossoming trees.
                     </p>
-                </div>
+                </div> --}}
                 <!-- Soil Tab -->
-                <div x-show="activeTab == 4" class="p-3 mt-5 shadow card el_card bg-soil" x-cloak>
+                {{-- <div x-show="activeTab == 4" class="p-3 mt-5 shadow card el_card bg-soil" x-cloak>
                     <span class="mt-0 mb-2 text-end">
                         <img @click="activeTab = 0" id="close" src="{{ asset('img/close.svg') }}" alt="close" />
                     </span>
@@ -87,9 +169,9 @@
                         mature into tough oaks. It fulfills our hunger. It grounds our
                         home.
                     </p>
-                </div>
+                </div> --}}
                 <!-- Air Tab -->
-                <div x-show="activeTab == 5" class="p-3 mt-5 shadow card el_card bg-air" x-cloak>
+                {{-- <div x-show="activeTab == 5" class="p-3 mt-5 shadow card el_card bg-air" x-cloak>
                     <span class="mt-0 mb-2 text-end">
                         <img @click="activeTab = 0" id="close" src="{{ asset('img/close.svg') }}" alt="close" />
                     </span>
@@ -102,12 +184,14 @@
                         canyon. It makes the pollination possible. The trees of the Sahara
                         call out its name hoping it will bring the rains with it.
                     </p>
-                </div>
+                </div> --}}
+
+
                 <div class="btn-container">
                     <p class="font-bold text-center fs-4 fw-bold">
                         A Movement called MEDIEOR
                     </p>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="gap-1 d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
                             <img src="./img/space.png" alt="" />
                         </button>
@@ -137,7 +221,7 @@
 
                         @foreach (\App\Models\Category::all() as $category)
                             <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
-                                class="m-2 elementBtn"><img src={{ asset($category->logo_image) }}
+                                class="elementBtn"><img src={{ asset($category->logo_image) }}
                                     alt="{{ $category->title }}" /></a>
                         @endforeach
                         <img id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />

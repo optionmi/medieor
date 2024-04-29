@@ -114,7 +114,7 @@
                 <div class="flex flex-wrap items-center justify-center gap-5 p-5">
                     <i class="cursor-pointer fa-solid fa-angle-left" id="prevPage"></i>
                     <div id="pagination" class="flex flex-wrap items-center justify-center gap-5 p-5">
-                        
+
                     </div>
                     <i class="cursor-pointer fa-solid fa-angle-right" id="nextPage"></i>
                 </div>
@@ -275,7 +275,7 @@
             let currentPage = 1;
             let totalPages;
 
-            fetch("{{route('topic.all', $category->id)}}")
+            fetch("{{ route('topic.all', $category->id) }}")
                 .then((response) => response.json())
                 .then((posts) => {
                     function displayCards(cards) {
@@ -292,7 +292,7 @@
                             <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
                         </div>
 
-                        <div>
+                        <div class="flex-grow-1">
                             <h1 class="text-2xl font-semibold">
                                 ${posts[i].title}
                             </h1>
