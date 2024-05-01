@@ -31,6 +31,9 @@ Route::get('/', function () {
 Route::get('/about-us', function () {
     return view('about-us');
 })->name('web.about.us');
+Route::get('/our-purpose', function () {
+    return view('our-purpose');
+})->name('web.our.purpose');
 
 Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.groups');
 

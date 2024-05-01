@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Medieor | About us</title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
+@extends('layouts.misc')
+@section('title')
+    About Us
+@endsection
+@section('styles')
     <style>
         body {
             font-family: "Montserrat", sans-serif;
@@ -53,23 +40,11 @@
 
         .logo {}
     </style>
-</head>
+@endsection
 
-<body>
-    <nav
-        class="sticky top-0 text-white  bg-gradient-to-b from-[#00000088] to-bg-[#00000044] h-16 flex items-center py-2">
-        <div class="container flex items-center justify-between px-2 mx-auto">
-            <div class="flex items-center sm:gap-5">
-                <img class="w-auto h-12" id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />
-                <span class="hidden text-2xl font-semibold sm:block">Medieor</span>
-            </div>
-            <ul class="flex gap-5">
-                <li class="underline uppercase"><a href="{{ route('web.home') }}">Home</a></li>
-                <li class="underline uppercase"><a href="{{ route('web.about.us') }}">About us</a></li>
-                <li class="underline uppercase"><a href="{{ route('web.about.us') }}">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+@section('content')
+    @include('partials.misc.header')
+
     <section>
         <div class="banner">
         </div>
@@ -286,32 +261,5 @@
         </div>
     </section>
 
-    <footer>
-        <div class="container px-5 py-10 mx-auto">
-            <div class="flex flex-col items-center gap-10 sm:items-start sm:flex-row">
-                <div class="sm:w-1/2">
-                    <ul>
-                        <li class="underline"><a href="#">Media</a></li>
-                        <li class="underline"><a href="#">Contact</a></li>
-                        <li class="underline"><a href="#">About</a></li>
-                        <li class="underline"><a href="#">Daily Activity</a></li>
-                    </ul>
-                </div>
-                <div class="sm:w-1/2">
-                    <div class="flex flex-col items-center gap-5 sm:items-end sm:justify-end">
-                        <div class="flex gap-5">
-                            <i class="fa-brands fa-instagram fa-2xl"></i>
-                            <i class="fa-brands fa-facebook fa-2xl"></i>
-                            <i class="fa-brands fa-youtube fa-2xl"></i>
-                            <i class="fa-brands fa-x-twitter fa-2xl"></i>
-                            <i class="fa-brands fa-linkedin fa-2xl"></i>
-                        </div>
-                        <p>© 2024 Medieor. All rights reserved</p>
-                    </div>
-                </div>
-            </div>
-    </footer>
-
-</body>
-
-</html>
+    @include('partials.misc.footer')
+@endsection

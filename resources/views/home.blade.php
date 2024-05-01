@@ -17,7 +17,7 @@
 <body>
     <div x-data="{ activeTab: 1, }" class="root">
         <header class="container py-2 d-flex justify-content-end">
-            <div class="dropdown">
+            {{-- <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-bars fa-2xl"></i>
                 </button>
@@ -26,19 +26,53 @@
                     <li><a class="dropdown-item" href="#">Our Propose, Our Goal</a></li>
                     <li><a class="dropdown-item" href="#">Contact us</a></li>
                 </ul>
-            </div>
+            </div> --}}
+
+            <nav class="navbar bg-body-tertiary fixed-top">
+                <div class="container-fluid">
+                    <div></div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        {{-- <span class="navbar-toggler-icon"></span> --}}
+                        <i class="fa-solid fa-bars fa-2xl"></i>
+                    </button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            {{-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5> --}}
+                            <div></div>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('web.about.us') }}">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('web.our.purpose') }}">Our purpose</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact Us</a>
+                                </li>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
         </header>
         <div id="container" class="container mx-auto row">
-            <div class="mb-4 col-lg-4 d-flex flex-column justify-content-between">
+            <div class="mb-4 col-lg-5 d-flex flex-column justify-content-between">
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 bg-transparent shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <div class="p-3 shadow card">
+                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                    <h4 class="mt-5 text-center">
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
+                                    <h4 class="mt-5 text-center f_size3 fw-bold">
                                         Will pollution win or you will win in wiping it out
                                     </h4>
                                 </div>
@@ -46,11 +80,11 @@
                         </div>
                         <div class="carousel-item">
                             <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 bg-transparent shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <div class="p-3 shadow card">
+                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                    <h4 class="mt-5 text-center">
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
+                                    <h4 class="mt-5 text-center f_size3 fw-bold">
                                         Let us make a waters blue, not brown
                                     </h4>
                                 </div>
@@ -58,11 +92,11 @@
                         </div>
                         <div class="carousel-item">
                             <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 bg-transparent shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <div class="p-3 shadow card">
+                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                    <h4 class="mt-5 text-center">
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
+                                    <h4 class="mt-5 text-center f_size3 fw-bold">
                                         Love yourself, Say No to Pollution
                                     </h4>
                                 </div>
@@ -70,11 +104,11 @@
                         </div>
                         <div class="carousel-item">
                             <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 bg-transparent shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <div class="p-3 shadow card">
+                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                    <h4 class="mt-5 text-center">
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
+                                    <h4 class="mt-5 text-center f_size3 fw-bold">
                                         Consume responsibly to get your health back
                                     </h4>
                                 </div>
@@ -82,11 +116,11 @@
                         </div>
                         <div class="carousel-item">
                             <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 bg-transparent shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <div class="p-3 shadow card">
+                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                    <h4 class="mt-5 text-center">
+                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
+                                    <h4 class="mt-5 text-center f_size3 fw-bold">
                                         Environment is for enjoying, not for destroying
                                     </h4>
                                 </div>
@@ -191,7 +225,7 @@
                     <p class="font-bold text-center fs-4 fw-bold">
                         A Movement called MEDIEOR
                     </p>
-                    <div class="gap-1 d-flex justify-content-center align-items-center">
+                    <div class="gap-2 elementBtnContainer d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
                             <img src="./img/space.png" alt="" />
                         </button>
@@ -228,7 +262,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <img id="imgRight" src="{{ asset('img/right.png') }}" alt="" />
             </div>
         </div>

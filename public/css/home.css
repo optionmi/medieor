@@ -12,6 +12,7 @@
 }
 .card {
   color: white;
+  background-color: #00000044;
 }
 /* background image */
 .root {
@@ -22,7 +23,7 @@
   -o-background-size: cover;
   background-size: cover;
   min-height: 100vh;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
 }
 /* .root {
   background: url("../img/bg.jpg") no-repeat top;
@@ -38,13 +39,22 @@
 }
 
 .elementBtn {
-  height: 55px;
-  width: 55px;
+  height: 70px;
+  width: 70px;
   outline: none;
   border: none;
   background: transparent;
   cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
+
+.elementBtn:hover {
+  scale: 1.05;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
+}
+
 #imgRight {
   width: 100%;
   pointer-events: none;
@@ -63,7 +73,7 @@
   font-size: 5.2rem;
 }
 .f_size3 {
-  font-size: 2.6rem;
+  font-size: 3rem;
 }
 /* Utilities */
 .bg-transparent {
@@ -88,11 +98,15 @@
   line-height: 1;
 }
 #logo {
-  width: 55px;
+  width: 60px;
 }
 
 .carousel-item .card {
   min-height: 350px;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
 }
 
 @media (max-width: 500px) {
@@ -112,5 +126,9 @@
   }
   .root {
     max-width: max-content;
+  }
+
+  .elementBtnContainer {
+    flex-wrap: wrap;
   }
 }
