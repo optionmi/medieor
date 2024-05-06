@@ -78,8 +78,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/save', [CommentReplyController::class, 'store'])->name('web.comment.reply.save');
         Route::put('/update-comment/{id}', [CommentReplyController::class, 'update'])->name('web.comment.reply.update');
     });
-
-    Route::prefix('topic')->group(function () {
-        Route::get('/all/{category_id}', [TopicController::class, 'index'])->name('topic.all');
-    });
+});
+Route::prefix('topic')->group(function () {
+    Route::get('/all/{category_id}', [TopicController::class, 'index'])->name('topic.all');
 });
