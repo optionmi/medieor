@@ -54,6 +54,10 @@
   transition: all 0.3s ease;
   border-radius: 50%;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+.elementBtn img {
+  border-radius: 50%;
 }
 
 .elementBtn:hover {
@@ -61,7 +65,7 @@
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
-.elementBtn:hover::after {
+/* .elementBtn:hover::after {
   content: "Click Me";
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
@@ -74,6 +78,24 @@
   font-weight: 600;
   height: 100%;
   width: 100%;
+} */
+.elementBtnText {
+  display: none;
+}
+.elementBtn:hover .elementBtnText {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  height: 100%;
+  width: 100%;
+  padding-top: 1rem;
+  text-shadow: 2px 2px black;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #imgRight {

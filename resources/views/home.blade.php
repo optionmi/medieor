@@ -106,7 +106,7 @@
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
                                     <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Love yourself, Say No to Pollution
+                                        Environment is a gift to us, save and secure it
                                     </h4>
                                 </div>
                             </div>
@@ -265,7 +265,10 @@
                         @foreach (\App\Models\Category::all() as $category)
                             <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
                                 class="elementBtn"><img src={{ asset($category->logo_image) }}
-                                    alt="{{ $category->title }}" /></a>
+                                    alt="{{ $category->title }}" />
+                                <p class="elementBtnText">
+                                    {{ strtok($category->title, ' ') }}</p>
+                            </a>
                         @endforeach
                         <img id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />
                     </div>
