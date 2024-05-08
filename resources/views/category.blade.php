@@ -293,7 +293,7 @@
                             <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
                         </div>
 
-                        <div class="flex-grow-1">
+                        <div class="flex-grow">
                             <h1 class="text-2xl font-semibold">
                                 ${posts[i].title}
                             </h1>
