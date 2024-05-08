@@ -6,7 +6,8 @@
         <div class="relative">
             <div class="relative main-bg">
                 <img src="{{ asset($category->image) }}" alt="">
-                <div class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20">
+                <div
+                    class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20 banner-content">
                     <h1>The contribution of</h1>
                     <h1>({{ $category->title }})</h1>
                     <h1>
