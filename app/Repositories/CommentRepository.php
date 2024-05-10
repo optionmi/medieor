@@ -18,20 +18,6 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
         $this->comment = $comment;
     }
 
-    // public function getCommentsCountByCategory()
-    // {
-    //     $today = Carbon::today();
-
-    //     return DB::table('comments')
-    //         ->join('posts', 'comments.post_id', '=', 'posts.id')
-    //         ->join('groups', 'posts.group_id', '=', 'groups.id')
-    //         ->join('categories', 'groups.category_id', '=', 'categories.id')
-    //         ->whereDate('comments.created_at', $today)
-    //         ->select('categories.title', DB::raw('count(*) as total'))
-    //         ->groupBy('categories.title')
-    //         ->get();
-    // }
-
     public function getCommentsCountByCategory()
     {
         $today = Carbon::today();
@@ -44,7 +30,8 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
                     ->whereDate('comments.created_at', $today);
             })
             ->select('categories.title', DB::raw('count(comments.id) as total'))
-            ->groupBy('categories.title')->orderBy('categories.id', 'asc')
+            ->groupBy('categories.title', 'categories.id')
+            ->orderBy('categories.id', 'asc')
             ->get();
     }
 }
