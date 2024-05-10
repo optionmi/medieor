@@ -4,6 +4,11 @@
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/js/admin.js": {
+    "file": "assets/admin-a8c77467.js",
+    "isEntry": true,
+    "src": "resources/js/admin.js"
+  },
   "resources/js/app.js": {
     "file": "assets/app-1ca3beaf.js",
     "isEntry": true,
