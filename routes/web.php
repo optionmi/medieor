@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentReplyController;
+use App\Http\Controllers\InfoPageController;
 use App\Http\Controllers\TopicController;
 
 /*
@@ -28,12 +29,8 @@ Route::get('/', function () {
     return view('home');
 })->name('web.home');
 
-Route::get('/about-us', function () {
-    return view('about-us');
-})->name('web.about.us');
-Route::get('/our-purpose', function () {
-    return view('our-purpose');
-})->name('web.our.purpose');
+Route::get('/about-us', [InfoPageController::class, 'aboutus'])->name('web.about.us');
+Route::get('/our-purpose', [InfoPageController::class, 'ourpurpose'])->name('web.our.purpose');
 
 Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.groups');
 

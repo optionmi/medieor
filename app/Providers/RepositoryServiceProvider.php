@@ -23,5 +23,9 @@ class RepositoryServiceProvider extends ServiceProvider
             App\Repositories\Contracts\UserRepositoryInterface::class,
             App\Repositories\UserRepository::class
         );
+        $this->app->bind(
+            App\Repositories\Contracts\CommentRepositoryInterface::class,
+            App\Repositories\CommentRepository::class
+        );
     }
 }

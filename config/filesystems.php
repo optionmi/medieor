@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -55,10 +55,16 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-        'group_image' => [
+        'category_images' => [
             'driver' => 'local',
-            'root' => public_path('group_image'), // Set the desired root directory
-            'url' => env('APP_URL').'/group_image',
+            'root' => public_path('category_images'), // Set the desired root directory
+            'url' => env('APP_URL') . '/category_images',
+            'visibility' => 'public',
+        ],
+        'public_dir' => [
+            'driver' => 'local',
+            'root' => public_path(), // Set the desired root directory
+            'url' => env('APP_URL'),
             'visibility' => 'public',
         ],
 
