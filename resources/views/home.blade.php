@@ -274,7 +274,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-7 rightContainer">
                 <img id="imgRight" src="{{ asset('img/right.png') }}" alt="" />
             </div>
         </div>

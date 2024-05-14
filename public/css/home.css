@@ -164,7 +164,7 @@
     left: 0;
     right: 0; */
   }
-  .el_card {
+  .carousel-item .card {
     height: 373px;
   }
   .root {
@@ -173,5 +173,18 @@
 
   .elementBtnContainer {
     flex-wrap: wrap;
+  }
+  .rightContainer {
+    margin-top: 2rem;
+  }
+  .elementBtn {
+    height: 45px;
+    width: 45px;
+  }
+  #logo {
+    width: 45px;
+  }
+  #tagline {
+    font-size: 3rem;
   }
 }

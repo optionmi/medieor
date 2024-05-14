@@ -10,36 +10,62 @@
             @endforeach
         </div>
         <ul class="flex justify-end w-full gap-6 px-4 py-2 mt-2 sm:w-2/5">
-            <li>
-                <button class="flex flex-col items-center gap-2" data-dropdown-toggle="account-dropdown">
-                    <div>
-                        <i class="fa-regular fa-user fa-2xl"></i>
+            @if (auth()->user())
+                <li>
+                    <button class="flex flex-col items-center gap-1" data-dropdown-toggle="account-dropdown">
+                        <div class="flex items-center justify-center w-10 h-10">
+                            <img class="rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="">
+                        </div>
+                        <span>{{ auth()->user()->name }}</span>
+                    </button>
+                    <div id="account-dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                {{-- <a href="/logout">Logout</a> --}}
+                                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit"
+                                        class="block w-full px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-start">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
-                    <span>Account</span>
-                </button>
-                <div id="account-dropdown"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a href="/login"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Login</a>
-                        </li>
-                        <li>
-                            <a href="/register"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Register</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="flex flex-col items-center gap-2">
+                </li>
+            @else
+                <li>
+                    <button class="flex flex-col items-center gap-1" data-dropdown-toggle="account-dropdown">
+                        <div class="flex items-center justify-center w-10 h-10">
+                            <i class="fa-regular fa-user fa-2xl"></i>
+                        </div>
+                        <span>Account</span>
+                    </button>
+                    <div id="account-dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="/login"
+                                    class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Login</a>
+                            </li>
+                            <li>
+                                <a href="/register"
+                                    class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Register</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            {{-- <li class="flex flex-col items-center gap-2">
                 <div>
-                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
                 </div>
                 <span>Cart</span>
-            </li>
+            </li> --}}
             <li>
-                <button class="flex flex-col items-center gap-2" data-dropdown-toggle="menu-dropdown">
-                    <div>
+                <button class="flex flex-col items-center gap-1" data-dropdown-toggle="menu-dropdown">
+                    <div class="flex items-center justify-center w-10 h-10">
                         <i class="fa-solid fa-bars fa-2xl"></i>
                     </div>
                     <span>Menu</span>
@@ -48,22 +74,14 @@
                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                         <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
                             <a href="{{ route('web.my.groups') }}"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
+                                class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">My
                                 Groups</a>
                         </li>
                         <li>
                             <a href="{{ route('web.group.join.requests') }}"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Group
-                                Join Requests</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Join
+                                Requests</a>
                         </li>
                     </ul>
                 </div>
