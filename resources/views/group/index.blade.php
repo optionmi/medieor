@@ -27,15 +27,40 @@
                                 <th scope="row" class="w-1/2 px-6 py-4 sm:w-3/4">
                                     <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $group->title }}</h1>
-                                    <small>Public Group</small><br>
-                                    <small>900 members</small>
-                                    <p class="my-4">{{ $group->description }}</p>
+                                    <small>Public Group</small> ● <small>900 members</small>
+                                    <div class="my-4">
+                                        <h2 class="font-bold text-gray-800">About</h2>
+                                        <p class="my-2">{{ $group->description }}</p>
+                                    </div>
+                                    <div class="my-4">
+                                        <h2 class="font-bold text-gray-800">Members</h2>
+                                        <div class="flex my-2 -space-x-4 rtl:space-x-reverse">
+                                            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                src="{{ asset('img/no-avatar.png') }}" alt="">
+                                            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                src="{{ asset('img/no-avatar.png') }}" alt="">
+                                            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                src="{{ asset('img/no-avatar.png') }}" alt="">
+                                            <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+                                                href="#">...</a>
+                                        </div>
+                                        <p>Amit Kumar, Vikalp and 54 others have joined</p>
+                                    </div>
+                                    <div class="my-4">
+                                        <h2 class="font-bold text-gray-800">Group Activity</h2>
+                                        <ul class="flex flex-col gap-1 my-2">
+                                            <li><i class="w-6 fa-solid fa-rss"></i> 1 new post today</li>
+                                            <li><i class="w-6 fa-solid fa-users"></i> 900 total members
+                                            </li>
+                                            <li><i class="w-6 fa-solid fa-eye"></i> Created about 2 years
+                                                ago
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </th>
                                 <td class="w-1/2 px-6 py-4 text-center sm:w-1/4">
                                     @if (auth()->user())
-                                        @if (in_array(
-                                                $group->id,
-                                                auth()->user()->groups->pluck('id')->toArray()))
+                                        @if (in_array($group->id, auth()->user()->groups->pluck('id')->toArray()))
                                             <a href="#" data-id="{{ $group->id }}"
                                                 class="focus:outline-none text-white bg-gray-400 hover:bg-gray-500 focus:ring-4 focus:ring-green-300 font-bold rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 pointer-events-none">Joined
                                             </a>
@@ -89,7 +114,7 @@
                 <!-- Modal body -->
                 <form class="p-4 md:p-5" action="{{ route('web.create.group') }}" method="POST" id="save-group-form">
                     @csrf
-                    <input type="hidden" name="category_id" value="{{$category->id}}">
+                    <input type="hidden" name="category_id" value="{{ $category->id }}">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="col-span-2">
                             <label for="name"
