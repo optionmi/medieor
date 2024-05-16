@@ -81,7 +81,7 @@
                 <a class="py-0 nav-link pe-0" data-coreui-toggle="dropdown" href="#" role="button"
                     aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-md">
-                        <img class="avatar-img" src="{{ asset('coreui/assets/img/avatars/8.jpg') }}"
+                        <img class="avatar-img" src="{{ asset('coreui/assets/img/avatars/2.jpg') }}"
                             alt="user@email.com" />
                     </div>
                 </a>
@@ -89,7 +89,7 @@
                     <div class="mb-2 dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top">
                         Account
                     </div>
-                    <a class="dropdown-item" href="#">
+                    {{-- <a class="dropdown-item" href="#">
                         <svg class="icon me-2">
                             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
                         </svg>
@@ -129,13 +129,14 @@
                         <svg class="icon me-2">
                             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-file"></use>
                         </svg>
-                        Projects<span class="badge badge-sm bg-primary ms-2">42</span></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
+                        Projects<span class="badge badge-sm bg-primary ms-2">42</span></a> --}}
+                    {{-- <div class="dropdown-divider"></div> --}}
+                    {{-- <a class="dropdown-item" href="#">
                         <svg class="icon me-2">
                             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
                         </svg>
-                        Lock Account</a><a class="dropdown-item" href="{{ route('admin.logout') }}">
+                        Lock Account</a> --}}
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
                         <svg class="icon me-2">
                             <use
                                 xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout') }}">

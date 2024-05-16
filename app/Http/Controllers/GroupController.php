@@ -86,9 +86,7 @@ class GroupController extends Controller
     public function joinRequest()
     {
         $user = auth()->user();
-
         $groups = $user->ownedGroups;
-
         return view('group-join-requests', compact('groups'));
     }
 

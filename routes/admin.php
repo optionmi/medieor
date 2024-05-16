@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::get('/categories/data', [CategoryController::class, 'datatable'])->name('admin.categories.data');
 
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+
     Route::group(['prefix' => 'info-pages'], function () {
         Route::get('/aboutus', [InfoPageController::class, 'show_aboutus'])->name('admin.info-pages.aboutus');
         Route::post('/aboutus/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.aboutus.update');
@@ -37,7 +39,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/contactus/update/{id}', [InfoPageController::class, 'update'])->name('admin.info-pages.contactus.update');
     });
 
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::group(['prefix' => 'groups'], function () {
+        Route::get('/all', [GroupController::class, 'index'])->name('admin.group.index');
+
+        Route::get('/join-requests', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
+        Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');
+        Route::post('/toggle-join-request', [GroupController::class, 'toggleJoinRequest'])->name('admin.group.join.request.toggle');
+    });
 });
 
 Route::middleware(['auth'])->prefix('group')->group(function () {
@@ -47,9 +55,9 @@ Route::middleware(['auth'])->prefix('group')->group(function () {
     Route::get('/groups-data', [GroupController::class, 'paginatedGroups'])->name('admin.group.groups.data');
     Route::post('/store', [GroupController::class, 'store'])->name('admin.group.groups.store');
 
-    Route::get('/group-join-request', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
-    Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');
-    Route::post('/toggle-join-request', [GroupController::class, 'toggleJoinRequest'])->name('admin.group.join.request.toggle');
+    // Route::get('/group-join-request', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
+    // Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');
+    // Route::post('/toggle-join-request', [GroupController::class, 'toggleJoinRequest'])->name('admin.group.join.request.toggle');
 
     Route::get('/categories-group', [CategoryController::class, 'groupsByCategory'])->name('admin.categories.groups');
     Route::get('/categories-groups-data', [CategoryController::class, 'groupsByCategoryId'])->name('admin.categories.groups.byid');

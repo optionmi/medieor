@@ -12,6 +12,10 @@
     <div class="body flex-grow-1">
         <div class="px-4 container-lg">
             <div class="mb-4 row card">
+                <div class="card-header">
+                    <h5 class="card-title">Categories</h5>
+
+                </div>
                 <div class="card-body table-responsive">
                     <table class="table table-striped table-bordered dataTable">
                         <thead>

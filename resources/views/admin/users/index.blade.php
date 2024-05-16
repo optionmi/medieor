@@ -3,27 +3,27 @@
     <div class="body flex-grow-1">
         <div class="px-4 container-lg">
             <div class="mb-4 row card">
-                <div class="card-body">
+                <div class="card-header">
+                    <h5 class="card-title">Users</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                {{-- <th scope="col">Actions</th> --}}
 
-                    <div class="tab-content rounded-bottom">
-                        <div class="p-3 tab-pane active preview table-responsive" role="tabpanel" id="preview-1007">
-                            <table class="table table-striped table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        {{-- <th scope="col">Actions</th> --}}
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($users as $user)
-                                        <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            {{-- <td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    {{-- <td>
                                                 <div class="d-flex">
                                                     <button
                                                         class="px-2 py-2 btn btn-link nav-link d-flex align-items-center"
@@ -45,11 +45,9 @@
                                                     </button>
                                                 </div>
                                             </td> --}}
-                                        </tr>
-                                    @endforeach
-                            </table>
-                        </div>
-                    </div>
+                                </tr>
+                            @endforeach
+                    </table>
                 </div>
             </div>
         </div>

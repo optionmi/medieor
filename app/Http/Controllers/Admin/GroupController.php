@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GroupUser;
 use Illuminate\Http\Request;
 use App\Repositories\GroupRepository;
 use App\Repositories\CategoryRepository;
@@ -15,7 +16,7 @@ class GroupController extends Controller
      * @var GroupRepository
      */
     public $group;
-     /**
+    /**
      * @var CategoryRepository
      */
     public $category;
@@ -31,7 +32,7 @@ class GroupController extends Controller
         $this->group = $group;
         $this->category = $category;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +84,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $id = request()->get('id');
-        
+
         $mode = $id ? 'update' : 'save';
 
         $validator = validator()->make(request()->all(), [
@@ -109,14 +110,14 @@ class GroupController extends Controller
             $randomString = \Illuminate\Support\Str::random(40);
             $extension = $request->file('image_path')->getClientOriginalExtension();
             $filename = $randomString . '.' . $extension;
-            
+
             $path = $request->file('image_path')->storeAs('images', $filename, 'group_image');
-            $data['image'] = 'group_image/'. $path;
+            $data['image'] = 'group_image/' . $path;
         }
 
         $group = $this->group->store($data, $id);
 
-        return response()->json(['error' => 0, 'message' => 'Group '.$mode.'d successfully']);
+        return response()->json(['error' => 0, 'message' => 'Group ' . $mode . 'd successfully']);
     }
 
     /**
@@ -172,12 +173,37 @@ class GroupController extends Controller
 
     public function userJoinRequest()
     {
-        $group = $this->group->find(request()->group_id);
-
-        $users = $group->userRequest;
-
-        $users = $this->collectionModifier($users, $group);
-
+        // $group = $this->group->find(request()->group_id);
+        // $users = $group->userRequest;
+        $orderBy = ['#' => 'group_user.id', 'name' => 'name', 'group' => 'title'];
+        if (request()->search['value']) {
+            $users = GroupUser::orWhereHas('user', function ($q) {
+                $q->where('name', 'like', '%' . request()->search['value'] . '%');
+            })
+                ->orWhereHas('group', function ($q) {
+                    $q->where('title', 'like', '%' . request()->search['value'] . '%');
+                })
+                ->where('group_user.status', 0)
+                ->join('users', 'group_user.user_id', '=', 'users.id')
+                ->join('groups', 'group_user.group_id', '=', 'groups.id')
+                // ->select('groups.title, users.name') // avoid column name conflict
+                ->orderBy(
+                    $orderBy[request()->order[0]['name'] ?? 'group_user.id'] ?? 'group_user.id',
+                    request()->order[0]['dir'] ?? 'asc'
+                )
+                ->get();
+        } else {
+            $users = GroupUser::where('group_user.status', 0)
+                ->join('users', 'group_user.user_id', '=', 'users.id')
+                ->join('groups', 'group_user.group_id', '=', 'groups.id')
+                // ->select('groups.title, users.name') // avoid column name conflict
+                ->orderBy(
+                    $orderBy[request()->order[0]['name'] ?? 'group_user.id'] ?? 'group_user.id',
+                    request()->order[0]['dir'] ?? 'asc'
+                )->get();
+        }
+        // $users = $this->collectionModifier($users, $group);
+        $users = $this->collectionModifier($users);
         $count = $users->count();
 
         $data = array(
@@ -190,19 +216,24 @@ class GroupController extends Controller
         return response()->json($data);
     }
 
-    protected function collectionModifier($users, $group)
+    // protected function collectionModifier($users, $group)
+    protected function collectionModifier($users)
     {
-        return $users->map(function($user) use ($group) {
-            $user->created_at_formated = $user->created_at->format('d M, Y');
-            $user->status_formated = $user->status == 1 ? 'Active' : 'Inactive';
-            $user->image_formated = '<div class="form-group"><div class="form-check form-check-inline">
-                <input data-group="'.$group->id.'" data-user="'.$user->id.'" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="approveRadio" value="true">
+        // return $users->map(function ($user) use ($group) {
+        return $users->map(function ($user, $key) {
+            $user->serial = $key + 1;
+            $user->name = $user->user->name;
+            $user->group_name = $user->group->title;
+            // $user->created_at_formated = $user->created_at->format('d M, Y');
+            // $user->status_formated = $user->status == 1 ? 'Active' : 'Inactive';
+            $user->actions = '<div class="form-group"><div class="form-check form-check-inline">
+                <input data-group="' . $user->group_id . '" data-user="' . $user->user_id . '" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="approveRadio" value="true">
                 <label class="form-check-label" for="approveRadio">Approve</label>
             </div>
 
             <div class="form-check form-check-inline">
-                <input data-group="'.$group->id.'" data-user="'.$user->id.'" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="disapproveRadio" value="false">
-                <label class="form-check-label" for="disapproveRadio">Disapprove</label>
+                <input data-group="' . $user->group_id . '" data-user="' . $user->user_id . '" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="disapproveRadio" value="false">
+                <label class="form-check-label" for="disapproveRadio">Decline</label>
             </div></div>';
             return $user;
         });
@@ -220,6 +251,6 @@ class GroupController extends Controller
             $msg = 'declined';
         }
 
-        return response()->json(['error' => 0, 'message' => 'Requested to joined ' . $msg . ' successfully']);
+        return response()->json(['error' => 0, 'message' => 'Join request ' . $msg . ' successfully']);
     }
 }

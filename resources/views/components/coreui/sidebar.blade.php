@@ -23,12 +23,12 @@
 
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.categories') }}">
                 <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-drop') }}"></use>
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
                 </svg> Categories</a></li>
 
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-info') }}"></use>
                 </svg> Info Pages</a>
             <ul class="nav-group-items compact">
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.aboutus') }}"><span
@@ -39,11 +39,21 @@
                             class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact Us</a></li>
             </ul>
         </li>
-
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">
                 <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-people') }}"></use>
                 </svg> Users</a></li>
+
+        <li class="nav-title">Groups</li>
+        {{-- <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}"></use>
+                </svg> All Groups</a></li> --}}
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.join.request') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}"></use>
+                </svg> Join Requests</a></li>
+
 
 
         {{-- <li class="nav-title">Theme</li>
