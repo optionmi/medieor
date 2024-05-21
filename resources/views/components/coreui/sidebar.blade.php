@@ -45,10 +45,10 @@
                 </svg> Users</a></li>
 
         <li class="nav-title">Groups</li>
-        {{-- <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.index') }}">
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.index') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}"></use>
-                </svg> All Groups</a></li> --}}
+                </svg> All Groups</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.join.request') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}"></use>

@@ -1,42 +1,32 @@
-// jQuery
-// $(function () {
-//   // DataTable
-//   $(".dataTable").DataTable();
-//   // End DataTable
-// });
-
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .querySelectorAll(".card-body [data-delete-route]")
-    .forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        var deleteRoute = el.dataset.deleteRoute;
-        const deleteBtn = this;
-        document
-          .getElementById("confirmDeleteBtn")
-          .addEventListener("click", function (e) {
-            deleteRow(deleteBtn, deleteRoute);
-          });
-      });
-    });
+  document.addEventListener("click", handleDeleteClick);
 
-  const deleteRow = (deleteBtn, deleteRoute) => {
+  var deleteBtn;
+  var deleteRoute;
+
+  function handleDeleteClick(event) {
+    deleteBtn = event.target.closest("[data-delete-route]");
+    if (!deleteBtn) return;
+    event.preventDefault();
+    deleteRoute = deleteBtn.dataset.deleteRoute;
+  }
+
+  document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
+    deleteRow();
+  });
+
+  function deleteRow() {
     fetch(deleteRoute)
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        // console.log(data.type);
-        switch (data.type) {
-          case "success":
-            toastr.success(data.message, "Admin Panel");
-            break;
-          case "error":
-            toastr.error(data.message, "Admin Panel");
-            break;
+        if (data.error == true) {
+          toastr.error(data.message, "Admin Panel");
+        } else {
+          toastr.success(data.message, "Admin Panel");
         }
       });
-    console.log(deleteBtn.parentElement.parentElement.remove());
-    return;
-  };
+    deleteBtn.parentElement.parentElement.parentElement.remove();
+  }
 
   // Update
   document.addEventListener("click", function (e) {
@@ -84,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
           toastr.error(data.message, "Admin Panel");
         } else {
           toastr.success(data.message, "Admin Panel");
+          form[0].reset();
           $(".modal").modal("hide");
           $(".dataTable").DataTable().draw();
         }
@@ -92,6 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error:", error);
       },
     });
+  });
+
+  // Reset form on modal hidden
+  $(".modal").on("hidden.coreui.modal", function () {
+    $(this).find("form").trigger("reset");
   });
 
   // DOMContentLoaded

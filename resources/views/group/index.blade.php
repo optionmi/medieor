@@ -27,14 +27,13 @@
                                     <div class="w-20 h-20">
                                         <a href="#" class="object-cover">
                                             <img class="object-cover h-full rounded-full"
-                                                src="{{ asset('category_images/banner/agriculture.jpeg') }}"
-                                                alt="" />
+                                                src="{{ asset($group->image_path) }}" alt="" />
                                         </a>
                                     </div>
                                     <div>
                                         <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $group->title }}</h1>
-                                        <small>Public Group</small> ● <small>900 members</small>
+                                        <small>Public Group</small> ● <small>{{ $group->users->count() }} members</small>
                                     </div>
                                 </div>
                                 <div>
@@ -78,10 +77,10 @@
                                 <h2 class="font-bold text-gray-800">Group Activity</h2>
                                 <ul class="flex flex-col gap-1 my-2">
                                     <li><i class="w-6 fa-solid fa-rss"></i> 1 new post today</li>
-                                    <li><i class="w-6 fa-solid fa-users"></i> 900 total members
+                                    <li><i class="w-6 fa-solid fa-users"></i> {{ $group->users->count() }} total members
                                     </li>
-                                    <li><i class="w-6 fa-solid fa-eye"></i> Created about 2 years
-                                        ago
+                                    <li><i class="w-6 fa-solid fa-eye"></i> Created about
+                                        {{ $group->created_at->diffForHumans() }}
                                     </li>
                                 </ul>
                             </div>
@@ -138,6 +137,15 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Write group description here"></textarea>
                         </div>
+                        <div class="col-span-2">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                for="image">Group Logo</label>
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="image" name="image" type="file">
+                        </div>
+
+
                     </div>
                     <button type="submit"
                         class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

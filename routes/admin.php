@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
 
+    // Info Pages
     Route::group(['prefix' => 'info-pages'], function () {
         Route::get('/aboutus', [InfoPageController::class, 'show_aboutus'])->name('admin.info-pages.aboutus');
         Route::post('/aboutus/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.aboutus.update');
@@ -39,8 +40,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/contactus/update/{id}', [InfoPageController::class, 'update'])->name('admin.info-pages.contactus.update');
     });
 
+    // Groups
     Route::group(['prefix' => 'groups'], function () {
         Route::get('/all', [GroupController::class, 'index'])->name('admin.group.index');
+        Route::get('/delete-group/{id}', [GroupController::class, 'destroy'])->name('admin.group.destroy');
+        Route::post('/store', [GroupController::class, 'store'])->name('admin.group.store');
+
 
         Route::get('/join-requests', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
         Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');
@@ -53,7 +58,8 @@ Route::middleware(['auth'])->prefix('group')->group(function () {
 
     Route::get('/index', [GroupController::class, 'index'])->name('admin.group.index');
     Route::get('/groups-data', [GroupController::class, 'paginatedGroups'])->name('admin.group.groups.data');
-    Route::post('/store', [GroupController::class, 'store'])->name('admin.group.groups.store');
+    // Route::post('/store', [GroupController::class, 'store'])->name('admin.group.groups.store');
+
 
     // Route::get('/group-join-request', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
     // Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');

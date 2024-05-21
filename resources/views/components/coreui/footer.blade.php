@@ -30,7 +30,7 @@
                     <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">
                         Close
                     </button>
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" type="button" data-coreui-dismiss="modal" id="confirmDeleteBtn">
                         Confirm
                     </button>
                 </div>

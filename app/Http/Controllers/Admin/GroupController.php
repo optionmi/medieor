@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\GroupUser;
 use Illuminate\Http\Request;
 use App\Repositories\GroupRepository;
@@ -84,13 +85,13 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $id = request()->get('id');
-
-        $mode = $id ? 'update' : 'save';
+        $mode = $id ? 'updated' : 'created';
 
         $validator = validator()->make(request()->all(), [
             'title' => 'required|max:100',
             'description' => 'required|max:500',
-            'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+            'category' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ], [
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
@@ -104,20 +105,21 @@ class GroupController extends Controller
             'title' => request()->get('title'),
             'description' => request()->get('description'),
             'status' => request()->get('status'),
+            'category_id' => request()->get('category'),
         ];
 
-        if ($request->hasFile('image_path')) {
+        if ($request->hasFile('image')) {
             $randomString = \Illuminate\Support\Str::random(40);
-            $extension = $request->file('image_path')->getClientOriginalExtension();
+            $extension = $request->file('image')->getClientOriginalExtension();
             $filename = $randomString . '.' . $extension;
 
-            $path = $request->file('image_path')->storeAs('images', $filename, 'group_image');
-            $data['image'] = 'group_image/' . $path;
+            $path = $request->file('image')->storeAs('images/group_logos', $filename, 'public_dir');
+            $data['image_path'] = $path;
         }
 
         $group = $this->group->store($data, $id);
 
-        return response()->json(['error' => 0, 'message' => 'Group ' . $mode . 'd successfully']);
+        return response()->json(['error' => 0, 'message' => 'Group ' . $mode . ' successfully']);
     }
 
     /**
@@ -162,7 +164,8 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->group->delete($id);
+        return response()->json(['error' => 0, 'message' => 'Group deleted successfully']);
     }
 
     public function joinRequest()
