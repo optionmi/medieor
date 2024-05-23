@@ -74,7 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
           toastr.error(data.message, "Admin Panel");
         } else {
           toastr.success(data.message, "Admin Panel");
-          form[0].reset();
+          if (form.parents(".modal").length > 0) {
+            form[0].reset();
+          }
           $(".modal").modal("hide");
           $(".dataTable").DataTable().draw();
         }
