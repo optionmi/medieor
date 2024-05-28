@@ -67,4 +67,22 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Models\UserNotification', 'user_id');
     }
+
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role')->withTimestamps();
+    }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->roles()->whereHas('permissions', function ($query) use ($permission) {
+            $query->where('name', $permission);
+        })->exists();
+    }
 }

@@ -7,49 +7,68 @@
                     <h5 class="card-title">Users</h5>
                 </div>
                 <div class="card-body table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered" data-table-route="{{ route('admin.users.datatable') }}">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
-                                {{-- <th scope="col">Actions</th> --}}
-
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    {{-- <td>
-                                                <div class="d-flex">
-                                                    <button
-                                                        class="px-2 py-2 btn btn-link nav-link d-flex align-items-center"
-                                                        type="button" title="Edit">
-                                                        <svg class="icon icon-lg text-primary">
-                                                            <use
-                                                                xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil') }}">
-                                                            </use>
-                                                        </svg>
-                                                    </button>
-                                                    <button
-                                                        class="px-2 py-2 btn btn-link nav-link d-flex align-items-center"
-                                                        type="button" title="Delete">
-                                                        <svg class="icon icon-lg text-danger">
-                                                            <use
-                                                                xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-trash') }}">
-                                                            </use>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td> --}}
-                                </tr>
-                            @endforeach
                     </table>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+{{-- 
+@section('bottom-scripts')
+    <script>
+        $(document).ready(function() {
+            $(".table").DataTable({
+                "language": {
+                    "zeroRecords": "No record(s) found."
+                },
+                processing: true,
+                serverSide: true,
+                lengthChange: true,
+                order: [0, 'asc'],
+                searchable: true,
+                bStateSave: false,
+
+                ajax: {
+                    url: "{{ route('admin.users.datatable') }}",
+                    data: function(d) {}
+                },
+                columns: [{
+                        data: 'serial',
+                        name: '#',
+                        sortable: true
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA',
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                    },
+                ],
+            });
+        });
+    </script>
+@endsection --}}

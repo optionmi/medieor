@@ -3,7 +3,7 @@
     <main class="bg-gray-200">
         <div class="container h-screen mx-auto">
             <div class="flex items-center justify-center h-full p-2">
-                <div class="px-10 py-5 bg-white border border-gray-100 rounded-md shadow-lg">
+                <div class="px-10 py-5 bg-white border border-gray-100 rounded-md shadow-lg w-96">
                     <div class="flex flex-col items-center justify-center">
                         <div class="mb-5">
                             <a href="/">
@@ -30,11 +30,11 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
 
-                                <div class="mb-5">
-                                    <a href="{{ route('password.request') }}">Forgot password</a>
-                                </div>
-
                             </div>
+                            <div class="flex justify-end mb-5">
+                                <a class="hover:underline" href="{{ route('password.request') }}">Forgot password?</a>
+                            </div>
+
                             <button class="w-full p-2 font-bold text-white bg-blue-500 rounded-md">Login</button>
                     </div>
                     </form>

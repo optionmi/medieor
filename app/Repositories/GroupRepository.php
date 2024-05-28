@@ -23,7 +23,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
-                $q->where('title', 'LIKE', "%$searchValue%")
+                $q->orWhere('title', 'LIKE', "%$searchValue%")
                     ->orWhere('description', 'LIKE', "%$searchValue%")
                     ->orWhereHas('categories', function ($q) use ($searchValue) {
                         $q->where('title', 'LIKE', "%$searchValue%");
@@ -33,6 +33,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
 
 
         if (!empty($sortColumn)) {
+            $sortColumn = strtolower($sortColumn) === '#' ? 'id' : strtolower($sortColumn);
             $query->orderBy($sortColumn, $sortDirection);
         }
 

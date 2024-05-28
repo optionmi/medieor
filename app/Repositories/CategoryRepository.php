@@ -20,12 +20,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
-                $q->where('title', 'LIKE', "%$searchValue%");
-                $q->where('description', 'LIKE', "%$searchValue%");
+                $q->orWhere('title', 'LIKE', "%$searchValue%");
+                $q->orWhere('description', 'LIKE', "%$searchValue%");
             });
         }
 
         if (!empty($sortColumn)) {
+            $sortColumn = strtolower($sortColumn) === '#' ? 'id' : strtolower($sortColumn);
             $query->orderBy($sortColumn, $sortDirection);
         }
 

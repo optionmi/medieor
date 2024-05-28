@@ -18,7 +18,7 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -27,6 +27,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/categories/data', [CategoryController::class, 'datatable'])->name('admin.categories.data');
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/users-datatable', [UserController::class, 'datatable'])->name('admin.users.datatable');
+    Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
 
     // Info Pages
     Route::group(['prefix' => 'info-pages'], function () {
@@ -56,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->prefix('group')->group(function () {
 
 
-    Route::get('/index', [GroupController::class, 'index'])->name('admin.group.index');
+    // Route::get('/index', [GroupController::class, 'index'])->name('admin.group.index');
     Route::get('/groups-data', [GroupController::class, 'paginatedGroups'])->name('admin.group.groups.data');
     // Route::post('/store', [GroupController::class, 'store'])->name('admin.group.groups.store');
 

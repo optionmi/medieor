@@ -49,8 +49,8 @@ class GroupController extends Controller
     {
         $start = request()->get('start');
         $length = request()->get('length');
-        $sortColumn = request()->get('order')[0]['column'];
-        $sortDirection = request()->get('order')[0]['dir'];
+        $sortColumn = request()->get('order')[0]['name'] ?? 'id';
+        $sortDirection = request()->get('order')[0]['dir'] ?? 'asc';
         $searchValue = request()->get('search')['value'];
 
         $count = $this->group->paginated($start, $length, $sortColumn, $sortDirection, $searchValue, true);

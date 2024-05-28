@@ -92,5 +92,42 @@ document.addEventListener("DOMContentLoaded", function () {
     $(this).find("form").trigger("reset");
   });
 
+  // DataTable
+  $("[data-table-route]").each(function (e) {
+    const table = $(this);
+    const route = table.attr("data-table-route");
+
+    const columns = $(this)
+      .find("th")
+      .map(function (val, index) {
+        return {
+          data:
+            $(this).text() === "#" ? "serial" : $(this).text().toLowerCase(),
+          name: $(this).text(),
+          searchable: $(this).text() !== "#" && $(this).text() !== "Actions",
+          orderable: $(this).text() !== "Actions",
+          defaultContent: "NA",
+        };
+      });
+
+    $("[data-table-route]").DataTable({
+      language: {
+        zeroRecords: "No record(s) found.",
+      },
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      order: [0, "asc"],
+      searchable: true,
+      bStateSave: false,
+
+      ajax: {
+        url: route,
+        data: function (d) {},
+      },
+      columns: columns,
+    });
+  });
+
   // DOMContentLoaded
 });

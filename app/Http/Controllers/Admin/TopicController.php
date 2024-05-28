@@ -24,7 +24,7 @@ class TopicController extends Controller
         $this->topic = $topic;
         $this->category = $category;
     }
-    
+
     public function index()
     {
         $topics = $this->topic->findAll();
@@ -36,8 +36,8 @@ class TopicController extends Controller
     {
         $start = request()->get('start');
         $length = request()->get('length');
-        $sortColumn = request()->get('order')[0]['column'];
-        $sortDirection = request()->get('order')[0]['dir'];
+        $sortColumn = request()->get('order')[0]['name'] ?? 'id';
+        $sortDirection = request()->get('order')[0]['dir'] ?? 'asc';
         $searchValue = request()->get('search')['value'];
 
         $count = $this->topic->paginated($start, $length, $sortColumn, $sortDirection, $searchValue, true);
@@ -56,7 +56,7 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $id = request()->get('id');
-        
+
         $mode = $id ? 'update' : 'save';
 
         $validator = validator()->make(request()->all(), [
@@ -82,6 +82,6 @@ class TopicController extends Controller
 
         $topic = $this->topic->store($data, $id);
 
-        return response()->json(['error' => 0, 'message' => 'Topic '.$mode.'d successfully']);
+        return response()->json(['error' => 0, 'message' => 'Topic ' . $mode . 'd successfully']);
     }
 }

@@ -270,7 +270,8 @@
                                     {{ strtok($category->title, ' ') }}</p>
                             </a>
                         @endforeach
-                        <img id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />
+                        <a href="{{ route('web.about.us') }}"><img id="logo" src="{{ asset('img/logo.jpg') }}"
+                                alt="logo" /></a>
                     </div>
                 </div>
             </div>

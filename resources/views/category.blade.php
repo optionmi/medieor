@@ -7,7 +7,7 @@
             <div class="relative main-bg">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="flex flex-col items-center p-5 text-3xl text-white sm:text-6xl sm:absolute bottom-60 right-20 banner-content">
+                    class="absolute left-0 right-0 flex flex-col items-center w-full p-5 text-3xl text-white top-60 sm:text-6xl sm:bottom-60 sm:right-20 banner-content">
                     <h1>The contribution of</h1>
                     <h1>({{ $category->title }})</h1>
                     <h1>
@@ -41,15 +41,15 @@
                     <p>
                         <span class="text-3xl sm:text-5xl">54+</span>
                         <br />
-                        <span class="text-xl sm:text-2xl"> Community Groups</span>
+                        <span class="text-lg sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
                         <span class="text-3xl sm:text-5xl">27+</span> <br />
-                        <span class="text-xl sm:text-2xl"> Upcoming Events</span>
+                        <span class="text-lg sm:text-2xl"> Upcoming Events</span>
                     </p>
                     <p>
                         <span class="text-3xl sm:text-5xl">1000+</span> <br />
-                        <span class="text-xl sm:text-2xl"> Registered Members</span>
+                        <span class="text-lg sm:text-2xl"> Registered Members</span>
                     </p>
                 </div>
             </div>
@@ -222,7 +222,7 @@
     @include('partials.footer')
 
     <!-- start-new-topic modal -->
-    <div id="start-new-topic" tabindex="-1" aria-hidden="true"
+    {{-- <div id="start-new-topic" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-[#00000088]">
         <div class="relative w-full max-w-2xl max-h-full p-4">
             <!-- Modal content -->
@@ -266,7 +266,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('scripts')
