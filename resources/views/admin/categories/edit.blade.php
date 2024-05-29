@@ -13,9 +13,15 @@
                         <input class="form-control updateDataField" id="title" type="text" placeholder="Title"
                             name="title">
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label class="form-label" for="description">Description</label>
                         <textarea class="form-control updateDataField" id="description" rows="3" name="description"></textarea>
+                    </div> --}}
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <div id="description">
+                        </div>
+                        <input class="updateDataField" id="hiddenDescription" type="hidden" name="description">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="logo">Logo</label>

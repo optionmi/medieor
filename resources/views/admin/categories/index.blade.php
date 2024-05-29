@@ -5,6 +5,7 @@
             border-radius: 50%
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.snow.css" rel="stylesheet" />
 @endsection
 
 
@@ -76,7 +77,6 @@
                         searchable: true,
                         orderable: false,
                         defaultContent: 'NA',
-                        // "width": "40%"
                     },
                     {
                         data: 'logo',
@@ -84,7 +84,6 @@
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA',
-                        // "width": "40%"
                     },
                     {
                         data: 'banner',
@@ -92,7 +91,6 @@
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA',
-                        // "width": "40%"
                     },
                     {
                         data: 'actions',
@@ -100,18 +98,22 @@
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA',
-                        // "width": "10%"
                     },
                 ],
-                // columnDefs: [{
-                //         "targets": 0,
-                //         "width": "4%"
-                //     },
-                //     {
-                //         "targets": 3,
-                //         "className": "text-center",
-                //     }
-                // ],
+            });
+        });
+    </script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.js"></script>
+
+    <script>
+        const quill1 = new Quill("#description", {
+            theme: "snow",
+        });
+        $('.modal').on('shown.coreui.modal', function() {
+            quill1.root.innerHTML = $('#hiddenDescription').val();
+            quill1.on('text-change', function(delta, oldDelta, source) {
+                $('#hiddenDescription').val(quill1.root.innerHTML);
             });
         });
     </script>

@@ -69,13 +69,6 @@
     </script>
 
     @yield('bottom-scripts')
-
-    <script>
-        // Display an info toast with no title
-        // toastr.options.closeButton = true;
-        // toastr.options.progressBar = true;
-        // toastr.info('Are you the 6 fingered man?')
-    </script>
     @vite(['resources/js/admin.js'])
 </body>
 

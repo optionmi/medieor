@@ -33,7 +33,8 @@
                                     <div>
                                         <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $group->title }}</h1>
-                                        <small>Public Group</small> ● <small>{{ $group->users->count() }} members</small>
+                                        <small>Public Group</small> ● <small>{{ $group->users->count() }}
+                                            member{{ $group->users->count() > 1 ? 's' : '' }}</small>
                                     </div>
                                 </div>
                                 <div>
@@ -77,7 +78,8 @@
                                 <h2 class="font-bold text-gray-800">Group Activity</h2>
                                 <ul class="flex flex-col gap-1 my-2">
                                     <li><i class="w-6 fa-solid fa-rss"></i> 1 new post today</li>
-                                    <li><i class="w-6 fa-solid fa-users"></i> {{ $group->users->count() }} total members
+                                    <li><i class="w-6 fa-solid fa-users"></i> {{ $group->users->count() }}
+                                        member{{ $group->users->count() > 1 ? 's' : '' }}
                                     </li>
                                     <li><i class="w-6 fa-solid fa-eye"></i> Created about
                                         {{ $group->created_at->diffForHumans() }}

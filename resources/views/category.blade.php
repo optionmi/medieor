@@ -34,9 +34,9 @@
                     My Contribution in healing <br />
                     <span class="font-bold"> {{ $category->title }}</span>
                 </h1>
-                <p class="my-5 text-2xl">
-                    {{ $category->description }}
-                </p>
+                <div class="my-5 text-2xl">
+                    {!! $category->description !!}
+                </div>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
                         <span class="text-3xl sm:text-5xl">54+</span>
@@ -60,15 +60,32 @@
                     </h1>
                     <ul>
                         @foreach ($category->groups as $group)
-                            <li key={i} class="flex justify-between py-5 border-b-2 border-gray-600">
+                            <li class="flex justify-between py-5 border-b-2 border-gray-600">
                                 <div>
                                     <h2 class="text-xl">{{ $group->title }}</h2>
                                     <span class="text-gray-500">Public Group</span>
+
+                                    @if ($group->users->count() > 0)
+                                        <div class="my-4">
+                                            <h2 class="font-bold text-gray-800">Members</h2>
+                                            <div class="flex my-2 -space-x-4 rtl:space-x-reverse">
+                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
+                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
+                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
+                                                <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+                                                    href="#">...</a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="text-gray-500 text-end">
                                     <span>Created {{ $group->created_at->diffForHumans() }}</span>
                                     <br />
-                                    <span>800 members</span>
+                                    <span>{{ $group->users->count() }}
+                                        member{{ $group->users->count() > 1 ? 's' : '' }}</span>
                                 </div>
                             </li>
                         @endforeach

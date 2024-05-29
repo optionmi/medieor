@@ -12,7 +12,7 @@
                         @csrf
                         <div class="mb-5">
                             <div class="mb-3">
-                                <label for="img1" class="form-label">Imgage 1</label>
+                                <label for="img1" class="form-label">Image 1</label>
                                 <div class="my-2">
                                     <img id="img1Preview" src="{{ asset($data->img1) }}" alt="" height="200">
                                 </div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="mb-5">
                             <div class="mb-3">
-                                <label for="img2" class="form-label">Imgage 2</label>
+                                <label for="img2" class="form-label">Image 2</label>
                                 <div class="my-2">
                                     <img id="img2Preview" src="{{ asset($data->img2) }}" alt="" height="200">
                                 </div>
@@ -61,13 +61,13 @@
                             </div>
                         </div>
                         <div class="mb-5">
-                            <div class="mb-3">
-                                <label for="img3" class="form-label">Imgage 3</label>
+                            {{-- <div class="mb-3">
+                                <label for="img3" class="form-label">Image 3</label>
                                 <div class="my-2">
                                     <img id="img3Preview" src="{{ asset($data->img3) }}" alt="" height="200">
                                 </div>
                                 <input type="file" name="img3" id="img3" class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
                                 <label for="img_text3" class="form-label">Image Text 3</label>
                                 <input type="text" name="img_text3" id="img_text3" class="form-control"
