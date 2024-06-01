@@ -1,65 +1,71 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <main class="bg-gray-200">
+        <div class="container h-screen mx-auto">
+            <div class="flex items-center justify-center h-full p-2">
+                <div class="px-10 py-5 bg-white border border-gray-100 rounded-md shadow-lg w-96">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="mb-5">
+                            <a href="/">
+                                <img src="{{ asset('img/logo.jpg') }}" alt=""></a>
+                        </div>
+                        <h1 class="text-2xl font-bold">Reset Password</h1>
+                    </div>
+                    <div class="my-5">
+                        @if (session('status'))
+                            <div class="p-4 text-green-700 bg-green-100 border-l-4 border-green-500" role="alert">
+                                <p class="font-bold">Success</p>
+                                <p class="text-sm">{{ session('status') }}</p>
+                            </div>
+                        @endif
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+                        <form method="POST" action="{{ route('password.update') }}">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                            <div class="mb-5">
+                                <label for="email" class="text-sm">{{ __('Email Address') }}</label>
+                                <input id="email" type="email"
+                                    class="w-full p-2 border border-gray-300 rounded-md @error('email') is-invalid @enderror"
+                                    name="email" value="{{ $email ?? old('email') }}" required autocomplete="email"
+                                    autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="mt-1 text-sm text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <div class="mb-5">
+                                <label for="password" class="text-sm">{{ __('Password') }}</label>
+                                <input id="password" type="password"
+                                    class="w-full p-2 border border-gray-300 rounded-md @error('password') is-invalid @enderror"
+                                    name="password" required autocomplete="new-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="mt-1 text-sm text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="mb-5">
+                                <label for="password-confirm" class="text-sm">{{ __('Confirm Password') }}</label>
+                                <input id="password-confirm" type="password"
+                                    class="w-full p-2 border border-gray-300 rounded-md" name="password_confirmation"
+                                    required autocomplete="new-password">
                             </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+
+                            <button type="submit" class="w-full p-2 font-bold text-white bg-blue-500 rounded-md">
+                                {{ __('Reset Password') }}
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
 @endsection

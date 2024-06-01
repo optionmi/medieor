@@ -47,6 +47,6 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($request->session()->pull('previous_url', 'default'));
+            ?: redirect()->intended($request->session()->pull('previous_url', '/'));
     }
 }
