@@ -190,4 +190,7 @@
   #tagline {
     font-size: 3rem;
   }
+  .elementBtnText {
+    font-size: 0.6rem;
+  }
 }

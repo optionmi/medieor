@@ -4,9 +4,12 @@
             <a href="{{ route('web.home') }}">
                 <img src={{ asset('img/logo.jpg') }} alt="Medieor Logo" width="55" /></a>
             @foreach (\App\Models\Category::all() as $category)
-                <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"><img
-                        class="rounded-full shadow-lg" src="{{ asset($category->logo_image) }}"
-                        alt="{{ $category->title }}" width="55" /></a>
+                <a class="relative" href="{{ route('category.detail', $category->id) }}"
+                    title="{{ $category->title }}"><img class="rounded-full shadow-lg"
+                        src="{{ asset($category->logo_image) }}" alt="{{ $category->title }}" width="55" />
+                    <span
+                        class="absolute top-0 left-0 right-0 text-xs text-center text-white rounded-full text-shadow-sm shadow-black bg-[#00000066] w-full h-full pt-4 font-bold">
+                        {{ strtok($category->title, ' ') }}</span></a>
             @endforeach
         </div>
         <ul class="flex justify-end w-full gap-6 px-4 py-2 mt-2 sm:w-2/5">
