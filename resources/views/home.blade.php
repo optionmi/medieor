@@ -56,6 +56,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Contact Us</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="/login" class="nav-link">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/register" class="nav-link">Register</a>
+                                </li>
                         </div>
                     </div>
                 </div>
