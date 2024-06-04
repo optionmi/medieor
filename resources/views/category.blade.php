@@ -21,7 +21,7 @@
                 <div class="self-start w-20 h-20 bg-white rounded-full bg2"></div>
                 <div class="w-20 h-20 bg-white rounded-full bg3"></div>
             </div>
-            <div class="bg-[#a48159cc] absolute bottom-0 left-0 right-0 h-24 p-2 ellipse-clip">
+            <div class="absolute bottom-0 left-0 right-0 h-24 p-2 bg-primary ellipse-clip">
 
             </div>
         </div>
@@ -84,8 +84,7 @@
                                 <div class="text-gray-500 text-end">
                                     <span>Created {{ $group->created_at->diffForHumans() }}</span>
                                     <br />
-                                    <span>{{ $group->users->count() }}
-                                        member{{ $group->users->count() > 1 ? 's' : '' }}</span>
+                                    <span>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</span>
                                 </div>
                             </li>
                         @endforeach

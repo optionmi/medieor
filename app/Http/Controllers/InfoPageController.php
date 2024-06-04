@@ -18,4 +18,12 @@ class InfoPageController extends Controller
         $data = InfoPage::where('title', 'Our Purpose')->first();
         return view('our-purpose', compact('data'));
     }
+
+    public function contactus()
+    {
+        $data = InfoPage::where('title', 'Contact Us')->first();
+        $data->emails = explode(' ', $data->section2);
+        $data->phones = explode(' ', $data->section3);
+        return view('contact-us', compact('data'));
+    }
 }

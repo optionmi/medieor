@@ -15,18 +15,41 @@
 
             <div class="flex flex-col gap-4 py-2">
                 @foreach ($groups as $group)
-                    <div class="flex items-center border rounded-md shadow-md">
-                        <div class="w-1/2 px-6 py-4 sm:w-3/4">
-                            <a href="{{ route('web.group.detail', $group->id) }}">
-                                <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $group->title }}</h1>
-                            </a>
-                            <small>Public Group</small><br>
-                            <p class="my-4">{{ $group->description }}</p>
+                    <div class="px-6 py-4 border rounded-md shadow-md">
+                        <div class="w-full">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-shrink-0 w-20 h-20">
+                                        <a href="{{ route('web.group.detail', $group->id) }}" class="object-cover">
+                                            <img class="object-cover h-full rounded-full"
+                                                src="{{ asset($group->image_path) }}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('web.group.detail', $group->id) }}">
+                                            <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $group->title }}</h1>
+                                        </a>
+                                        <small>Public Group</small><br>
+                                    </div>
+                                </div>
+                                <div class="hidden sm:block">
+                                    <a class="px-3 py-2 font-semibold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                                        href="{{ route('web.group.detail', $group->id) }}">View</a>
+                                </div>
+                            </div>
+                            <small><i class="w-6 fa-solid fa-eye"></i>Created
+                                {{ $group->created_at->diffForHumans() }}</small><br>
+                            <small><i
+                                    class="w-6 fa-solid fa-users"></i>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>
+                            <div class="my-4">
+                                <strong>About</strong>
+                                <p>{{ $group->description }}</p>
+                            </div>
 
                             @if ($group->users->count() > 0)
                                 <div class="my-4">
-                                    <h2 class="font-bold text-gray-800">Members</h2>
+                                    <strong>Members</strong>
                                     <div class="flex my-2 -space-x-4 rtl:space-x-reverse">
                                         <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
                                             src="{{ asset('img/no-avatar.png') }}" alt="">
@@ -41,10 +64,10 @@
                             @endif
 
                         </div>
-                        <div class="w-1/2 px-6 py-4 text-sm text-end sm:w-1/4">
-                            <p>Created {{ $group->created_at->diffForHumans() }}</p>
-                            <p>{{ $group->users->count() }} member{{ $group->users->count() > 1 ? 's' : '' }}</p>
 
+                        <div class="sm:hidden">
+                            <a class="block w-full px-3 py-2 font-semibold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                                href="{{ route('web.group.detail', $group->id) }}">View</a>
                         </div>
                     </div>
                 @endforeach

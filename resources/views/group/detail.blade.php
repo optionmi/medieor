@@ -9,7 +9,7 @@
             </div>
 
             <div class="flex flex-col items-center gap-8 mb-10">
-                <div class="p-5 bg-white rounded-md shadow-md sm:w-1/2">
+                <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14"><img src="{{ asset('img/no-avatar.png') }}" alt=""></div>
                         <button data-modal-target="create-post-modal" data-modal-toggle="create-post-modal"
@@ -20,7 +20,7 @@
 
                 <div id="post-list" class="flex flex-col items-center w-full gap-5">
                     @foreach ($group->posts as $post)
-                        <div class="p-5 bg-white rounded-md shadow-md sm:w-1/2">
+                        <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
                             <div class="flex flex-col gap-4">
                                 <div class="flex items-center gap-5">
                                     <div class="w-12 h-12 bg-gray-400 rounded-full">
@@ -46,7 +46,7 @@
                                 <div>
                                     <div class="flex justify-between w-11/12 mx-auto">
                                         <small class="cursor-pointer hover:underline"><span
-                                                id="like_count_{{ $post->id }}">{{ $post->likes_count }}</span>
+                                                id="like_count_{{ $post->id }}">{{ $post->likes->count() }}</span>
                                             likes</small>
 
                                         <button data-modal-target="comments-modal" data-post_id="{{ $post->id }}"
@@ -63,8 +63,14 @@
                                             <button
                                                 class="like-post hover:bg-[#00000033] w-full py-3 rounded-md transition-colors"
                                                 data-post_id="{{ $post->id }}">
-                                                <i class="fa-regular fa-thumbs-up"></i>
-                                                <span class="font-bold">Like</span></button>
+                                                @if ($post->user_has_liked)
+                                                    <i class="fa-solid fa-thumbs-up"></i>
+                                                    <span class="font-bold">Unlike</span>
+                                                @else
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span class="font-bold">Like</span>
+                                                @endif
+                                            </button>
                                         </div>
                                         <div class="w-1/2 text-center">
                                             <button
@@ -467,7 +473,7 @@
             });
 
             $j(document).on('click', '.like-post', function(e) {
-
+                const button = $j(this);
                 $j.ajax({
                     url: "{{ route('web.like.toggle') }}",
                     type: 'POST',
@@ -491,14 +497,16 @@
                         } else {
                             var post_id = response.data.post_id;
                             $j('#like_count_' + post_id).html(response.data.like_count)
-                            Swal.fire({
-                                title: 'Success!',
-                                text: response.data.message,
-                                icon: 'success',
-                                showConfirmButton: true,
-                            }).then((value) => {
+                            button.html(response.data.button);
 
-                            });
+                            // Swal.fire({
+                            //     title: 'Success!',
+                            //     text: response.data.message,
+                            //     icon: 'success',
+                            //     showConfirmButton: true,
+                            // }).then((value) => {
+
+                            // });
                         }
                     },
                     error: function(error) {
@@ -513,7 +521,7 @@
                 // Check if replyBox already exists
                 if ($j('#replyBox' + commentId).length === 0) {
                     var replyBox =
-                        '<div class="flex justify-end gap-4 py-2" id="replyBox' + commentId +
+                        '<div class="flex items-end w-11/12 gap-4 py-2" id="replyBox' + commentId +
                         '"><input class="rounded-md" type="text" id="reply' +
                         commentId + '" placeholder="Write a reply..."><button onclick="postReply(\'' +
                         commentId + '\', \'' + commentPrimaryId +
@@ -529,7 +537,7 @@
             $j(document).on('click', ".view-all-replies", function(e) {
                 e.preventDefault();
                 var commentId = $j(this).data('comment_id');
-                $j('#comment' + commentId + ' .additional-replies').show();
+                $j('#comment' + commentId + ' .additional-replies').css("display", "flex");
                 $j(this).hide();
             });
 
@@ -562,15 +570,17 @@
                 var newContent = $(this).siblings('div').find('input').val();
                 console.log('ssaavvee', $(this).data('url'));
 
-                var newParagraph = '<p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' + newContent + '</p>';
-                        $(this).siblings('div').find('input').replaceWith(newParagraph);
+                var newParagraph = '<p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
+                    newContent + '</p>';
+                $(this).siblings('div').find('input').replaceWith(newParagraph);
 
-                        // Change the save button back to an edit button
-                        $(this).html('<i class="fa-solid fa-pencil"></i>').addClass('edit-button').removeClass('save-button');
+                // Change the save button back to an edit button
+                $(this).html('<i class="fa-solid fa-pencil"></i>').addClass('edit-button').removeClass(
+                    'save-button');
 
                 // Send a POST AJAX request to update the comment
                 $.ajax({
-                    type: 'PUT',
+                    type: 'POST',
                     url: $(this).data('url'),
                     data: {
                         content: newContent
@@ -580,7 +590,7 @@
                     },
                     success: function(response) {
                         // Replace the input field with a p tag containing the new content
-                        
+
                     },
                     error: function(xhr, status, error) {
                         // Handle error responses
@@ -611,9 +621,10 @@
                     $j('#replyBox' + commentId).remove();
 
                     var replyDiv =
-                        '<div class="flex items-start justify-end gap-2 reply"><img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture"><div class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700"><div class="flex items-center space-x-2 rtl:space-x-reverse"><span class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span><span class="text-sm font-normal text-gray-500 dark:text-gray-400">Now</span></div><p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
+                        '<div class="flex items-start w-11/12 gap-2 ml-auto reply"><img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture"><div class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700"><div class="flex items-center space-x-2 rtl:space-x-reverse"><span class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span><span class="text-sm font-normal text-gray-500 dark:text-gray-400">Now</span></div><p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
                         replyText +
-                        '</p></div><button data-url="' + response.data.update_url + '"class="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600 edit-button" type="button"><i class="fa-solid fa-pencil"></i></button></div>';
+                        '</p></div><button data-url="' + response.data.update_url +
+                        '"class="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600 edit-button" type="button"><i class="fa-solid fa-pencil"></i></button></div>';
                     $j('#' + commentId + ' .replies').append(replyDiv);
                 },
                 error: function(error) {

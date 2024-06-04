@@ -45,9 +45,9 @@
 @section('content')
     @include('partials.misc.header')
 
-    <section>
-        <div class="banner">
-        </div>
+    <section class="bg-primary mt-[-4rem] h-72 flex justify-center items-center">
+        <h1 class="text-4xl font-semibold text-center text-white uppercase text-shadow-sm shadow-black">
+            {{ $data->img_text1 }}</h1>
     </section>
 
     <section class="container flex flex-col items-center mx-auto my-10">

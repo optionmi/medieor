@@ -7,6 +7,9 @@
     <div class="body flex-grow-1">
         <div class="px-4 container-lg">
             <div class="mb-4 row card">
+                <div class="card-header">
+                    <h5>Our Purpose</h5>
+                </div>
                 <div class="card-body">
                     <form action="{{ route('admin.info-pages.aboutus.update', $data->id) }}" method="POST">
                         @csrf

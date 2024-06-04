@@ -33,4 +33,9 @@ class Post extends Model
     {
         return $this->hasMany('\App\Models\Like', 'post_id');
     }
+
+    public function getUserHasLikedAttribute()
+    {
+        return $this->likes()->where('user_id', '=', auth()->user()->id)->exists();
+    }
 }

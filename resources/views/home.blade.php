@@ -54,14 +54,24 @@
                                     <a class="nav-link" href="{{ route('web.our.purpose') }}">Our purpose</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact Us</a>
+                                    <a class="nav-link" href="{{ route('web.contact.us') }}">Contact Us</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/login" class="nav-link">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/register" class="nav-link">Register</a>
-                                </li>
+                                @auth
+                                    <li class="nav-item">
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="nav-link btn btn-link">Logout</button>
+                                        </form>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a href="/login" class="nav-link">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/register" class="nav-link">Register</a>
+                                    </li>
+                                @endauth
+                            </ul>
                         </div>
                     </div>
                 </div>

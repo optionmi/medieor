@@ -1,1 +1,1 @@
-<footer class="p-10 bg-[#a48159]"></footer>
+<footer class="p-10 bg-primary"></footer>

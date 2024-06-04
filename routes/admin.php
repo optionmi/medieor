@@ -37,10 +37,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/aboutus/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.aboutus.update');
 
         Route::get('/ourpurpose', [InfoPageController::class, 'show_ourpurpose'])->name('admin.info-pages.ourpurpose');
-        Route::post('/ourpurpose/update/{id}', [InfoPageController::class, 'update'])->name('admin.info-pages.ourpurpose.update');
+        Route::post('/ourpurpose/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.ourpurpose.update');
 
         Route::get('/contactus', [InfoPageController::class, 'show_contactus'])->name('admin.info-pages.contactus');
-        Route::post('/contactus/update/{id}', [InfoPageController::class, 'update'])->name('admin.info-pages.contactus.update');
+        Route::post('/contactus/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.contactus.update');
     });
 
     // Groups

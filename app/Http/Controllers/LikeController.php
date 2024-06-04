@@ -94,22 +94,27 @@ class LikeController extends Controller
 
         if ($userLikes->contains('post_id', $post_id)) {
             $userLikes->where('post_id', $post_id)->first()->delete();
-            $message = 'You disliked the post';
+            $message = 'You unliked the post';
+            $button = '<i class="fa-regular fa-thumbs-up"></i>
+            <span class="font-bold">Like</span>';
         } else {
             $like = new Like(['post_id' => $post_id]);
             $user->likes()->save($like);
             $message = 'You liked the post';
+            $button = '<i class="fa-solid fa-thumbs-up"></i>
+            <span class="font-bold">Unlike</span>';
         }
 
         $post = Post::find($post_id);
 
         $data = [
             'error' => false,
-            'message' => $message, 
+            'message' => $message,
             'post_id' => $post_id,
-            'like_count' => $post->likes->count()
+            'like_count' => $post->likes->count(),
+            'button' => $button
         ];
-    
+
         return response()->json(compact('data'));
     }
 }

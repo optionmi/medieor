@@ -46,7 +46,7 @@
 
     <!-- Bootstrap 4 -->
     {{-- <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
+    {{-- <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script> --}}
 
     @yield('scripts')
     <script>

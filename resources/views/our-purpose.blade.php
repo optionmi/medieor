@@ -4,35 +4,13 @@
     Our Purpose
 @endsection
 
-@section('styles')
-    <style>
-        body {
-            font-family: "Poppins", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        .banner {
-            height: 278px;
-            background-image: url('{{ asset($data->img1) }}');
-            background-size: cover;
-            background-position: center;
-            margin-top: -4rem;
-        }
-
-        .banner h1 {
-            text-shadow: 2px 2px black;
-        }
-    </style>
-@endsection
-
 @section('content')
     @include('partials.misc.header')
 
-    <div class="flex items-center justify-center banner">
-        <h1 class="text-4xl font-semibold text-center text-white uppercase">{{ $data->img_text1 }}</h1>
-    </div>
+    <section class="bg-primary mt-[-4rem] h-72 flex justify-center items-center">
+        <h1 class="text-4xl font-semibold text-center text-white uppercase text-shadow-sm shadow-black">
+            {{ $data->img_text1 }}</h1>
+    </section>
 
     <section>
         <div class="container py-10 mx-auto">

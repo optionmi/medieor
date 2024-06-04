@@ -14,6 +14,18 @@ class InfoPageController extends Controller
         return view('admin.info-pages.aboutus', compact('data'));
     }
 
+    public function show_ourpurpose()
+    {
+        $data = InfoPage::where('title', 'Our Purpose')->first();
+        return view('admin.info-pages.ourpurpose', compact('data'));
+    }
+
+    public function show_contactus()
+    {
+        $data = InfoPage::where('title', 'Contact Us')->first();
+        return view('admin.info-pages.contactus', compact('data'));
+    }
+
     public function update(Request $request, InfoPage $infoPage)
     {
         $validator = validator()->make(request()->all(), [
@@ -65,20 +77,10 @@ class InfoPageController extends Controller
             $data['img3'] = $path;
         }
 
-        $infoPage->update($data);
-
-
-        return response()->json(['error' => 0, 'message' => 'Page updated successfully']);
-    }
-
-    public function show_ourpurpose()
-    {
-        $data = InfoPage::where('title', 'Our Purpose')->first();
-        return view('admin.info-pages.ourpurpose', compact('data'));
-    }
-
-    public function show_contactus()
-    {
-        return view('admin.info-pages.contactus');
+        if ($infoPage->update($data)) {
+            return response()->json(['error' => 0, 'message' => 'Page updated successfully']);
+        } else {
+            return response()->json(['error' => 1, 'message' => 'Failed to update page']);
+        }
     }
 }

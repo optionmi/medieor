@@ -21,7 +21,7 @@
             <div class="flex flex-col gap-5 shadow-md sm:rounded-lg">
                 @foreach ($groups as $group)
                     <div class="flex justify-center px-5 py-2 border shadow-md">
-                        <div class="w-1/2 px-6 py-4 sm:w-3/4">
+                        <div class="w-full px-6 py-4 sm:w-3/4">
                             <div class="flex justify-between">
                                 <div class="flex items-center gap-3">
                                     <div class="w-20 h-20">
@@ -33,19 +33,19 @@
                                     <div>
                                         <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $group->title }}</h1>
-                                        <small>Public Group</small> ● <small>{{ $group->users->count() }}
-                                            member{{ $group->users->count() > 1 ? 's' : '' }}</small>
+                                        <small>Public Group</small> ●
+                                        <small>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="hidden sm:block">
                                     @if (auth()->user() && in_array($group->id, auth()->user()->groups->pluck('id')->toArray()))
                                         <a href="#" data-id="{{ $group->id }}"
-                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg pointer-events-none hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 join-group">
+                                            class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded-lg pointer-events-none hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 join-group">
                                             Joined
                                         </a>
                                     @else
                                         <a href="#" data-id="{{ $group->id }}"
-                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 join-group">
+                                            class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 join-group">
                                             Join Group
                                             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -72,19 +72,40 @@
                                     <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
                                         href="#">...</a>
                                 </div>
-                                <p>Amit Kumar, Vikalp and 54 others have joined</p>
+                                <p>{{ $group->users_joined_message }}</p>
                             </div>
                             <div class="my-4">
                                 <h2 class="font-bold text-gray-800">Group Activity</h2>
                                 <ul class="flex flex-col gap-1 my-2">
-                                    <li><i class="w-6 fa-solid fa-rss"></i> 1 new post today</li>
-                                    <li><i class="w-6 fa-solid fa-users"></i> {{ $group->users->count() }}
-                                        member{{ $group->users->count() > 1 ? 's' : '' }}
+                                    <li><i class="w-6 fa-solid fa-rss"></i> {{ $group->today_post_count }} new
+                                        {{ Str::plural('post', $group->today_post_count) }} today
+                                    </li>
+                                    <li><i class="w-6 fa-solid fa-users"></i>
+                                        {{ $group->users->count() . Str::plural(' member', $group->users->count()) }}
                                     </li>
                                     <li><i class="w-6 fa-solid fa-eye"></i> Created about
                                         {{ $group->created_at->diffForHumans() }}
                                     </li>
                                 </ul>
+                            </div>
+
+                            <div class="sm:hidden">
+                                @if (auth()->user() && in_array($group->id, auth()->user()->groups->pluck('id')->toArray()))
+                                    <a href="#" data-id="{{ $group->id }}"
+                                        class="inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded-lg pointer-events-none hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 join-group">
+                                        Joined
+                                    </a>
+                                @else
+                                    <a href="#" data-id="{{ $group->id }}"
+                                        class="inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 join-group">
+                                        Join Group
+                                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -150,7 +171,7 @@
 
                     </div>
                     <button type="submit"
-                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"

@@ -31,6 +31,7 @@ Route::get('/', function () {
 
 Route::get('/about-us', [InfoPageController::class, 'aboutus'])->name('web.about.us');
 Route::get('/our-purpose', [InfoPageController::class, 'ourpurpose'])->name('web.our.purpose');
+Route::get('/contact-us', [InfoPageController::class, 'contactus'])->name('web.contact.us');
 
 Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.groups');
 
