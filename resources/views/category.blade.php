@@ -229,7 +229,7 @@
                         </li>
 
                     </ul>
-                    <small>Voting ends on 19th of October</small>
+                    <small>Voting ends on 19th of October 2024</small>
                 </div>
             </div>
         </div>
