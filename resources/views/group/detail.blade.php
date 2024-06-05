@@ -28,7 +28,11 @@
                                     </div>
                                     <div class="flex flex-col">
                                         <div>
-                                            <strong>{{ $post->author->name }}</strong>
+                                            @if ($post->author)
+                                                <strong>{{ $post->author->name }}</strong>
+                                            @else
+                                                <strong>Deleted User</strong>
+                                            @endif
                                         </div>
                                         <div>
                                             <small>{{ $post->created_at->diffForHumans() }}</small>
