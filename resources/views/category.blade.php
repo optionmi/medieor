@@ -112,8 +112,8 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
-                <button data-modal-target="start-new-topic" data-modal-toggle="start-new-topic"
-                    class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
+                {{-- <button data-modal-target="start-new-topic" data-modal-toggle="start-new-topic" --}}
+                <button class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
                     Start New Topic
                 </button>
 
