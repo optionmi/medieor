@@ -9,8 +9,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentReplyController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoPageController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,8 @@ use App\Http\Controllers\TopicController;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('home');
-})->name('web.home');
+Route::get('/', [HomeController::class, 'index'])->name('web.home');
+Route::get('/v2', [HomeController::class, 'v2'])->name('web.home-v2');
 
 Route::get('/about-us', [InfoPageController::class, 'aboutus'])->name('web.about.us');
 Route::get('/our-purpose', [InfoPageController::class, 'ourpurpose'])->name('web.our.purpose');
@@ -43,6 +44,8 @@ Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->nam
 
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/my-profile', [UserController::class, 'profile'])->name('web.user.profile');
 
     Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
 

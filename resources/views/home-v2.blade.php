@@ -278,14 +278,28 @@
                         <a href="{{ route('web.air') }}" class="m-2 elementBtn" title="Air"><img src="./img/air.png"
                                 alt="Air" /></a> --}}
 
-                        @foreach ($categories as $category)
+                        {{-- @foreach ($categories as $category)
                             <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
-                                class="elementBtn"><img src={{ asset($category->logo_image) }}
+                                class="elementBtn"
+                                onmouseover="playGif(this,{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.gif') }})"
+                                onmouseout="pauseGif(this,{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }})"><img
+                                    src={{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }}
                                     alt="{{ $category->title }}" />
                                 <p class="elementBtnText">
                                     {{ strtok($category->title, ' ') }}</p>
                             </a>
+                        @endforeach --}}
+                        @foreach ($categories as $category)
+                            <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
+                                class="elementBtn">
+                                <p class="elementBtnText">{{ strtok($category->title, ' ') }}</p>
+                                <img src="{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }}"
+                                    alt="{{ $category->title }}"
+                                    onmouseover="this.src='{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.gif') }}'"
+                                    onmouseout="this.src='{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }}'">
+                            </a>
                         @endforeach
+
                         <a href="{{ route('web.about.us') }}"><img id="logo" src="{{ asset('img/logo.jpg') }}"
                                 alt="logo" /></a>
                     </div>
@@ -296,6 +310,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function playGif(element, src) {
+            element.src = src; // Path to your animated GIF
+        }
+
+        function pauseGif(element, src) {
+            element.src = src; // Path to your static image
+        }
+    </script>
 </body>
 
 </html>
