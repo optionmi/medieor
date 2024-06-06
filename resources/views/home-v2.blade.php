@@ -312,13 +312,13 @@
     </div>
 
     <script>
-        function playGif(element, src) {
-            element.src = src; // Path to your animated GIF
-        }
-
-        function pauseGif(element, src) {
-            element.src = src; // Path to your static image
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            // Preload GIF images
+            @foreach ($categories as $category)
+                new Image().src =
+                    "{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.gif') }}";
+            @endforeach
+        });
     </script>
 </body>
 
