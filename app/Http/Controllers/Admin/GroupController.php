@@ -89,7 +89,7 @@ class GroupController extends Controller
 
         $validator = validator()->make(request()->all(), [
             'title' => 'required|max:100',
-            'description' => 'required|max:500',
+            'description' => 'required',
             'category' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ], [
