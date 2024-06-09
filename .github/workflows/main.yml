@@ -29,7 +29,17 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Deploy to DreamHost
+      - name: Rsync files
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: "."
+          remote_path: "/home/medieor/medieor.earth"
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USER }}
+          remote_key: ${{ secrets.KEY }}
+
+      - name: Post-deployment script
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -37,5 +47,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd /home/medieor/medieor.earth
-            git pull origin main
             php artisan optimize
