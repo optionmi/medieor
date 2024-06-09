@@ -12,7 +12,7 @@ class UserController extends Controller
     public function myProfile()
     {
         $user = auth()->user();
-        $countries = $countries = Countries::lookup('en');
+        $countries = Countries::lookup('en');
         return view('my-profile', compact('user', 'countries'));
     }
 
