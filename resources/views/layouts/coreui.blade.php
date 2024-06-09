@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 
+    @vite(['resources/css/admin.css'])
     @yield('top-scripts')
     @yield('styles')
 </head>
@@ -53,6 +54,12 @@
         @yield('content')
 
         @include('components.coreui.footer')
+    </div>
+
+    <div id="loading" class="d-none">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
 
     <!-- CoreUI and necessary plugins-->

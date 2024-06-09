@@ -1,4 +1,4 @@
-<header class="py-2 text-white bg-primary sticky top-0 z-20">
+<header class="sticky top-0 z-20 flex items-center text-white sm:h-24 bg-primary">
     <div class="container flex flex-col items-center justify-between mx-auto sm:flex-row">
         <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
             <a href="{{ route('web.home') }}">
@@ -17,7 +17,8 @@
                 <li>
                     <button class="flex flex-col items-center gap-1" data-dropdown-toggle="account-dropdown">
                         <div class="flex items-center justify-center w-10 h-10">
-                            <img class="rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="">
+                            <img class="rounded-full" src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
+                                alt="{{ auth()->user()->name }} image">
                         </div>
                         <span>{{ auth()->user()->name }}</span>
                     </button>
@@ -25,6 +26,9 @@
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownDefaultButton">
+                            <li><a href="{{ route('web.user.profile') }}"
+                                    class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                            </li>
                             <li>
                                 {{-- <a href="/logout">Logout</a> --}}
                                 <form action="{{ route('logout') }}" method="POST" class="m-0">

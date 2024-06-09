@@ -7,9 +7,10 @@
 
     <title>@yield('title', 'Medieor')</title>
 
-    <!-- Fonts -->
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
-    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
+    <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
@@ -39,7 +40,6 @@
         @yield('content')
     </div>
 
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     {{-- <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -48,6 +48,7 @@
     {{-- <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
     {{-- <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script> --}}
 
+    @include('partials.loading')
     @yield('scripts')
     <script>
         var $ = jQuery.noConflict();

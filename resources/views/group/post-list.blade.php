@@ -3,7 +3,8 @@
         <div class="flex flex-col gap-4">
             <div class="flex items-center gap-5">
                 <div class="w-12 h-12 bg-gray-400 rounded-full">
-                    <img src="{{ asset('img/no-avatar.png') }}" alt="">
+                    <img src="{{ asset('images/user_avatar/' . $post->author->img) }}"
+                        alt="{{ $post->author->name }} image">
                 </div>
                 <div class="flex flex-col">
                     <div>

@@ -17,16 +17,17 @@
                                 </div>
                             </div>
                             <ul class="flex flex-wrap w-11/12 gap-5 mx-auto">
-                                @foreach ($group->userRequest as $request)
+                                @foreach ($group->userRequest as $user)
                                     <li
                                         class="flex flex-col justify-center gap-3 p-5 bg-white rounded-md shadow-md grp-rqst">
                                         <div class="flex p-2 ">
                                             <div class="w-16 h-16 bg-white rounded-full">
-                                                <img src="{{ asset('img/no-avatar.png') }}" alt="">
+                                                <img src="{{ asset('images/user_avatar/' . $user->img) }}"
+                                                    alt="{{ $user->name }} image">
                                             </div>
                                             <div class="mt-1 ms-5">
                                                 <strong class="text-xl font-bold">
-                                                    {{ $request->name }}
+                                                    {{ $user->name }}
                                                 </strong>
                                                 <div>
                                                     <p>wants to join this group.</p>

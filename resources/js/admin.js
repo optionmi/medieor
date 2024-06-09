@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   $("form").submit(function (e) {
+    $("#loading").toggleClass("d-none");
+    $("body").css("overflow", "hidden");
     e.preventDefault();
     const form = $(this);
     const submitUrl = form.attr("action");
@@ -70,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
       contentType: false,
       processData: false,
       success: function (data) {
+        $("#loading").toggleClass("d-none");
+        $("body").css("overflow", "auto");
         if (data.error == true) {
           toastr.error(data.message, "Admin Panel");
         } else {
@@ -82,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       },
       error: function (error) {
+        $("#loading").toggleClass("d-none");
+        $("body").css("overflow", "auto");
         console.error("Error:", error);
       },
     });

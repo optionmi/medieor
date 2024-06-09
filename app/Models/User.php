@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PeterColes\Countries\CountriesFacade as Countries;
 
 class User extends Authenticatable
 {
@@ -84,5 +85,12 @@ class User extends Authenticatable
         return $this->roles()->whereHas('permissions', function ($query) use ($permission) {
             $query->where('name', $permission);
         })->exists();
+    }
+
+    public function getCountryNameAttribute()
+    {
+        if ($this->country) {
+            return Countries::countryName($this->country, 'en');
+        }
     }
 }

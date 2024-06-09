@@ -16,7 +16,7 @@
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                        <li class="text-sm text-red-500">{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -26,20 +26,32 @@
                             @csrf
                             <div class="mb-5">
                                 <label class="text-sm" for="name">Name</label>
-                                <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Full Name" required />
+                                <input type="text" name="name" id="name"
+                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Full Name" required />
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="email">Email</label>
-                                <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required>
+                                <input type="email" name="email" id="email"
+                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required>
+                            </div>
+                            <div class="mb-5">
+                                <label class="text-sm" for="country">Country</label>
+                                <select name="country" id="country" class="w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="">Select a country</option>
+                                    @foreach ($countries as $code => $name)
+                                        <option value="{{ $code }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="phone">Phone</label>
-                                <input type="number" class="w-full p-2 border border-gray-300 rounded-md"
+                                <input type="number" name="phone" class="w-full p-2 border border-gray-300 rounded-md"
                                     placeholder="10 digit Mobile Number" min="1000000000" max="9999999999" required>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="password">Password</label>
-                                <input type="password" name="password" id="password" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password" required>
+                                <input type="password" name="password" id="password"
+                                    class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password" required>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="password_confirmation">Confirm Password</label>

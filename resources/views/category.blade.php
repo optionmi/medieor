@@ -67,17 +67,7 @@
 
                                     @if ($group->users->count() > 0)
                                         <div class="my-4">
-                                            <h2 class="font-bold text-gray-800">Members</h2>
-                                            <div class="flex my-2 -space-x-4 rtl:space-x-reverse">
-                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
-                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
-                                                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-                                                    src="{{ asset('img/no-avatar.png') }}" alt="">
-                                                <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-                                                    href="#">...</a>
-                                            </div>
+                                            <x-web.members-image :users="$group->users" />
                                         </div>
                                     @endif
                                 </div>

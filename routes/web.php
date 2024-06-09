@@ -45,7 +45,9 @@ Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->nam
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/my-profile', [UserController::class, 'profile'])->name('web.user.profile');
+    Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');
+    Route::post('/update-profile/{user}', [UserController::class, 'updateDetails'])->name('web.update.profile');
+    Route::post('/update-password/{user}', [UserController::class, 'updatePassword'])->name('web.update.password');
 
     Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
 

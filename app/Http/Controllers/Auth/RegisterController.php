@@ -53,6 +53,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'country' => ['required'],
+            'phone' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -74,6 +76,10 @@ class RegisterController extends Controller
         // Assign the 'user' role to the new user
         $role = Role::where('name', 'user')->first();
         $user->roles()->attach($role);
+
+        $user->country = $data['country'];
+        $user->phone = $data['phone'];
+        $user->save();
 
         return $user;
     }

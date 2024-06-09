@@ -1,7 +1,8 @@
 @foreach ($comments as $comment)
     <div id="comment{{ $comment->id }}" data-comment_id="{{ $comment->id }}">
         <div class="flex items-start w-11/12 gap-2">
-            <img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture">
+            <img class="w-8 h-8 rounded-full" src="{{ asset('images/user_avatar/' . $comment->user->img) }}"
+                alt="{{ $comment->user->name }} image">
             <div
                 class="flex flex-col w-full max-w-[320px] leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -34,7 +35,8 @@
 
             @foreach ($visibleReplies as $reply)
                 <div class="flex items-start w-11/12 gap-2 ml-auto reply">
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture">
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('images/user_avatar/' . $reply->user->img) }}"
+                        alt="{{ $reply->user->name }} image">
                     <div
                         class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700">
                         <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -66,8 +68,9 @@
                 <div class="flex-col hidden gap-4 additional-replies ">
                     @foreach ($comment->replies->slice(2) as $reply)
                         <div class="flex items-start w-11/12 gap-2 ml-auto reply">
-                            <img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}"
-                                alt="Profile Picture">
+                            <img class="w-8 h-8 rounded-full"
+                                src="{{ asset('images/user_avatar/' . $reply->user->img) }}"
+                                alt="{{ $reply->user->name }} image">
                             <div
                                 class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700">
                                 <div class="flex items-center space-x-2 rtl:space-x-reverse">

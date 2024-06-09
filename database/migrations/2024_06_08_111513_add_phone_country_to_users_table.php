@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-            $table->string('img')->default('default.png')->before('created_at');
+            $table->string('country')->nullable()->before('created_at');
+            $table->string('phone')->nullable()->before('created_at');
         });
     }
 
@@ -23,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role');
-            $table->dropColumn('img');
+            //
         });
     }
 };

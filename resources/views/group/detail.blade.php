@@ -11,7 +11,8 @@
             <div class="flex flex-col items-center gap-8 mb-10">
                 <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
                     <div class="flex items-center gap-5">
-                        <div class="w-14 h-14"><img src="{{ asset('img/no-avatar.png') }}" alt=""></div>
+                        <div class="w-14 h-14"><img src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
+                                alt="{{ auth()->user()->name }} image"></div>
                         <button data-modal-target="create-post-modal" data-modal-toggle="create-post-modal"
                             class="flex-1 py-4 pl-4 text-left text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-gray-200">Write
                             something...</button>
@@ -24,7 +25,8 @@
                             <div class="flex flex-col gap-4">
                                 <div class="flex items-center gap-5">
                                     <div class="w-12 h-12 bg-gray-400 rounded-full">
-                                        <img src="{{ asset('img/no-avatar.png') }}" alt="">
+                                        <img src="{{ asset('images/user_avatar/' . $post->author->img) }}"
+                                            alt="{{ $post->author->name }} image">
                                     </div>
                                     <div class="flex flex-col">
                                         <div>
@@ -89,8 +91,9 @@
 
                                 @if ($post->comments()->latest()->first())
                                     <div class="flex items-start gap-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}"
-                                            alt="Profile Picture">
+                                        <img class="w-8 h-8 rounded-full"
+                                            src="{{ asset('images/user_avatar/' . $post->comments()->latest()->first()->user->img) }}"
+                                            alt="{{ $post->comments()->latest()->first()->user->name }} image">
                                         <div
                                             class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
                                             <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -631,7 +634,7 @@
                     $j('#replyBox' + commentId).remove();
 
                     var replyDiv =
-                        '<div class="flex items-start w-11/12 gap-2 ml-auto reply"><img class="w-8 h-8 rounded-full" src="{{ asset('img/no-avatar.png') }}" alt="Profile Picture"><div class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700"><div class="flex items-center space-x-2 rtl:space-x-reverse"><span class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span><span class="text-sm font-normal text-gray-500 dark:text-gray-400">Now</span></div><p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
+                        '<div class="flex items-start w-11/12 gap-2 ml-auto reply"><img class="w-8 h-8 rounded-full" src="{{ asset('images/user_avatar/' . auth()->user()->img) }}" alt="{{ auth()->user()->name }} image"><div class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 max-w-[320px] rounded-e-xl rounded-es-xl dark:bg-gray-700"><div class="flex items-center space-x-2 rtl:space-x-reverse"><span class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span><span class="text-sm font-normal text-gray-500 dark:text-gray-400">Now</span></div><p class="py-2 text-sm font-normal text-gray-900 dark:text-white">' +
                         replyText +
                         '</p></div><button data-url="' + response.data.update_url +
                         '"class="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600 edit-button" type="button"><i class="fa-solid fa-pencil"></i></button></div>';
