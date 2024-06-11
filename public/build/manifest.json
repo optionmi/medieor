@@ -5,17 +5,17 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-d213766c.css",
+    "file": "assets/app-c89f67a0.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-6ab0c5c8.js",
+    "file": "assets/admin-49d41f05.js",
     "isEntry": true,
     "src": "resources/js/admin.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-3d2dabe1.js",
+    "file": "assets/app-5d513d74.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

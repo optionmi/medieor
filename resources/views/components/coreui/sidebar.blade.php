@@ -26,6 +26,11 @@
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
                 </svg> Categories</a></li>
 
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.donations') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
+                </svg> Donations</a></li>
+
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-info') }}"></use>

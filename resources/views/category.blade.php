@@ -8,12 +8,7 @@
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
                     class="absolute left-0 right-0 flex flex-col items-center w-full p-5 text-3xl text-white top-60 sm:text-6xl sm:bottom-60 sm:right-20 banner-content">
-                    <h1>The contribution of</h1>
-                    <h1>({{ $category->title }})</h1>
-                    <h1>
-                        in <span class="font-bold">healing</span> the
-                        <span class="font-bold"> earth</span>
-                    </h1>
+                    {!! $category->img_text !!}
                 </div>
             </div>
             <div class="absolute left-0 right-0 z-10 flex items-end justify-around h-24 bottom-10">
@@ -39,8 +34,7 @@
                 </div>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
-                        <span class="text-3xl sm:text-5xl">54+</span>
-                        <br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->groups->count() }}+</span><br />
                         <span class="text-lg sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
@@ -48,7 +42,7 @@
                         <span class="text-lg sm:text-2xl"> Upcoming Events</span>
                     </p>
                     <p>
-                        <span class="text-3xl sm:text-5xl">1000+</span> <br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->users->count() }}+</span> <br />
                         <span class="text-lg sm:text-2xl"> Registered Members</span>
                     </p>
                 </div>
@@ -58,12 +52,16 @@
                     <h1 class="pb-5 text-3xl border-b-2 border-gray-600">
                         Last Active Groups
                     </h1>
-                    <ul>
+                    <ul class="max-h-[35rem] overflow-auto">
                         @foreach ($category->groups as $group)
-                            <li class="flex justify-between py-5 border-b-2 border-gray-600">
+                            <li class="py-5 border-b-2 border-gray-600 ">
                                 <div>
                                     <h2 class="text-xl">{{ $group->title }}</h2>
-                                    <span class="text-gray-500">Public Group</span>
+                                    <div class="flex gap-1 text-xs text-gray-500 sm:text-sm">
+                                        <span class="text-gray-500">Public Group</span>●
+                                        <span>Created {{ $group->created_at->diffForHumans() }}</span>●
+                                        <span>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</span>
+                                    </div>
 
                                     @if ($group->users->count() > 0)
                                         <div class="my-4">
@@ -71,17 +69,22 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="text-gray-500 text-end">
-                                    <span>Created {{ $group->created_at->diffForHumans() }}</span>
-                                    <br />
-                                    <span>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</span>
-                                </div>
                             </li>
                         @endforeach
                     </ul>
                     <div class="flex justify-center my-5">
                         <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm"
                             href="{{ route('web.groups', $category->id) }}">Explore Groups</a>
+                    </div>
+                </div>
+
+                <div
+                    class="flex items-center justify-center my-5 transition-all duration-300 border shadow-lg hover:shadow-xl hover:bg-primary">
+                    <div class="flex flex-col items-center gap-4 py-10">
+                        <div class="w-24">
+                            <img src="{{ asset('img/event_icon.png') }}" alt="">
+                        </div>
+                        <h1 class="text-xl">Upcoming Events</h1>
                     </div>
                 </div>
             </div>
@@ -103,16 +106,17 @@
                     </div>
                 </div>
                 {{-- <button data-modal-target="start-new-topic" data-modal-toggle="start-new-topic" --}}
-                <button class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
+                {{-- <button class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
                     Start New Topic
-                </button>
+                </button> --}}
 
-                <div class="p-3">
+                {{-- <div class="p-3">
                     <i class="fa-solid fa-envelope fa-xl text-[#ced2d3]"></i>
-                </div>
-                <div>
-                    <img src="{{ asset('img/no-avatar.png') }}" width="48" height="48" alt="avatar" />
-                </div>
+                </div> --}}
+                {{-- <div>
+                    <img src="{{ asset('images/user_avatar/' . auth()->user()->img) }}" width="48" height="48"
+                        alt="avatar" />
+                </div> --}}
             </div>
         </div>
 
@@ -225,7 +229,166 @@
         </div>
     </section>
 
-    @include('partials.footer')
+    <section class="my-5 bg-[#ecf0f1] py-10 px-2">
+        <div class="container mx-auto">
+            <h1 class="my-10 text-5xl">
+                How can I <span class="font-bold">"Heal My Earth"</span>
+            </h1>
+        </div>
+
+        <div class="container p-5 mx-auto bg-white rounded-md shadow-md">
+            @auth
+                <form action="{{ route('web.donation.submission', $category->id) }}" method="POST" class="smoothSubmit">
+                    @csrf
+                @endauth
+                <label class="my-5 text-gray-600" for="action">Heal it by</label>
+                <select class="w-full mt-5 mb-2" name="action" id="action" required>
+                    <option value="">Select action</option>
+                    <option value="Giving your time">Giving your time</option>
+                    <option value="Joining the Group">Joining the Group</option>
+                    <option value="Sharing useful clip & Information regarding your and other activities of healing">
+                        Sharing
+                        useful clip & Information regarding your and other activities of healing</option>
+                    <option value="Creating Event (online & Offline)">Creating Event (online & Offline)</option>
+                    <option value="Raising funds for various projects that excites you">Raising funds for various projects
+                        that
+                        excites you</option>
+                </select>
+                <p class="hidden text-xs text-red-500 error" id="error-action">Please select a action first, it is
+                    required</p>
+                <div class="my-5">
+                    @if (auth()->check())
+                        <button class="px-5 py-2 font-semibold text-white rounded-md bg-primary hover:shadow-md"
+                            type="submit">Submit</button>
+                    @else
+                        <button class="px-5 py-2 font-semibold text-white rounded-md bg-primary hover:shadow-md"
+                            type="button" id="showDonationSubmitModalBtn">Submit</button>
+                    @endif
+                </div>
+                @auth
+                </form>
+            @endauth
+        </div>
+    </section>
+
+    @include('partials.misc.footer')
+
+    {{-- -modal --}}
+
+
+
+    <!-- donationSubmitModal modal -->
+    <div id="donationSubmitModal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-3xl max-h-full p-4">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Please Fill the Following Details
+                    </h3>
+                    <button type="button"
+                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-toggle="donationSubmitModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form action="{{ route('web.donation.submission', $category->id) }}" method="POST"
+                    class="p-4 md:p-5 smoothSubmit">
+                    @csrf
+                    <input type="hidden" name="action" id="actionHidden">
+                    <div class="flex flex-col gap-4 mb-4">
+                        <div class="flex flex-col gap-4 sm:flex-row">
+                            <div class="w-full sm:w-1/2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <input type="text" name="name" id="name"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Your Name" required="true">
+                                <p class="text-xs text-red-500 error" id="error-name"></p>
+                            </div>
+                            <div class="w-full sm:w-1/2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" name="email" id="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Your Email" required="true">
+                                <p class="text-xs text-red-500 error" id="error-email"></p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4 sm:flex-row">
+                            <div class="w-full sm:w-1/2">
+                                <label for="country"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                                <select id="country" name="country"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option value="">Select your country</option>
+                                    @foreach ($countries as $code => $name)
+                                        <option value="{{ $code }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                <p class="text-xs text-red-500 error" id="error-country"></p>
+                            </div>
+                            <div class="w-full sm:w-1/2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                <input type="number" name="phone" id="phone"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Your Phone Number" required="true" min="1000000000" max="9999999999">
+                                <p class="text-xs text-red-500 error" id="error-phone"></p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4 sm:flex-row">
+                            <div class="w-full sm:w-1/2">
+                                <label for="register"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Register your
+                                    account?</label>
+                                <select id="register" name="register"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required="true">
+                                    <option value="">Select Yes/No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <p class="text-xs text-red-500 error" id="error-register"></p>
+                            </div>
+                        </div>
+                        <div class="flex-col hidden gap-4 sm:flex-row" id="password">
+                            <div class="w-full sm:w-1/2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passoword</label>
+                                <input type="password" name="password" id="password"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Your Password">
+                                <p class="text-xs text-red-500 error" id="error-password"></p>
+                            </div>
+                            <div class="w-full sm:w-1/2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                                    Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Confirm Your Password">
+                                <p class="text-xs text-red-500 error" id="error-password_confirmation"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="text-white bg-primary hover:shadow-md w-full font-semibold rounded-lg px-5 py-2.5">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <!-- start-new-topic modal -->
     {{-- <div id="start-new-topic" tabindex="-1" aria-hidden="true"
@@ -296,7 +459,7 @@
                             container.append(`<li
                         class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
                         <div class="w-20 h-20 bg-white rounded-full shrink-0">
-                            <img src="{{ asset('img/no-avatar.png') }}" alt="avatar" />
+                            <img src="{{ asset('images/user_avatar/default.png') }}" alt="avatar" />
                         </div>
 
                         <div class="flex-grow">

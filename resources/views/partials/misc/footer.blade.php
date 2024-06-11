@@ -1,12 +1,12 @@
-<footer class="bg-gray-100">
-    <div class="container px-5 py-10 mx-auto text-gray-600">
+<footer class="text-white bg-primary">
+    <div class="container px-5 py-10 mx-auto">
         <div class="flex flex-col items-center gap-10 sm:items-end sm:flex-row">
             <div class="sm:w-1/2">
                 <ul>
-                    <li class="underline"><a href="#">Media</a></li>
-                    <li class="underline"><a href="#">Contact</a></li>
-                    <li class="underline"><a href="#">About</a></li>
-                    <li class="underline"><a href="#">Daily Activity</a></li>
+                    <li><a class="hover:underline" href="{{ route('web.home') }}">Home</a></li>
+                    <li><a class="hover:underline" href="{{ route('web.about.us') }}">About Us</a></li>
+                    <li><a class="hover:underline" href="{{ route('web.our.purpose') }}">Our Purpose</a></li>
+                    <li><a class="hover:underline" href="{{ route('web.contact.us') }}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="sm:w-1/2">

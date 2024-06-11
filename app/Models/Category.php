@@ -15,4 +15,16 @@ class Category extends Model
     {
         return $this->hasMany(Group::class, 'category_id');
     }
+
+    public function users()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            Group::class,
+            'category_id', // Foreign key on the groups table.
+            'id',          // Foreign key on the group_user table.
+            'id',          // Local key on the categories table.
+            'id'           // Local key on the groups table (to be used with group_user.group_id).
+        );
+    }
 }

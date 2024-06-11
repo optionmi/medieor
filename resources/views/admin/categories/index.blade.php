@@ -110,10 +110,18 @@
         const quill1 = new Quill("#description", {
             theme: "snow",
         });
+        const quill2 = new Quill("#imgText", {
+            theme: "snow",
+        });
         $('.modal').on('shown.coreui.modal', function() {
             quill1.root.innerHTML = $('#hiddenDescription').val();
             quill1.on('text-change', function(delta, oldDelta, source) {
                 $('#hiddenDescription').val(quill1.root.innerHTML);
+            });
+
+            quill2.root.innerHTML = $('#hiddenImgText').val();
+            quill2.on('text-change', function(delta, oldDelta, source) {
+                $('#hiddenImgText').val(quill2.root.innerHTML);
             });
         });
     </script>

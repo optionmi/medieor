@@ -37,7 +37,7 @@
                             <div class="mb-5">
                                 <label class="text-sm" for="country">Country</label>
                                 <select name="country" id="country" class="w-full p-2 border border-gray-300 rounded-md">
-                                    <option value="">Select a country</option>
+                                    <option value="">Select your country</option>
                                     @foreach ($countries as $code => $name)
                                         <option value="{{ $code }}">{{ $name }}</option>
                                     @endforeach
@@ -46,7 +46,7 @@
                             <div class="mb-5">
                                 <label class="text-sm" for="phone">Phone</label>
                                 <input type="number" name="phone" class="w-full p-2 border border-gray-300 rounded-md"
-                                    placeholder="10 digit Mobile Number" min="1000000000" max="9999999999" required>
+                                    placeholder="Your Phone Number" min="1000000000" max="9999999999" required>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="password">Password</label>

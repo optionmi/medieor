@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-20 flex items-center text-white sm:h-24 bg-primary">
+<header class="sticky top-0 z-30 flex items-center text-white sm:h-24 bg-primary">
     <div class="container flex flex-col items-center justify-between mx-auto sm:flex-row">
         <div class="flex items-center gap-2 px-4 py-2 sm:w-3/5">
             <a href="{{ route('web.home') }}">

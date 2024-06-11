@@ -3,13 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\GroupController;
-
-use App\Http\Controllers\Admin\TopicController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DonationController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\InfoPageController;
+use App\Http\Controllers\Admin\TopicController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/login', function () {
     return view('admin.login');
@@ -25,6 +25,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');
     Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::get('/categories/data', [CategoryController::class, 'datatable'])->name('admin.categories.data');
+
+    Route::get('/donations', [DonationController::class, 'index'])->name('admin.donations');
+    Route::get('/donations-datatable', [DonationController::class, 'datatable'])->name('admin.donations.datatable');
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
     Route::get('/users-datatable', [UserController::class, 'datatable'])->name('admin.users.datatable');

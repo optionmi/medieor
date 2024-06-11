@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('partials.header')
-    <div class="p-4 bg-gray-200">
+    <div class="p-4 bg-gray-200 min-h-[calc(100vh-6rem)]">
         <div class="container mx-auto ">
             <div class="my-5">
                 <h1 class="text-4xl font-bold">Group Join Requests</h1>
@@ -9,6 +9,8 @@
 
             <div class="flex flex-col gap-8 mb-10">
                 @foreach ($groups as $group)
+                    <h1 class="border-b border-gray-400">{{ $group->title }}</h1>
+
                     @if ($group->userRequest->count() > 0)
                         <div class="pb-10 border-b border-gray-400">
                             <div class="w-11/12 mx-auto">
@@ -48,6 +50,8 @@
                                 @endforeach
                             </ul>
                         </div>
+                    @else
+                        <p class="text-2xl text-center">No pending requests</p>
                     @endif
                 @endforeach
             </div>
@@ -55,7 +59,7 @@
         </div>
     </div>
 
-    @include('partials.footer')
+    {{-- @include('partials.footer') --}}
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

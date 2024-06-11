@@ -125,6 +125,7 @@ class CategoryController extends Controller
             'description' => 'required',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+            'img_text' => 'required',
         ], [
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
@@ -137,7 +138,7 @@ class CategoryController extends Controller
         $data = [
             'title' => request()->get('title'),
             'description' => request()->get('description'),
-
+            'img_text' => request()->get('img_text'),
         ];
 
         if ($request->hasFile('logo')) {

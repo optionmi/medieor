@@ -37,6 +37,7 @@ Route::get('/contact-us', [InfoPageController::class, 'contactus'])->name('web.c
 Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.groups');
 
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
+Route::post('/donation-submission/{id}', [CategoryController::class, 'donationSubmission'])->name('web.donation.submission');
 
 
 Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');

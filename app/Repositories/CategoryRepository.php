@@ -56,7 +56,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                         type="button" title="Edit" data-coreui-toggle="modal"
                         data-coreui-target="#categoryUpdate"
                         data-update-route="' . route('admin.categories.update', $category->id) . '"
-                        data-row-data="' . htmlspecialchars(json_encode(array($category->title, $category->description))) . '">
+                        data-row-data="' . htmlspecialchars(json_encode(array($category->title, $category->description, $category->img_text))) . '">
                         <svg class="icon icon-lg text-primary">
                             <use
                                 xlink:href="' . url('coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil') . '">

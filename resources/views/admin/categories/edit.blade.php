@@ -31,6 +31,12 @@
                         <label class="form-label" for="banner">Banner</label>
                         <input class="form-control" id="banner" type="file" name="image" accept="image/*">
                     </div>
+                    <div class="mb-3">
+                        <label for="imgText" class="form-label">Banner Text</label>
+                        <div id="imgText">
+                        </div>
+                        <input class="updateDataField" id="hiddenImgText" type="hidden" name="img_text">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Close</button>

@@ -108,7 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
       .map(function (val, index) {
         return {
           data:
-            $(this).text() === "#" ? "serial" : $(this).text().toLowerCase(),
+            $(this).text() === "#"
+              ? "serial"
+              : $(this).text() === "Category"
+              ? "category.title"
+              : $(this).text().toLowerCase(),
           name: $(this).text(),
           searchable: $(this).text() !== "#" && $(this).text() !== "Actions",
           orderable: $(this).text() !== "Actions",

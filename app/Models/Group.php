@@ -11,7 +11,7 @@ class Group extends Model
 
     protected $guarded = ['id'];
 
-    public function Categories()
+    public function category()
     {
         return $this->belongsTo(\App\Models\Category::class, 'category_id');
     }
