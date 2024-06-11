@@ -25,25 +25,25 @@
     <main class="container mx-auto my-5">
         <section class="flex flex-col justify-between gap-5 sm:flex-row ">
             <div class="w-full p-5 sm:w-3/5">
-                <h1 class="text-4xl leading-section-1 sm:text-5xl">
-                    My Contribution in healing <br />
+                <h1 class="text-2xl sm:text-5xl">
+                    My Contribution in healing
                     <span class="font-bold"> {{ $category->title }}</span>
                 </h1>
-                <div class="my-5 text-2xl">
+                <div class="my-5 text-xl sm:text-2xl">
                     {!! $category->description !!}
                 </div>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
                         <span class="text-3xl sm:text-5xl">{{ $category->groups->count() }}+</span><br />
-                        <span class="text-lg sm:text-2xl"> Community Groups</span>
+                        <span class="sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
                         <span class="text-3xl sm:text-5xl">27+</span> <br />
-                        <span class="text-lg sm:text-2xl"> Upcoming Events</span>
+                        <span class="sm:text-2xl"> Upcoming Events</span>
                     </p>
                     <p>
                         <span class="text-3xl sm:text-5xl">{{ $category->users->count() }}+</span> <br />
-                        <span class="text-lg sm:text-2xl"> Registered Members</span>
+                        <span class="sm:text-2xl"> Registered Members</span>
                     </p>
                 </div>
             </div>
@@ -93,7 +93,7 @@
 
     <section class="my-5 bg-[#ecf0f1] py-10 px-2">
         <div class="container mx-auto">
-            <h1 class="my-10 text-5xl">
+            <h1 class="px-5 my-10 text-3xl sm:text-5xl">
                 My Forward to the <span class="font-bold">Healing</span>
             </h1>
         </div>
@@ -231,8 +231,8 @@
 
     <section class="my-5 bg-[#ecf0f1] py-10 px-2">
         <div class="container mx-auto">
-            <h1 class="my-10 text-5xl">
-                How can I <span class="font-bold">"Heal My Earth"</span>
+            <h1 class="px-5 my-10 text-3xl sm:text-5xl">
+                How can I <span class="font-bold">Heal My Earth</span>
             </h1>
         </div>
 

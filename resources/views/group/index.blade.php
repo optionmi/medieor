@@ -24,14 +24,14 @@
                         <div class="w-full px-6 py-4 sm:w-3/4">
                             <div class="flex justify-between">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-20 h-20">
+                                    <div class="flex-grow-0 flex-shrink-0 w-20 h-20">
                                         <a href="#" class="object-cover">
                                             <img class="object-cover h-full rounded-full"
                                                 src="{{ asset($group->image_path) }}" alt="" />
                                         </a>
                                     </div>
                                     <div>
-                                        <h1 class="text-2xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white">
                                             {{ $group->title }}</h1>
                                         <small>Public Group</small> ●
                                         <small>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>

@@ -18,7 +18,7 @@
                         <i class="fa-brands fa-x-twitter fa-2xl"></i>
                         <i class="fa-brands fa-linkedin fa-2xl"></i>
                     </div>
-                    <p>Copyright © {{ date('Y') }} Medieor. All rights reserved</p>
+                    <p class="text-sm">Copyright © {{ date('Y') }} Medieor. All rights reserved</p>
                 </div>
             </div>
         </div>

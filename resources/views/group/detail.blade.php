@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('partials.header')
-    <div class="p-4 bg-gray-200">
+    <div class="p-4 bg-gray-200 min-h-[calc(100vh-6rem)]">
         <div class="container mx-auto ">
             <div class="my-5">
                 <h1 class="text-4xl font-bold">{{ $group->title }}</h1>

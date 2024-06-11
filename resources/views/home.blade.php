@@ -8,7 +8,7 @@
     <title>Medieor</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+    @vite(['resources/css/home.css'])
     <!-- Alpine js -->
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     <script defer src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
@@ -83,80 +83,68 @@
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
-                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                </div>
+                            <div class="p-3 shadow card">
+                                <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Will pollution win or you will win in wiping it out
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Will pollution win or you will win in wiping it out
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Let us make a waters blue, not brown
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Let us make a waters blue, not brown
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Environment is a gift to us, save and secure it
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Environment is a gift to us, save and secure it
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Consume responsibly to get your health back
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Consume responsibly to get your health back
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Environment is for enjoying, not for destroying
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Environment is for enjoying, not for destroying
+                                </h4>
                             </div>
                         </div>
 
                     </div>
-                    <p id="tagline" class="mt-5 text-center">
-                        WE WILL 'HEAL IT TOGETHER'
-                    </p>
                 </div>
+                <p id="tagline" class="text-center">
+                    WE WILL 'HEAL IT TOGETHER'
+                </p>
                 <!-- Default Tab -->
                 {{-- <div class="mt-5 flex-column justify-content-between" :class="activeTab == 0 ? 'd-flex' : 'd-none'"
                     x-clock>

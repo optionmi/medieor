@@ -55,30 +55,33 @@ document.addEventListener("DOMContentLoaded", function () {
     "#showDonationSubmitModalBtn"
   );
 
-  const donationSubmitModal = new Modal(
-    document.getElementById("donationSubmitModal")
-  );
+  if (showDonationSubmitModalBtn) {
+    const donationSubmitModalElement = document.getElementById(
+      "donationSubmitModal"
+    );
+    const donationSubmitModal = new Modal(donationSubmitModalElement);
 
-  showDonationSubmitModalBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const action = document.getElementById("action").value.trim();
-    const errorElement = document.getElementById("error-action");
+    showDonationSubmitModalBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const action = document.getElementById("action").value.trim();
+      const errorElement = document.getElementById("error-action");
 
-    errorElement.classList.toggle("hidden", action !== "");
+      errorElement.classList.toggle("hidden", action !== "");
 
-    if (action) {
-      donationSubmitModal.show();
+      if (action) {
+        donationSubmitModal.show();
 
-      const actionHidden = document.getElementById("actionHidden");
-      actionHidden.value = action;
+        const actionHidden = document.getElementById("actionHidden");
+        actionHidden.value = action;
 
-      const whetherRegisterSelect = document.getElementById("register");
-      whetherRegisterSelect.addEventListener("change", (e) => {
-        const whetherRegister = e.target.value;
-        const passwordElement = document.querySelector("#password");
-        passwordElement.classList.toggle("flex", whetherRegister === "yes");
-        passwordElement.classList.toggle("hidden", whetherRegister === "no");
-      });
-    }
-  });
+        const whetherRegisterSelect = document.getElementById("register");
+        whetherRegisterSelect.addEventListener("change", (e) => {
+          const whetherRegister = e.target.value;
+          const passwordElement = document.querySelector("#password");
+          passwordElement.classList.toggle("flex", whetherRegister === "yes");
+          passwordElement.classList.toggle("hidden", whetherRegister === "no");
+        });
+      }
+    });
+  }
 }); // DOMContentLoaded
