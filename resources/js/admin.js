@@ -112,6 +112,8 @@ document.addEventListener("DOMContentLoaded", function () {
               ? "serial"
               : $(this).text() === "Category"
               ? "category.title"
+              : $(this).text() === "Categories"
+              ? "categories_names"
               : $(this).text().toLowerCase(),
           name: $(this).text(),
           searchable: $(this).text() !== "#" && $(this).text() !== "Actions",

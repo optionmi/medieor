@@ -93,4 +93,31 @@ class User extends Authenticatable
             return Countries::countryName($this->country, 'en');
         }
     }
+
+    // public function categories()
+    // {
+    //     return $this->hasManyThrough(
+    //         Category::class,
+    //         Group::class,
+    //         'category_id', // Foreign key on the groups table.
+    //         'id',          // Foreign key on the group_user table.
+    //         'id',          // Local key on the categories table.
+    //         'id'           // Local key on the groups table (to be used with group_user.group_id).
+    //     );
+    // }
+    // public function categories()
+    // {
+    //     return $this->hasManyThrough(
+    //         Category::class,
+    //         GroupUser::class,
+    //         'user_id', // Foreign key on Groups table...
+    //         'id', // Foreign key on Categories table...
+    //         'id', // Local key on Users table...
+    //         'id' // Local key on Groups table...
+    //     );
+    // }
+    public function getCategoriesAttribute()
+    {
+        return $this->groups()->with('category')->get()->pluck('category')->unique('id');
+    }
 }

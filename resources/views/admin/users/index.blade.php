@@ -13,6 +13,9 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Categories</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>

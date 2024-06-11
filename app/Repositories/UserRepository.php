@@ -48,6 +48,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $users->map(function ($user, $key) use ($start) {
             $user->serial = $start + 1 + $key;
+            $user->categories_names = $user->categories->pluck('title')->implode('</br>');
+            $user->country = $user->country_name;
             // <button
             //     class="px-2 py-2 btn btn-link nav-link d-flex align-items-center edit-btn"
             //     type="button" title="Edit" data-coreui-toggle="modal"
