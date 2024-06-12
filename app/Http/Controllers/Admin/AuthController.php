@@ -48,14 +48,19 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendLoginResponse(Request $request)
+    // protected function sendLoginResponse(Request $request)
+    // {
+    //     $request->session()->regenerate();
+
+    //     $this->clearLoginAttempts($request);
+
+    //     return $this->authenticated($request, $this->guard()->user())
+    //         ?: redirect()->intended($this->redirectPath());
+    // }
+
+    protected function authenticated(Request $request, $user)
     {
-        $request->session()->regenerate();
-
-        $this->clearLoginAttempts($request);
-
-        return $this->authenticated($request, $this->guard()->user())
-            ?: redirect($this->redirectPath());
+        return redirect('/admin/dashboard');
     }
 
     /**
@@ -63,8 +68,8 @@ class AuthController extends Controller
      *
      * @return string
      */
-    public function redirectPath()
-    {
-        return $this->redirectTo;
-    }
+    // public function redirectPath()
+    // {
+    //     return $this->redirectTo;
+    // }
 }
