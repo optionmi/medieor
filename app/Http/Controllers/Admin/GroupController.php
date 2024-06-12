@@ -106,6 +106,7 @@ class GroupController extends Controller
             'description' => request()->get('description'),
             'status' => request()->get('status'),
             'category_id' => request()->get('category'),
+            'created_by' => auth()->user()->id
         ];
 
         if ($request->hasFile('image')) {
@@ -255,5 +256,32 @@ class GroupController extends Controller
         }
 
         return response()->json(['error' => 0, 'message' => 'Join request ' . $msg . ' successfully']);
+    }
+
+    public function members(Request $request, Group $group)
+    {
+        return view('admin.groups.members', compact('group'));
+    }
+
+    public function membersDatatable(Request $request, Group $group)
+    {
+
+        $start = request()->get('start');
+        $length = request()->get('length');
+        $sortColumn = request()->get('order')[0]['name'] ?? 'id';
+        $sortDirection = request()->get('order')[0]['dir'] ?? 'asc';
+        $searchValue = request()->get('search')['value'];
+
+        $count = $this->group->membersPaginated($group, $start, $length, $sortColumn, $sortDirection, $searchValue, true);
+        $members = $this->group->membersPaginated($group, $start, $length, $sortColumn, $sortDirection, $searchValue);
+
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $members
+        );
+
+        return response()->json($data);
     }
 }

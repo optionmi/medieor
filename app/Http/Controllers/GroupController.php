@@ -38,7 +38,7 @@ class GroupController extends Controller
     public function index($id)
     {
         $category = $this->category->find($id);
-        $groups = $category->groups;
+        $groups = $category->active_groups;
         return view('group.index', compact('groups', 'category'));
     }
 
@@ -61,7 +61,7 @@ class GroupController extends Controller
             'title' => $request->name,
             'description' => $request->description,
             'category_id' => $request->category_id,
-            'created_by' => auth()->id(),
+            'created_by' => auth()->user()->id,
         ];
 
         if ($request->hasFile('image')) {

@@ -53,7 +53,9 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
     {
         return $groups->map(function ($group, $key) use ($start) {
             $group->serial = $start + 1 + $key;
-            $group->Categories;
+            $group->category;
+            $group->members = "<a target='_blank' href=" . route('admin.group.members', $group->id) . ">" . $group->users->count() . "</a>";
+            $group->created_by = $group->owner ? $group->owner->name : null;
             $group->created_at_formated = $group->created_at->format('d M, Y');
             $group->status_formated = $group->status == 1 ? 'Active' : 'Inactive';
             $group->image_formated = $group->image_path ? (filter_var($group->image_path, FILTER_VALIDATE_URL) ?
@@ -91,5 +93,36 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
     public function allActive()
     {
         return $this->group->where('status', 1)->get();
+    }
+
+    public function membersPaginated($group, $start, $length, $sortColumn, $sortDirection, $searchValue, $countOnly = false)
+    {
+        // Use the 'query' method to get a query builder instance for the 'users' relationship
+        $query = $group->users()->select('users.*', 'group_user.group_id as pivot_group_id', 'group_user.user_id as pivot_user_id');
+
+        if (!empty($searchValue)) {
+            $query->where(function ($q) use ($searchValue) {
+                $q->orWhere('users.name', 'LIKE', "%{$searchValue}%");
+                $q->orWhere('users.email', 'LIKE', "%{$searchValue}%");
+            });
+        }
+
+        if (!empty($sortColumn)) {
+            $sortColumn = strtolower($sortColumn) === '#' ? 'users.id' : 'users.' . strtolower($sortColumn);
+            $query->orderBy($sortColumn, $sortDirection);
+        }
+
+        if ($countOnly) {
+            // Return the count directly from the query
+            return $query->count();
+        }
+
+        // Apply pagination parameters
+        $users = $query->skip($start)->take($length)->get();
+
+        // Modify the collection if needed
+        $users = UserRepository::CollectionModifier($users, $start);
+
+        return $users;
     }
 }

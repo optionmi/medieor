@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -51,6 +50,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/all', [GroupController::class, 'index'])->name('admin.group.index');
         Route::get('/delete-group/{id}', [GroupController::class, 'destroy'])->name('admin.group.destroy');
         Route::post('/store', [GroupController::class, 'store'])->name('admin.group.store');
+
+        Route::get('/group-members/{group}', [GroupController::class, 'members'])->name('admin.group.members');
+        Route::get('/group-members-datatable/{group}', [GroupController::class, 'membersDatatable'])->name('admin.group.members.datatable');
 
 
         Route::get('/join-requests', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');

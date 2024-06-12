@@ -20,10 +20,12 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Status</th>
                                 <th scope="col">Image</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Members</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Created on</th>
+                                <th scope="col">Created by</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -75,12 +77,26 @@
                         // "width": "40%"
                     },
                     {
-                        data: 'categories.title',
+                        data: 'image_formated',
+                        name: 'image_formated',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'category.title',
                         name: 'Category',
                         searchable: true,
                         orderable: true,
                         defaultContent: 'NA',
                         // "width": "40%"
+                    },
+                    {
+                        data: 'members',
+                        name: 'members',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
                     },
                     {
                         data: 'status_formated',
@@ -90,17 +106,17 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'image_formated',
-                        name: 'image_formated',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
-                    {
                         data: 'created_at_formated',
                         name: 'created_at_formated',
                         searchable: true,
                         orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'created_by',
+                        name: 'created_by',
+                        searchable: false,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {
