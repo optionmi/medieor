@@ -3,7 +3,7 @@
     <main class="bg-gray-200">
         <div class="container h-screen mx-auto">
             <div class="flex items-center justify-center h-full p-2">
-                <div class="px-10 py-5 bg-white border border-gray-100 rounded-md shadow-lg">
+                <div class="max-w-lg px-10 py-5 bg-white border border-gray-100 rounded-md shadow-lg">
                     <div class="flex flex-col items-center justify-center">
                         <div class="mb-5">
                             <a href="/">
@@ -42,6 +42,8 @@
                                         <option value="{{ $code }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
+                                <span class="text-xs text-blue-500">By sharing your location, you enable us to tailor our
+                                    services to better match your local interests.</span>
                             </div>
                             <div class="mb-5">
                                 <label class="text-sm" for="phone">Phone</label>

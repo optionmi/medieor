@@ -38,12 +38,12 @@
                         <span class="sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
-                        <span class="text-3xl sm:text-5xl">27+</span> <br />
-                        <span class="sm:text-2xl"> Upcoming Events</span>
-                    </p>
-                    <p>
                         <span class="text-3xl sm:text-5xl">{{ $category->users->count() }}+</span> <br />
                         <span class="sm:text-2xl"> Registered Members</span>
+                    </p>
+                    <p>
+                        <span class="text-3xl sm:text-5xl">27+</span> <br />
+                        <span class="sm:text-2xl"> Upcoming Events</span>
                     </p>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         Last Active Groups
                     </h1>
                     <ul class="max-h-[35rem] overflow-auto">
-                        @foreach ($category->groups as $group)
+                        @foreach ($category->active_groups as $group)
                             <li class="py-5 border-b-2 border-gray-600 ">
                                 <div>
                                     <h2 class="text-xl">{{ $group->title }}</h2>
@@ -334,6 +334,8 @@
                                         <option value="{{ $code }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
+                                <span class="text-xs text-blue-500">By sharing your location, you enable us to tailor our
+                                    services to better match your local interests.</span>
                                 <p class="text-xs text-red-500 error" id="error-country"></p>
                             </div>
                             <div class="w-full sm:w-1/2">
