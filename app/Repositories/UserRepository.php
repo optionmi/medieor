@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $users;
     }
 
-    public function collectionModifier($users, $start)
+    public static function collectionModifier($users, $start)
     {
         return $users->map(function ($user, $key) use ($start) {
             $user->serial = $start + 1 + $key;
