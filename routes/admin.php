@@ -28,9 +28,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/donations', [DonationController::class, 'index'])->name('admin.donations');
     Route::get('/donations-datatable', [DonationController::class, 'datatable'])->name('admin.donations.datatable');
 
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
-    Route::get('/users-datatable', [UserController::class, 'datatable'])->name('admin.users.datatable');
-    Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Users
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.users');
+        Route::get('/users-datatable', [UserController::class, 'datatable'])->name('admin.users.datatable');
+        Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+        Route::get('/reset-password/{user}', [UserController::class, 'resetPassword'])->name('admin.users.reset.password');
+    });
 
 
     // Info Pages

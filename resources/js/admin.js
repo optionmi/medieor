@@ -141,5 +141,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Reset User's Password
+  $(document).on("click", "[data-password-reset-route]", function (e) {
+    const route = $(this).data("password-reset-route");
+    fetch(route)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error == true) {
+          toastr.error(data.message, "Admin Panel");
+        } else {
+          toastr.success(data.message, "Admin Panel");
+        }
+      });
+  });
+
   // DOMContentLoaded
 });

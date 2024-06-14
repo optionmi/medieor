@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -46,5 +48,13 @@ class UserController extends Controller
     {
         $this->user->delete($id);
         return response()->json(['error' => 0, 'message' => 'User deleted successfully']);
+    }
+
+    public function resetPassword(Request $request, User $user)
+    {
+        $user->password = Hash::make($user->email);
+        $user->save();
+
+        return response()->json(['message' => 'Password Reset Successful']);
     }
 }
