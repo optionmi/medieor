@@ -1,7 +1,26 @@
 {
+  "_jquery-b1664d58.js": {
+    "file": "assets/jquery-b1664d58.js"
+  },
+  "public/fonts/Montserrat-Regular.ttf": {
+    "file": "assets/Montserrat-Regular-c3fb0280.ttf",
+    "src": "public/fonts/Montserrat-Regular.ttf"
+  },
   "public/fonts/somethingwild-Regular.woff": {
     "file": "assets/somethingwild-Regular-19ca8438.woff",
     "src": "public/fonts/somethingwild-Regular.woff"
+  },
+  "public/img/1.png": {
+    "file": "assets/1-eb487031.png",
+    "src": "public/img/1.png"
+  },
+  "public/img/2.png": {
+    "file": "assets/2-52593e22.png",
+    "src": "public/img/2.png"
+  },
+  "public/img/3.png": {
+    "file": "assets/3-e32b04cf.png",
+    "src": "public/img/3.png"
   },
   "public/img/bg.jpg": {
     "file": "assets/bg-da0f907b.jpg",
@@ -13,9 +32,14 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-7e2c0691.css",
+    "file": "assets/app-b492a493.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/community-home.css": {
+    "file": "assets/community-home-ef9cc201.css",
+    "isEntry": true,
+    "src": "resources/css/community-home.css"
   },
   "resources/css/home.css": {
     "file": "assets/home-f3c10cf5.css",
@@ -28,9 +52,20 @@
     "src": "resources/js/admin.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-6459b6b8.js",
+    "file": "assets/app-d9d6bec9.js",
+    "imports": [
+      "_jquery-b1664d58.js"
+    ],
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/groupDetail.js": {
+    "file": "assets/groupDetail-6c040b2d.js",
+    "imports": [
+      "_jquery-b1664d58.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/groupDetail.js"
   },
   "resources/sass/app.scss": {
     "file": "assets/app-fabb6531.css",
