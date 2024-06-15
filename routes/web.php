@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('comment')->group(function () {
         Route::post('/save', [CommentController::class, 'store'])->name('web.comment.save');
-        Route::post('/post-comments', [CommentController::class, 'comments'])->name('web.post.comments');
+        Route::get('/post-comments', [CommentController::class, 'comments'])->name('web.post.comments');
         Route::post('/update/{id}', [CommentController::class, 'update'])->name('web.comment.update');
     });
 

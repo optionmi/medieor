@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 ::selection {
-    background-color: blue !important;
-    color: white !important;
+  background-color: blue !important;
+  color: white !important;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/public/fonts/Montserrat-Regular.ttf");
+}
+
+* {
+  font-family: Montserrat;
 }

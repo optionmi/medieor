@@ -1,5 +1,6 @@
 @foreach ($comments as $comment)
-    <div id="comment{{ $comment->id }}" data-comment_id="{{ $comment->id }}">
+    <div id="comment{{ $comment->id }}" data-comment_id="{{ $comment->id }}"
+        data-reply_route="{{ route('web.comment.reply.save') }}">
         <div class="flex items-start w-11/12 gap-2">
             <img class="w-8 h-8 rounded-full" src="{{ asset('images/user_avatar/' . $comment->user->img) }}"
                 alt="{{ $comment->user->name }} image">

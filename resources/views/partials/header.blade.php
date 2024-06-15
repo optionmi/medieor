@@ -18,9 +18,9 @@
                     <button class="flex flex-col items-center gap-1" data-dropdown-toggle="account-dropdown">
                         <div class="flex items-center justify-center w-10 h-10">
                             <img class="rounded-full" src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
-                                alt="{{ auth()->user()->name }} image">
+                                alt="{{ auth()->user()->name }} image" id="userImg">
                         </div>
-                        <span>{{ auth()->user()->name }}</span>
+                        <span id="userName">{{ auth()->user()->name }}</span>
                     </button>
                     <div id="account-dropdown"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">

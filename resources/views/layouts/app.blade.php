@@ -4,18 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Medieor')</title>
 
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
 
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/community-home.css') }}">
-
     @yield('styles')
 </head>
 
@@ -51,12 +50,14 @@
     @include('partials.loading')
     @yield('scripts')
     <script>
-        var $ = jQuery.noConflict();
-        $(window).on('load', function() {
-            $('#preloader').fadeOut('slow', function() {
-                $(this).remove();
-            });
-            $('#webpage').fadeIn('slow');
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const webpage = document.getElementById('webpage');
+            webpage.style.display = 'block';
+            preloader.style.opacity = '0';
+            setTimeout(function() {
+                preloader.style.display = 'none';
+            }, 500);
         });
     </script>
 

@@ -11,6 +11,8 @@ export default defineConfig({
         "resources/js/admin.js",
         "resources/css/admin.css",
         "resources/css/home.css",
+        "resources/css/community-home.css",
+        "resources/js/groupDetail.js",
       ],
       refresh: true,
     }),

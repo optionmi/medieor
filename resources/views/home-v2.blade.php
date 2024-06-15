@@ -8,7 +8,7 @@
     <title>Medieor</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+    @vite(['resources/css/home.css'])
     <!-- Alpine js -->
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     <script defer src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

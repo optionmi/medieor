@@ -1,22 +1,25 @@
 @extends('layouts.app')
+@section('styles')
+    @vite(['resources/css/community-home.css'])
+@endsection
 
 @section('content')
     @include('partials.header')
     <section class="mb-10">
         <div class="relative">
-            <div class="relative main-bg">
+            <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute left-0 right-0 flex flex-col items-center w-full p-5 text-3xl text-white top-60 sm:text-6xl sm:bottom-60 sm:right-20 banner-content">
+                    class="absolute left-0 right-0 flex flex-col items-center w-full p-5 text-3xl text-white sm:top-60 sm:text-6xl top-4 sm:bottom-60 sm:right-20 banner-content">
                     {!! $category->img_text !!}
                 </div>
             </div>
-            <div class="absolute left-0 right-0 z-10 flex items-end justify-around h-24 bottom-10">
+            <div class="absolute left-0 right-0 z-10 flex items-end justify-around h-24 sm:bottom-10 bottom-1">
                 <div class="w-20 h-20 bg-white rounded-full bg1"></div>
                 <div class="self-start w-20 h-20 bg-white rounded-full bg2"></div>
                 <div class="w-20 h-20 bg-white rounded-full bg3"></div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 h-24 p-2 bg-primary ellipse-clip">
+            <div class="absolute bottom-0 left-0 right-0 h-16 p-2 sm:h-24 bg-primary ellipse-clip">
 
             </div>
         </div>
@@ -34,7 +37,7 @@
                 </div>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
-                        <span class="text-3xl sm:text-5xl">{{ $category->groups->count() }}+</span><br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->active_groups->count() }}+</span><br />
                         <span class="sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
