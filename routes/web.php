@@ -65,12 +65,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/save-post/{group_id}', [PostController::class, 'store'])->name('web.save.post');
 
     Route::post('/post-list', [PostController::class, 'postList'])->name('web.post.list');
+    Route::delete('/delete-post/{post}', [PostController::class, 'destroy'])->name('web.post.delete');
 
 
     Route::prefix('comment')->group(function () {
         Route::post('/save', [CommentController::class, 'store'])->name('web.comment.save');
         Route::get('/post-comments', [CommentController::class, 'comments'])->name('web.post.comments');
         Route::post('/update/{id}', [CommentController::class, 'update'])->name('web.comment.update');
+        Route::delete('/delete-comment/{comment}', [CommentController::class, 'destroy'])->name('web.comment.delete');
     });
 
     Route::prefix('like')->group(function () {
@@ -81,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('comment-reply')->group(function () {
         Route::post('/save', [CommentReplyController::class, 'store'])->name('web.comment.reply.save');
         Route::put('/update-comment/{id}', [CommentReplyController::class, 'update'])->name('web.comment.reply.update');
+        Route::delete('/delete-reply/{reply}', [CommentReplyController::class, 'destroy'])->name('web.reply.delete');
     });
 });
 Route::prefix('topic')->group(function () {

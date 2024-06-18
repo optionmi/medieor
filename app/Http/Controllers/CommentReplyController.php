@@ -30,6 +30,9 @@ class CommentReplyController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (auth()->user()->isRestrictedFrom('can_reply')) return $this->restrictedAction();
+
         $validator = validator()->make($request->all(), [
             'content' => 'required|string',
             'commentId' => 'required|integer',
@@ -126,8 +129,14 @@ class CommentReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, CommentReply $reply)
     {
-        //
+        $authorized = $request->user()->hasRole('admin') || $reply->author->is($request->user());
+
+        if ($authorized && $reply->delete()) {
+            return response()->json(['message' => 'Reply deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Unauthorized Action'], 403);
     }
 }

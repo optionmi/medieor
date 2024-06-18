@@ -1,6 +1,6 @@
 import "./bootstrap";
 import "flowbite";
-import { Modal } from "flowbite";
+// import { Modal } from "flowbite";
 import $ from "jquery";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -70,7 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
       errorElement.classList.toggle("hidden", action !== "");
 
       if (action) {
-        donationSubmitModal.show();
+        // donationSubmitModal.show();
+        window.FlowbiteInstances.getInstance(
+          "Modal",
+          "donationSubmitModal"
+        )?.show();
 
         const actionHidden = document.getElementById("actionHidden");
         actionHidden.value = action;

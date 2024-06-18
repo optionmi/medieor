@@ -16,7 +16,7 @@ class CommentReply extends Model
         return $this->belongsTo('\App\Models\Comment', 'comment_id');
     }
 
-    public function user()
+    public function author()
     {
         return $this->belongsTo('\App\Models\User', 'user_id');
     }

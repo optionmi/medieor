@@ -8,17 +8,17 @@
 
     <title>@yield('title', 'Medieor')</title>
 
-    {{-- <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
-    <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+    {{-- <script src="{{ asset('toastr/toastr.min.js') }}"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
     @yield('styles')
 </head>
 
-<body>
+<body style="overflow: hidden">
     <div id="preloader"
         class="absolute top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center w-screen h-screen bg-white">
         <div role="status">
@@ -53,6 +53,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const preloader = document.getElementById('preloader');
             const webpage = document.getElementById('webpage');
+            const body = document.querySelector('body');
+            body.style.overflow = 'auto';
             webpage.style.display = 'block';
             preloader.style.opacity = '0';
             setTimeout(function() {

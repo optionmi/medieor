@@ -29,6 +29,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->isRestrictedFrom('can_post')) return $this->restrictedAction();
         $request->validate([
             'content' => 'required|string',
             'post_media' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -38,7 +39,7 @@ class PostController extends Controller
         $post->user_id = auth()->id();
         $post->group_id = $request->group_id;
         $post->content = $request->content;
-        
+
         $post->save();
 
         if ($request->hasFile('post_media')) {
@@ -58,7 +59,7 @@ class PostController extends Controller
         $data = [
             'error' => false,
             'message' => 'Post created successfully',
-            'posts' => view('group.post-list', ['posts' => $group->posts])->render()
+            'posts' => view('components.web.post-list', ['group' => $group])->render()
         ];
 
         return response()->json(compact('data'));
@@ -91,8 +92,14 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, Post $post)
     {
-        //
+        $authorized = $request->user()->hasRole('admin') || $post->author->is($request->user() || $post->group->owner->is($request->user()));
+
+        if ($authorized && $post->delete()) {
+            return response()->json(['message' => 'Post deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Unauthorized Action'], 403);
     }
 }

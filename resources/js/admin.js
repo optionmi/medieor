@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Reset User's Password
-  $(document).on("click", "[data-password-reset-route]", function (e) {
-    const route = $(this).data("password-reset-route");
+  $(document).on("click", "[data-btn-route]", function (e) {
+    const route = $(this).data("btn-route");
     fetch(route)
       .then((res) => res.json())
       .then((data) => {

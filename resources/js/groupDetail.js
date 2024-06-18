@@ -1,7 +1,10 @@
 import $ from "jquery";
+import toastr from "toastr";
+import { Dropdown, Ripple, initTWE } from "tw-elements";
+initTWE({ Dropdown, Ripple });
+var $j = $.noConflict();
+
 document.addEventListener("DOMContentLoaded", function () {
-  var $j = $.noConflict();
-  // $j(document).ready(function () {
   $j(document).on("submit", "#create-post-modal form", function (e) {
     e.preventDefault();
 
@@ -17,54 +20,34 @@ document.addEventListener("DOMContentLoaded", function () {
     // Make an AJAX request
     $j.ajax({
       url: submitUrl,
-      type: "POST",
+      type: method,
       data: formData,
       processData: false,
       contentType: false,
       success: function (response) {
         submitButton.html("Save changes");
         $j("#create-post-modal form")[0].reset();
+        window.FlowbiteInstances.getInstance(
+          "Modal",
+          "create-post-modal"
+        )?.hide();
 
-        if (response.error == true) {
-          Swal.fire({
-            title: "Error!",
-            text: response.data.message,
-            icon: "error",
-            showConfirmButton: true,
-          }).then((value) => {});
-          console.error("Error saving post:", error.responseText);
+        if (response.data.error == true) {
+          toastr.error(response.data.message);
           return false;
         } else {
           $j("#post-list").html(response.data.posts);
-          console.log("slksssssssssssss", response);
-          Swal.fire({
-            title: "Success!",
-            text: response.data.message,
-            icon: "success",
-            showConfirmButton: true,
-          }).then((value) => {});
+          toastr.success(response.data.message);
         }
-        // $('#create-post-modal').addClass('hidden');
-        // new Modal('#comments-modal', options, instanceOptions).toggle;
-        // Flowbite.Modal.show('#comments-modal');
-        // const commentModal = new Modal(document.getElementById('#comments-modal'));
-        // commentModal.hide()
       },
       error: function (error) {
         submitButton.html("Save changes");
-        const errorMessage = error.responseJSON.message;
-        console.error("Error:", errorMessage);
-        if (errorMessage == "Unauthenticated.") {
-          $j("#create-new-group").hide();
-
-          Swal.fire({
-            title: "Error!",
-            text: "Please login to create group",
-            icon: "error",
-            showConfirmButton: true,
-          }).then((value) => {});
-          return false;
-        }
+        $j("#create-post-modal form")[0].reset();
+        window.FlowbiteInstances.getInstance(
+          "Modal",
+          "create-post-modal"
+        )?.hide();
+        toastr.error(error.responseJSON.data.message);
       },
     });
   });
@@ -96,25 +79,29 @@ document.addEventListener("DOMContentLoaded", function () {
       success: function (response) {
         submitButton.html("Save changes");
         $j("#comment-form")[0].reset();
+        window.FlowbiteInstances.getInstance(
+          "Modal",
+          "create-comment-modal"
+        )?.hide();
 
         if (response.error == true) {
-          Swal.fire({
-            title: "Error!",
-            text: response.data.message,
-            icon: "error",
-            showConfirmButton: true,
-          }).then((value) => {});
-          console.error("Error saving post:", error.responseText);
+          // Swal.fire({
+          //   title: "Error!",
+          //   text: response.data.message,
+          //   icon: "error",
+          //   showConfirmButton: true,
+          // }).then((value) => {});
+          // console.error("Error saving post:", error.responseText);
           return false;
         } else {
           var post_id = formData.get("post_id");
           $j("#comment_count_" + post_id).html(response.data.comment_count);
-          Swal.fire({
-            title: "Success!",
-            text: response.data.message,
-            icon: "success",
-            showConfirmButton: true,
-          }).then((value) => {});
+          // Swal.fire({
+          //   title: "Success!",
+          //   text: response.data.message,
+          //   icon: "success",
+          //   showConfirmButton: true,
+          // }).then((value) => {});
         }
         $j("#create-post-modal").addClass("hidden");
       },
@@ -365,6 +352,53 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
   // End Reply
+
+  const deleteHandler = async function (element, selector) {
+    const route = element.data("route");
+    const id = element.data(`${selector}_id`);
+    if (!route) {
+      throw new Error("Route is missing");
+    }
+
+    const options = {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+    };
+    const response = await fetch(route, options);
+    const data = await response.json();
+    if (!response.ok) {
+      toastr.error(data.message);
+    } else {
+      toastr.success(data.message);
+      $(`#${selector}${id}`).remove();
+    }
+  };
+
+  $j(document).on("click", ".deletePost", async function (e) {
+    await deleteHandler($j(this), "post");
+  });
+
+  $j(document).on("click", ".deleteComment", async function (e) {
+    await deleteHandler($j(this), "comment");
+  });
+
+  $j(document).on("click", ".deleteReply", async function (e) {
+    await deleteHandler($j(this), "reply");
+  });
+
+  // Mute User
+  $j(document).on("click", ".muteUser", async function (e) {
+    const route = $j(this).data("route");
+    const response = await fetch(route);
+    const data = await response.json();
+    if (!response.ok) {
+      toastr.error(data.message);
+    } else {
+      toastr.success(data.message);
+    }
+  });
 
   // DOMContentLoaded
 });

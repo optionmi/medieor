@@ -35,6 +35,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users-datatable', [UserController::class, 'datatable'])->name('admin.users.datatable');
         Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
         Route::get('/reset-password/{user}', [UserController::class, 'resetPassword'])->name('admin.users.reset.password');
+        Route::get('/mute-user/{user}', [UserController::class, 'mute'])->name('admin.user.mute');
+        Route::get('/unmute-user/{user}', [UserController::class, 'unmute'])->name('admin.user.unmute');
     });
 
 

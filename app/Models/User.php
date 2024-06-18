@@ -120,4 +120,23 @@ class User extends Authenticatable
     {
         return $this->groups()->with('category')->get()->pluck('category')->unique('id');
     }
+
+    public function restrictions()
+    {
+        return $this->belongsToMany(Permission::class, 'restrictions', 'user_id', 'permission_id');
+    }
+
+    public function isRestrictedFrom($restriction)
+    {
+        return $this->restrictions()->where('name', $restriction)->exists();
+    }
+
+    public function getIsMutedAttribute()
+    {
+        $restrictedActions = ['can_post', 'can_comment', 'can_reply'];
+
+        return $this->restrictions()
+            ->whereIn('name', $restrictedActions)
+            ->exists();
+    }
 }

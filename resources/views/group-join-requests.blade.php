@@ -13,11 +13,11 @@
 
                     @if ($group->userRequest->count() > 0)
                         <div class="pb-10 border-b border-gray-400">
-                            <div class="w-11/12 mx-auto">
+                            {{-- <div class="w-11/12 mx-auto">
                                 <div class="p-4 text-2xl font-bold">
                                     {{ $group->title }}
                                 </div>
-                            </div>
+                            </div> --}}
                             <ul class="flex flex-wrap w-11/12 gap-5 mx-auto">
                                 @foreach ($group->userRequest as $user)
                                     <li
@@ -39,11 +39,11 @@
                                         <div class="flex items-center justify-end gap-4">
                                             <button type="button"
                                                 class="group-request focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                                data-group="{{ $group->id }}" data-user="{{ $request->id }}"
+                                                data-group="{{ $group->id }}" data-user="{{ $user->id }}"
                                                 data-approve="false">Decline</button>
                                             <button type="button"
                                                 class="group-request text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                                data-group="{{ $group->id }}" data-user="{{ $request->id }}"
+                                                data-group="{{ $group->id }}" data-user="{{ $user->id }}"
                                                 data-approve="true">Approve</button>
                                         </div>
                                     </li>

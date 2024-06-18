@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +20,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $permissions = [
+            'can_post',
+            'can_comment',
+            'can_reply',
+        ];
+
+        Schema::disableForeignKeyConstraints();
+        Permission::truncate();
+        Schema::enableForeignKeyConstraints();
+        foreach ($permissions as $permission) {
+            Permission::create([
+                'name' => $permission,
+            ]);
+        }
     }
 }

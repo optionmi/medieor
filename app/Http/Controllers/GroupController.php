@@ -47,7 +47,7 @@ class GroupController extends Controller
         $validator = validator()->make(request()->all(), [
             'name' => 'required|max:100',
             'description' => 'required|max:500',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ], [
             'name.required' => 'Title is required',
             'description.required' => 'Description is required',

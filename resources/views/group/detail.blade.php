@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('partials.header')
-    <div class="p-4 bg-gray-200 min-h-[calc(100vh-6rem)]">
+    <div class="sm:p-4 bg-gray-200 min-h-[calc(100vh-6rem)]">
         <div class="container mx-auto ">
             <div class="my-5">
                 <h1 class="text-4xl font-bold">{{ $group->title }}</h1>
@@ -9,144 +9,20 @@
             </div>
 
             <div class="flex flex-col items-center gap-8 mb-10">
-                <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
-                    <div class="flex items-center gap-5">
-                        <div class="w-14 h-14"><img src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
-                                alt="{{ auth()->user()->name }} image"></div>
-                        <button data-modal-target="create-post-modal" data-modal-toggle="create-post-modal"
-                            class="flex-1 py-4 pl-4 text-left text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-gray-200">Write
-                            something...</button>
+                @if (!auth()->user()->isRestrictedFrom('can_post'))
+                    <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14"><img src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
+                                    alt="{{ auth()->user()->name }} image"></div>
+                            <button data-modal-target="create-post-modal" data-modal-toggle="create-post-modal"
+                                class="flex-1 py-4 pl-4 text-left text-gray-600 transition-colors bg-gray-100 rounded-full hover:bg-gray-200">Write
+                                something...</button>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div id="post-list" class="flex flex-col items-center w-full gap-5">
-                    @foreach ($group->posts as $post)
-                        <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
-                            <div class="flex flex-col gap-4">
-                                <div class="flex justify-between">
-                                    <div class="flex items-center gap-5">
-                                        <div class="w-12 h-12 bg-gray-400 rounded-full">
-                                            <img src="{{ asset('images/user_avatar/' . $post->author->img) }}"
-                                                alt="{{ $post->author->name }} image">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div>
-                                                @if ($post->author)
-                                                    <strong>{{ $post->author->name }}</strong>
-                                                @else
-                                                    <strong>Deleted User</strong>
-                                                @endif
-                                            </div>
-                                            <div>
-                                                <small>{{ $post->created_at->diffForHumans() }}</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-start">
-                                        <button id="dropdownButton" data-dropdown-toggle="postDropdown{{ $post->id }}"
-                                            class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
-                                            type="button">
-                                            <span class="sr-only">Open dropdown</span>
-                                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 16 3">
-                                                <path
-                                                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                            </svg>
-                                        </button>
-                                        <!-- Dropdown menu -->
-                                        <div id="postDropdown{{ $post->id }}"
-                                            class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                            <ul class="py-2" aria-labelledby="dropdownButton">
-                                                <li>
-                                                    <button
-                                                        class="block w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                        onclick="editDetailsForm()">
-                                                        Edit Details
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <p class="my-5">{{ $post->content }}</p>
-                                    @foreach ($post->media as $media)
-                                        <div class="">
-                                            <img src="{{ asset($media->path) }}" alt="">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div>
-                                    <div class="flex justify-between w-11/12 mx-auto">
-                                        <small class="cursor-pointer hover:underline"><span
-                                                id="like_count_{{ $post->id }}">{{ $post->likes->count() }}</span>
-                                            likes</small>
-
-                                        <button data-modal-target="comments-modal" data-post_id="{{ $post->id }}"
-                                            data-comments-route="{{ route('web.post.comments') }}"
-                                            data-modal-toggle="comments-modal" class="comment-list">
-                                            <small class="cursor-pointer hover:underline"><span
-                                                    id="comment_count_{{ $post->id }}">
-                                                    {{ $post->comments_count }}</span> comments</small>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-5 py-1 border-t border-b">
-                                        <div class="w-1/2 text-center">
-                                            <button
-                                                class="like-post hover:bg-[#00000033] w-full py-3 rounded-md transition-colors"
-                                                data-post_id="{{ $post->id }}"
-                                                data-route="{{ route('web.like.toggle') }}">
-                                                @if ($post->user_has_liked)
-                                                    <i class="fa-solid fa-thumbs-up"></i>
-                                                    <span class="font-bold">Unlike</span>
-                                                @else
-                                                    <i class="fa-regular fa-thumbs-up"></i>
-                                                    <span class="font-bold">Like</span>
-                                                @endif
-                                            </button>
-                                        </div>
-                                        <div class="w-1/2 text-center">
-                                            <button
-                                                class="create-comment-btn hover:bg-[#00000033] w-full py-3 rounded-md transition-colors"
-                                                data-post_id="{{ $post->id }}" data-modal-target="create-comment-modal"
-                                                data-modal-toggle="create-comment-modal">
-                                                <i class="fa-regular fa-comment"></i>
-                                                <span class="font-bold">Comment</span></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @if ($post->comments()->latest()->first())
-                                    <div class="flex items-start gap-2">
-                                        <img class="w-8 h-8 rounded-full"
-                                            src="{{ asset('images/user_avatar/' . $post->comments()->latest()->first()->user->img) }}"
-                                            alt="{{ $post->comments()->latest()->first()->user->name }} image">
-                                        <div
-                                            class="flex flex-col w-full leading-1.5 px-4 py-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
-                                            <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                                @if ($post->comments()->latest()->first()->user)
-                                                    <span
-                                                        class="text-sm font-semibold text-gray-900 dark:text-white">{{ $post->comments()->latest()->first()->user->name }}</span>
-                                                @else
-                                                    <span
-                                                        class="text-sm font-semibold text-gray-900 dark:text-white">Deleted
-                                                        User</span>
-                                                @endif
-                                                <span
-                                                    class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $post->comments()->latest()->first()->created_at->diffForHumans() }}</span>
-                                            </div>
-                                            <p class="py-2 text-sm font-normal text-gray-900 dark:text-white">
-                                                {{ $post->comments()->latest()->first()->content }}</p>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+                    <x-web.post-list :group="$group" />
                 </div>
             </div>
 

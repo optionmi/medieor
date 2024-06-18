@@ -29,6 +29,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->isRestrictedFrom('can_comment')) return $this->restrictedAction();
         $validator = validator()->make($request->all(), [
             'post_id' => 'required|exists:posts,id',
             'content' => 'required|string',
@@ -136,21 +137,30 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, Comment $comment)
     {
-        //
+        $authorized = $request->user()->hasRole('admin') || $comment->author->is($request->user());
+
+        if ($authorized && $comment->delete()) {
+            $post = $comment->post;
+            $post->comments_count = $post->comments->count();
+            $post->save();
+            return response()->json(['message' => 'Comment deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Unauthorized Action'], 403);
     }
 
     public function comments(Request $request)
     {
-        if($post = Post::find($request->post_id)) {
+        if ($post = Post::find($request->post_id)) {
 
             $data = [
                 'error' => false,
                 'message' => 'Comments fetched successfully',
-                'comments' => view('group.comments-list', ['comments' => $post->comments])->render()
+                'comments' => view('group.comment-list', ['comments' => $post->comments])->render()
             ];
-    
+
             return response()->json(compact('data'));
         }
     }
