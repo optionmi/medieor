@@ -8,16 +8,22 @@
             </div>
 
             <div class="flex flex-col gap-8 mb-10">
+                @php
+                    $noRequests = true;
+                @endphp
                 @foreach ($groups as $group)
-                    <h1 class="border-b border-gray-400">{{ $group->title }}</h1>
+                    {{-- <h1 class="border-b border-gray-400">{{ $group->title }}</h1> --}}
 
                     @if ($group->userRequest->count() > 0)
+                        @php
+                            $noRequests = false;
+                        @endphp
                         <div class="pb-10 border-b border-gray-400">
-                            {{-- <div class="w-11/12 mx-auto">
+                            <div class="w-11/12 mx-auto">
                                 <div class="p-4 text-2xl font-bold">
                                     {{ $group->title }}
                                 </div>
-                            </div> --}}
+                            </div>
                             <ul class="flex flex-wrap w-11/12 gap-5 mx-auto">
                                 @foreach ($group->userRequest as $user)
                                     <li
@@ -50,15 +56,15 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @else
-                        <p class="text-2xl text-center">No pending requests</p>
                     @endif
                 @endforeach
+                @if ($noRequests == true)
+                    <h1 class="text-2xl font-bold text-center">No Join Requests</h1>
+                @endif
             </div>
 
         </div>
     </div>
-
     {{-- @include('partials.footer') --}}
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
