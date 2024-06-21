@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Topic;
+use App\Models\CategoryPost;
 
-class TopicController extends Controller
+class CategoryPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index($category_id)
     {
-        $topics = Topic::where('category_id', $category_id)->get();
+        $topics = CategoryPost::where('category_id', $category_id)->get();
         return response()->json($topics);
     }
 

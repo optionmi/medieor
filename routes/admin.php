@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TopicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -7,7 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\InfoPageController;
-use App\Http\Controllers\Admin\TopicController;
+use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/login', function () {
@@ -21,9 +22,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');
-    Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
-    Route::get('/categories/data', [CategoryController::class, 'datatable'])->name('admin.categories.data');
+    // Categories
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('admin.categories');
+        Route::post('/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+        Route::get('/data', [CategoryController::class, 'datatable'])->name('admin.categories.data');
+        Route::get('/topics/{category}', [CategoryController::class, 'getTopics'])->name('admin.category.topics');
+    });
 
     Route::get('/donations', [DonationController::class, 'index'])->name('admin.donations');
     Route::get('/donations-datatable', [DonationController::class, 'datatable'])->name('admin.donations.datatable');
@@ -50,6 +55,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/contactus', [InfoPageController::class, 'show_contactus'])->name('admin.info-pages.contactus');
         Route::post('/contactus/update/{infoPage}', [InfoPageController::class, 'update'])->name('admin.info-pages.contactus.update');
+    });
+
+    // Category Posts
+    Route::group(['prefix' => 'category-posts'], function () {
+        Route::get('/', [CategoryPostController::class, 'index'])->name('admin.category.posts.index');
+        Route::get('/category-posts-data', [CategoryPostController::class, 'dataTable'])->name('admin.category.posts.datatable');
+        Route::post('/store', [CategoryPostController::class, 'store'])->name('admin.category.post.store');
+        Route::get('/delete/{category_post}', [CategoryPostController::class, 'destroy'])->name('admin.category.post.destroy');
+
+        // Topics
+        Route::group(['prefix' => 'topics'], function () {
+            Route::get('/', [TopicController::class, 'index'])->name('admin.topics.index');
+            Route::get('/data', [TopicController::class, 'dataTable'])->name('admin.topics.datatable');
+            Route::post('/store', [TopicController::class, 'store'])->name('admin.topics.store');
+            Route::get('/delete/{topic}', [TopicController::class, 'destroy'])->name('admin.topic.destroy');
+        });
     });
 
     // Groups
@@ -84,8 +105,8 @@ Route::middleware(['auth'])->prefix('group')->group(function () {
     Route::get('/categories-groups-data', [CategoryController::class, 'groupsByCategoryId'])->name('admin.categories.groups.byid');
 });
 
-Route::middleware(['auth'])->prefix('topic')->group(function () {
-    Route::get('/index', [TopicController::class, 'index'])->name('admin.topic.index');
-    Route::get('/topic-data', [TopicController::class, 'paginatedGroups'])->name('admin.topic.topics.data');
-    Route::post('/store', [TopicController::class, 'store'])->name('admin.topic.topics.store');
-});
+// Route::middleware(['auth'])->prefix('topic')->group(function () {
+//     Route::get('/index', [CategoryPostController::class, 'index'])->name('admin.topic.index');
+//     Route::get('/topic-data', [CategoryPostController::class, 'paginatedGroups'])->name('admin.topic.topics.data');
+//     Route::post('/store', [CategoryPostController::class, 'store'])->name('admin.topic.topics.store');
+// });

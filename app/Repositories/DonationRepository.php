@@ -39,7 +39,17 @@ class DonationRepository extends BaseRepository implements DonationRepositoryInt
         }
 
         if (!empty($sortColumn)) {
-            $sortColumn = strtolower($sortColumn) === '#' ? 'id' : strtolower($sortColumn);
+            switch (strtolower($sortColumn)) {
+                case "#":
+                    $sortColumn = 'id';
+                    break;
+                case "category":
+                    $sortColumn = 'category_id';
+                    break;
+                default:
+                    $sortColumn = strtolower($sortColumn);
+                    break;
+            }
             $query->orderBy($sortColumn, $sortDirection);
         }
 

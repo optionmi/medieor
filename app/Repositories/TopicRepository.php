@@ -13,7 +13,6 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
     public function __construct(Topic $topic)
     {
         parent::__construct($topic);
-
         $this->topic = $topic;
     }
 
@@ -23,13 +22,25 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
-                $q->where('title', 'LIKE', "%$searchValue%");
-                $q->where('description', 'LIKE', "%$searchValue%");
+                $q->orWhere('name', 'LIKE', "%$searchValue%")
+                    ->orWhereHas('category', function ($q) use ($searchValue) {
+                        $q->where('title', 'LIKE', "%$searchValue%");
+                    });
             });
         }
 
         if (!empty($sortColumn)) {
-            $sortColumn = strtolower($sortColumn) === '#' ? 'id' : strtolower($sortColumn);
+            switch (strtolower($sortColumn)) {
+                case "#":
+                    $sortColumn = 'id';
+                    break;
+                case "category":
+                    $sortColumn = 'category_id';
+                    break;
+                default:
+                    $sortColumn = strtolower($sortColumn);
+                    break;
+            }
             $query->orderBy($sortColumn, $sortDirection);
         }
 
@@ -41,25 +52,19 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
 
         $query->skip($start)->take($length);
         $topics = $query->get();
-        $topics = $this->collectionModifier($topics);
+        $topics = $this->collectionModifier($topics, $start);
         return $topics;
     }
 
-    public function collectionModifier($topics)
+    public function collectionModifier($topics, $start)
     {
-        return $topics->map(function ($topic) {
+        return $topics->map(function ($topic, $key) use ($start) {
+            $topic->serial = $start + 1 + $key;
+            $topic->category;
             $topic->created_at_formated = $topic->created_at ? $topic->created_at->format('d M, Y') : null;
             $topic->status_formated = $topic->status == 1 ? 'Active' : 'Inactive';
-            $topic->image_formated = $topic->image_path ? (filter_var($topic->image_path, FILTER_VALIDATE_URL) ?
-                '<img src="' . $topic->image_path . '" width="150px" height="150px" />' :
-                '<img src="' . asset($topic->image_path) . '" width="150px" height="150px" />') : null;
-            $topic->action = '<button class="btn btn-primary btn-sm" data-id="' . $topic->id . '" data-toggle="modal" data-target="#edit-topic" data-title="' . $topic->title . '" data-body="' . $topic->body . '" data-category="' . $topic->category_id . '" data-image_path="' . $topic->image_path . '" data-status="' . $topic->status . '">Edit</button> <button class="btn btn-danger btn-sm" data-id="' . $topic->id . '">Delete</button>';
+            $topic->actions = view('admin.topics.actions', compact('topic'))->render();
             return $topic;
         });
-    }
-
-    public function allActive()
-    {
-        return $this->topic->where('status', 1)->get();
     }
 }

@@ -145,38 +145,20 @@
 
             <div class="w-full sm:w-2/5 xl:w-1/3">
                 <div class="p-5 bg-white rounded-md">
-                    <h1 class="mb-10 text-xl ">Categories</h1>
+                    <h1 class="mb-10 text-xl ">Topics</h1>
                     <ul class="flex flex-col gap-2">
-                        <li class="flex justify-between">
-                            <a href="">Trading for Money</a>
-                            <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                20
-                            </span>
-                        </li>
-                        <li class="flex justify-between">
-                            <a href="">Vault Keys Giveaway</a>
-                            <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                20
-                            </span>
-                        </li>
-                        <li class="flex justify-between">
-                            <a href="">Looking for players</a>
-                            <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                20
-                            </span>
-                        </li>
-                        <li class="flex justify-between">
-                            <a href="">Video and Audio Drivers</a>
-                            <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                20
-                            </span>
-                        </li>
-                        <li class="flex justify-between">
-                            <a href="">2K Official Forums</a>
-                            <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                20
-                            </span>
-                        </li>
+                        @if ($category->topics->count() > 0)
+                            @foreach ($category->topics as $topic)
+                                <li class="flex justify-between">
+                                    <a href="">{{ $topic->name }}</a>
+                                    <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
+                                        {{ $topic->posts->count() }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="text-center text-gray-400">No topics found</li>
+                        @endif
                     </ul>
                 </div>
 

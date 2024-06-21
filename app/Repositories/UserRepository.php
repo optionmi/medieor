@@ -50,18 +50,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $user->serial = $start + 1 + $key;
             $user->categories_names = $user->categories->pluck('title')->implode('</br>');
             $user->country = $user->country_name;
-            // <button
-            //     class="px-2 py-2 btn btn-link nav-link d-flex align-items-center edit-btn"
-            //     type="button" title="Edit" data-coreui-toggle="modal"
-            //     data-coreui-target="#userUpdate"
-            //     data-update-route="' . route('admin.users.update', $user->id) . '"
-            //     data-row-data="' . htmlspecialchars(json_encode(array($user->name, $user->email))) . '">
-            //     <svg class="icon icon-lg text-primary">
-            //         <use
-            //             xlink:href="' . url('coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil') . '">
-            //         </use>
-            //     </svg>
-            // </button>
             $user->actions = view('admin.users.actions', compact('user'))->render();
             return $user;
         });

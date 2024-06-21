@@ -11,7 +11,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentReplyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoPageController;
-use App\Http\Controllers\TopicController;
+use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -87,5 +87,5 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 Route::prefix('topic')->group(function () {
-    Route::get('/all/{category_id}', [TopicController::class, 'index'])->name('topic.all');
+    Route::get('/all/{category_id}', [CategoryPostController::class, 'index'])->name('topic.all');
 });

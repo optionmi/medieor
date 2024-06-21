@@ -11,10 +11,13 @@ class Topic extends Model
 
     protected $guarded = ['id'];
 
-    protected $appends = ['formated_created_at'];
-
-    public function getFormatedCreatedAtAttribute()
+    public function category()
     {
-        return $this->created_at ? $this->created_at->diffForHumans() : null;
+        return $this->belongsTo(Category::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(CategoryPost::class);
     }
 }

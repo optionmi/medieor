@@ -34,25 +34,36 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!el) return;
     e.preventDefault();
     const updateRoute = el.dataset.updateRoute;
-    // console.log(updateRoute);
     const rowData = JSON.parse(el.dataset.rowData);
-    // console.log(rowData[0]);
+    const selectOptionsData = JSON.parse(el.dataset.selectOptions);
     const form = document.getElementById("updateDataForm");
     form.setAttribute("action", updateRoute);
     //   // console.log(JSON.parse(this.dataset.rowData)[1]);
     Array.from(document.querySelectorAll(".updateDataField")).forEach(
       (el, index) => {
-        //   console.log((el.value = rowData[index]));
         el.value = rowData[index];
-        // handle different types of input fields
-        // console.log(rowData[index]);
-        //   if (rowData[index][0] == "text") {
-        //     el.value = rowData[index][1].replace(/=/g, " ");
-        //   }
-        //   if (rowData[index][0] == "select") {
-        //     // update value for select input
-        //     el.value = rowData[index][1];
-        //     }
+      }
+    );
+    Array.from(document.querySelectorAll(".selectOptions")).forEach(
+      (el, index) => {
+        // Remove existing options
+        while (el.firstChild) {
+          el.removeChild(el.firstChild);
+        }
+        // Add new options
+        if (selectOptionsData[index].length > 0) {
+          selectOptionsData[index].forEach((option) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option.id;
+            optionElement.textContent = option.name;
+            el.appendChild(optionElement);
+          });
+        } else {
+          const optionElement = document.createElement("option");
+          optionElement.value = "";
+          optionElement.textContent = "No topics found for this category!";
+          el.appendChild(optionElement);
+        }
       }
     );
   });
@@ -112,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
               ? "serial"
               : $(this).text() === "Category"
               ? "category.title"
+              : $(this).text() === "Topic"
+              ? "topic.name"
               : $(this).text() === "Categories"
               ? "categories_names"
               : $(this).text().toLowerCase(),
@@ -151,6 +164,36 @@ document.addEventListener("DOMContentLoaded", function () {
           toastr.error(data.message, "Admin Panel");
         } else {
           toastr.success(data.message, "Admin Panel");
+        }
+      });
+  });
+
+  // Category Topics Options
+  $("#categoryPostCategory").on("change", function () {
+    // Get selected option element
+    const selected = $(this).find("option:selected");
+    const url = selected.data("topics-route");
+    const el = document.getElementById("categoryPostTopic");
+    // Remove existing options
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        // Add new options
+        if (data.length > 0) {
+          data.forEach((option) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option.id;
+            optionElement.textContent = option.name;
+            el.appendChild(optionElement);
+          });
+        } else {
+          const optionElement = document.createElement("option");
+          optionElement.value = "";
+          optionElement.textContent = "No topics found for this category!";
+          el.appendChild(optionElement);
         }
       });
   });

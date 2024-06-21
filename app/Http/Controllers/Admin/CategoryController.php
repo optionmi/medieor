@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Repositories\CategoryRepository;
+use App\Http\Controllers\Controller;
 use App\Repositories\GroupRepository;
+use App\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
@@ -195,5 +196,11 @@ class CategoryController extends Controller
         );
 
         return response()->json($data);
+    }
+
+    public function getTopics(Request $request, Category $category)
+    {
+        $topics = $category->topics;
+        return response()->json($topics);
     }
 }
