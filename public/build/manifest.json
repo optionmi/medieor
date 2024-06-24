@@ -1,6 +1,12 @@
 {
-  "_jquery-7874f921.js": {
-    "file": "assets/jquery-7874f921.js"
+  "__commonjsHelpers-de833af9.js": {
+    "file": "assets/_commonjsHelpers-de833af9.js"
+  },
+  "_toastr-3dff6096.js": {
+    "file": "assets/toastr-3dff6096.js",
+    "imports": [
+      "__commonjsHelpers-de833af9.js"
+    ]
   },
   "public/fonts/Montserrat-Regular.ttf": {
     "file": "assets/Montserrat-Regular-c3fb0280.ttf",
@@ -32,7 +38,7 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-6a6d2035.css",
+    "file": "assets/app-9b73df9a.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -52,17 +58,27 @@
     "src": "resources/js/admin.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-7afce6cd.js",
+    "file": "assets/app-00015cc8.js",
     "imports": [
-      "_jquery-7874f921.js"
+      "_toastr-3dff6096.js",
+      "__commonjsHelpers-de833af9.js"
     ],
     "isEntry": true,
     "src": "resources/js/app.js"
   },
-  "resources/js/groupDetail.js": {
-    "file": "assets/groupDetail-0f2571b3.js",
+  "resources/js/app.jsx": {
+    "file": "assets/app-039f3eb4.js",
     "imports": [
-      "_jquery-7874f921.js"
+      "__commonjsHelpers-de833af9.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.jsx"
+  },
+  "resources/js/groupDetail.js": {
+    "file": "assets/groupDetail-b662ea3d.js",
+    "imports": [
+      "_toastr-3dff6096.js",
+      "__commonjsHelpers-de833af9.js"
     ],
     "isEntry": true,
     "src": "resources/js/groupDetail.js"
