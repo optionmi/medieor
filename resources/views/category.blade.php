@@ -431,95 +431,81 @@
             const cardsPerPage = 4; // Adjust as per your requirement
             let currentPage = 1;
             let totalPages;
+            let start = 0;
 
-            fetch("{{ route('topic.all', $category->id) }}")
-                .then((response) => response.json())
-                .then((posts) => {
-                    function displayCards(cards) {
-                        const container = $("#cardContainer");
-                        container.empty();
-
-                        const startIndex = (currentPage - 1) * cardsPerPage;
-                        const endIndex = startIndex + cardsPerPage;
-
-                        for (let i = startIndex; i < endIndex && i < cards.length; i++) {
-                            container.append(`<li
-                        class="flex flex-col items-center justify-center gap-8 p-5 bg-white rounded-sm shadow-sm sm:flex-row">
-                        <div class="w-20 h-20 bg-white rounded-full shrink-0">
-                            <img src="{{ asset('images/user_avatar/default.png') }}" alt="avatar" />
-                        </div>
-
-                        <div class="flex-grow">
-                            <h1 class="text-2xl font-semibold">
-                                ${posts[i].title}
-                            </h1>
-                            <p class="py-2">
-                                ${posts[i].body}
-                            </p>
-                        </div>
-                        <div class="flex flex-col items-center justify-between w-56">
-                            <div class="bg-[#bdc4c8] px-4 pt-3 pb-4 text-white font-semibold rounded-sm posts-clip">
-                                <span class="text-xl">89</span>
-                            </div>
-                            <div class="flex flex-col items-center w-full text-gray-500">
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-eye text-[#ced2d3]"></i>
-                                    <span>1560</span>
-                                </div>
-                                <div class="flex items-center justify-center w-full gap-2 text-sm">
-                                    <i class="fa-solid fa-clock text-[#ced2d3]"></i>
-                                    <span>${posts[i].formated_created_at}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>`);
-                        }
-                    }
-
-                    function displayPagination(cards) {
-                        totalPages = Math.ceil(cards.length / cardsPerPage);
-                        const paginationContainer = $("#pagination");
-                        paginationContainer.empty();
-
-                        for (let i = 1; i <= totalPages; i++) {
-                            if (i === currentPage) {
-                                paginationContainer.append(
-                                    `<span class="page bg-[#888888] py-2 px-4 text-white font-bold rounded-sm cursor-pointer" data-page="${i}">${i}</span>`
-                                );
-                                continue;
-                            }
-                            paginationContainer.append(
-                                `<span class="page bg-[#d0d4d7] py-2 px-4 text-white font-bold rounded-sm cursor-pointer" data-page="${i}">${i}</span>`
-                            );
-                        }
-
-                        $(".page").click(function() {
-                            currentPage = parseInt($(this).attr("data-page"));
-                            displayCards(posts);
-                            displayPagination(posts);
-                        });
-                    }
-
-                    $("#prevPage").click(function() {
-                        if (currentPage > 1) {
-                            currentPage--;
-                            displayCards(posts);
-                            displayPagination(posts);
-                        }
+            const fetchCards = async (start, perPage) => {
+                try {
+                    const response = await fetch("{{ route('topic.all', $category->id) }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        body: JSON.stringify({
+                            cardsPerPage: perPage,
+                            start: start
+                        }),
                     });
+                    return await response.json();
+                } catch (error) {
+                    console.error("Error fetching cards:", error);
+                    return null;
+                }
+            };
 
-                    $("#nextPage").click(function() {
-                        if (currentPage < totalPages) {
-                            currentPage++;
-                            displayCards(posts);
-                            displayPagination(posts);
-                        }
-                    });
+            const displayCards = (cards) => {
+                const container = $("#cardContainer");
+                container.empty();
+                container.append(cards); // Append card elements
+            };
 
-                    // Initial display
-                    displayCards(posts);
-                    displayPagination(posts);
+            const createPagination = () => {
+                const paginationContainer = $("#pagination");
+                paginationContainer.empty();
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageClass = i === currentPage ? "bg-[#888888]" : "bg-[#d0d4d7]";
+                    paginationContainer.append(
+                        `<span class="page ${pageClass} py-2 px-4 text-white font-bold rounded-sm cursor-pointer" data-page="${i}">${i}</span>`
+                    );
+                }
+
+                $(".page").click(function() {
+                    currentPage = parseInt($(this).attr("data-page"));
+                    start = (currentPage - 1) * cardsPerPage;
+                    updateDisplay();
                 });
+            };
+
+            const updateDisplay = async () => {
+                const data = await fetchCards(start, cardsPerPage);
+                if (data && data.data) {
+                    totalPages = Math.ceil(data.data.count / cardsPerPage);
+                    displayCards(data.data.posts);
+                    createPagination();
+                }
+            };
+
+            $("#prevPage").click(function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    start = (currentPage - 1) * cardsPerPage;
+                    updateDisplay();
+                }
+            });
+
+            $("#nextPage").click(function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    start = (currentPage - 1) * cardsPerPage;
+                    updateDisplay();
+                }
+            });
+
+            // Initial display
+            updateDisplay();
+
         });
     </script>
 @endsection

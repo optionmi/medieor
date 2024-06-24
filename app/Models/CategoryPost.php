@@ -27,4 +27,9 @@ class CategoryPost extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(CPComment::class, 'post_id');
+    }
 }

@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 use App\Models\CategoryPost;
+use App\Models\CPComment;
+use Illuminate\Http\Request;
 
 class CategoryPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($category_id)
+    public function index(Request $request, $category_id)
     {
-        $topics = CategoryPost::where('category_id', $category_id)->get();
-        return response()->json($topics);
+        // dd($request->get(''));
+        $cardsPerPage = $request->get('cardsPerPage') ?? 5;
+        $start = $request->get('start') ?? 0;
+        $category_posts = CategoryPost::where('category_id', $category_id)->skip($start)->take($cardsPerPage)->get();
+
+        $data = [
+            'error' => false,
+            'message' => 'Posts fetched successfully',
+            'count' => CategoryPost::where('category_id', $category_id)->count(),
+            'posts' => view('components.web.category-post-list', compact('category_posts'))->render()
+        ];
+
+        return response()->json(compact('data'));
     }
 
     /**
@@ -35,9 +48,12 @@ class CategoryPostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, CategoryPost $categoryPost)
     {
-        //
+        $user = auth()->user();
+        $categoryPost->increment('views');
+        $postComments = $categoryPost->comments()->with('author')->get();
+        return  Inertia::render('CategoryPostDetail', compact('user', 'categoryPost', 'postComments'));
     }
 
     /**

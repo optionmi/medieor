@@ -2,6 +2,7 @@ import "./bootstrap";
 import "flowbite";
 // import { Modal } from "flowbite";
 import $ from "jquery";
+import toastr from "toastr";
 
 document.addEventListener("DOMContentLoaded", function () {
   $(".smoothSubmit").submit(function (e) {

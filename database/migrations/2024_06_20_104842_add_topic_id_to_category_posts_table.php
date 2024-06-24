@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('category_posts', function (Blueprint $table) {
-            $table->foreignId('topic_id')->constrained('topics')->nullable()->after('category_id');
-            $table->integer('comment_count')->default(0)->after('views');
+            if (!Schema::hasColumn('category_posts', 'topic_id')) {
+                $table->foreignId('topic_id')->constrained('topics')->nullable()->after('category_id');
+            }
+            if (!Schema::hasColumn('category_posts', 'comment_count')) {
+                $table->integer('comment_count')->default(0)->after('views');
+            }
         });
     }
 

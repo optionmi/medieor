@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [
@@ -13,8 +14,10 @@ export default defineConfig({
         "resources/css/home.css",
         "resources/css/community-home.css",
         "resources/js/groupDetail.js",
+        "resources/js/app.jsx",
       ],
       refresh: true,
     }),
+    react(),
   ],
 });

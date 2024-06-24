@@ -1,18 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\CommentReplyController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InfoPageController;
-use App\Http\Controllers\CategoryPostController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InfoPageController;
+use App\Http\Controllers\CPCommentController;
+use App\Http\Controllers\CategoryPostController;
+use App\Http\Controllers\CommentReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +40,14 @@ Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.gro
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 Route::post('/donation-submission/{id}', [CategoryController::class, 'donationSubmission'])->name('web.donation.submission');
 
-
-Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
-
-
-
 Route::middleware(['auth'])->group(function () {
+    Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
+
+    // Category Posts
+    Route::group(['prefix' => 'category-posts'], function () {
+        Route::get('/detail/{categoryPost}', [CategoryPostController::class, 'show'])->name('category.post.detail');
+        Route::post('/comment/{categoryPost}', [CPCommentController::class, 'store'])->name('web.category.post.comment.store');
+    });
 
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');
     Route::post('/update-profile/{user}', [UserController::class, 'updateDetails'])->name('web.update.profile');
@@ -87,5 +90,5 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 Route::prefix('topic')->group(function () {
-    Route::get('/all/{category_id}', [CategoryPostController::class, 'index'])->name('topic.all');
+    Route::post('/all/{category_id}', [CategoryPostController::class, 'index'])->name('topic.all');
 });

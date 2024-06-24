@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
+    "./resources/**/*.jsx",
     "./resources/**/*.vue",
     "./node_modules/tw-elements/js/**/*.js",
   ],
