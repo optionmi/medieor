@@ -43,7 +43,7 @@
     "src": "resources/css/app.css"
   },
   "resources/css/community-home.css": {
-    "file": "assets/community-home-ef9cc201.css",
+    "file": "assets/community-home-d41830b6.css",
     "isEntry": true,
     "src": "resources/css/community-home.css"
   },
@@ -51,6 +51,15 @@
     "file": "assets/home-f3c10cf5.css",
     "isEntry": true,
     "src": "resources/css/home.css"
+  },
+  "resources/js/Pages/CategoryPostDetail.jsx": {
+    "file": "assets/CategoryPostDetail-ff389db0.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "__commonjsHelpers-de833af9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/CategoryPostDetail.jsx"
   },
   "resources/js/admin.js": {
     "file": "assets/admin-fe2fd519.js",
@@ -67,7 +76,10 @@
     "src": "resources/js/app.js"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-039f3eb4.js",
+    "dynamicImports": [
+      "resources/js/Pages/CategoryPostDetail.jsx"
+    ],
+    "file": "assets/app-512d2543.js",
     "imports": [
       "__commonjsHelpers-de833af9.js"
     ],
