@@ -10,8 +10,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
     @viteReactRefresh
-    @vite('resources/js/app.jsx')
     @inertiaHead
+    @vite('resources/js/app.jsx')
 </head>
 
 <body class="font-sans antialiased">
