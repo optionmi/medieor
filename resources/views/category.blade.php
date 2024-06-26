@@ -5,7 +5,7 @@
 
 @section('content')
     @include('partials.header')
-    <section class="mb-10">
+    <section class="hidden mb-10 sm:block">
         <div class="relative">
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
@@ -94,10 +94,10 @@
         </section>
     </main>
 
-    <section class="my-5 bg-[#ecf0f1] py-10 px-2">
+    <section class="my-5 bg-[#ecf0f1] py-5 sm:py-10 px-2">
         <div class="container mx-auto">
-            <h1 class="px-5 my-10 text-3xl sm:text-5xl">
-                My Forward to the <span class="font-bold">Healing</span>
+            <h1 class="px-5 my-10 text-2xl sm:text-4xl">
+                Topics for <span class="font-bold">Discussion</span>
             </h1>
         </div>
         <div class="py-5 bg-white ">
@@ -164,7 +164,7 @@
 
                 <div class="p-5 my-5 bg-white rounded-md">
 
-                    <h1 class="mb-10 text-xl ">Poll of the week</h1>
+                    <h1 class="mb-10 text-xl ">Comment of the week</h1>
                     <h2 class="text-lg">Which game you are playing this week?</h2>
                     <ul class="flex flex-col gap-2 py-5">
 

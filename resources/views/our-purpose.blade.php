@@ -14,7 +14,7 @@
 
     <section>
         <div class="container py-10 mx-auto">
-            <h1 class="text-4xl font-semibold text-blue-800 uppercase">{{ $data->heading1 }}</h1>
+            <h1 class="text-2xl font-semibold text-green-800 uppercase sm:text-4xl">{{ $data->heading1 }}</h1>
             <p class="my-10">{!! $data->section1 !!}</p>
         </div>
     </section>

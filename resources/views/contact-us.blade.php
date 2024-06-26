@@ -13,13 +13,13 @@
             {{ $data->img_text1 }}</h1>
     </section>
 
-    <section class="container flex flex-col justify-center gap-5 mx-auto sm:flex-row">
+    <section class="container flex flex-col justify-center gap-5 py-5 mx-auto sm:flex-row">
         <div class="w-full p-2 sm:w-1/3 sm:p-5">
             <div class="flex items-center gap-2 my-2">
                 <div class="w-6 h-1 bg-primary"></div>
                 <span class="text-sm font-semibold uppercase">Get In Touch</span>
             </div>
-            <h1 class="mb-5 text-4xl font-semibold uppercase">Contact Information</h1>
+            <h1 class="mb-5 text-2xl font-semibold uppercase sm:text-4xl">Contact Information</h1>
             <p>Have a question, comment, or feedback? We'd love to hear from you. Feel free to reach out. Our team will be
                 ready to assist you.</p>
             <ul class="flex flex-col gap-4 my-10">
@@ -54,7 +54,7 @@
                         class="flex items-center justify-center flex-grow-0 flex-shrink-0 w-16 h-16 text-white rounded-md bg-primary">
                         <i class="fa-2xl fa-solid fa-phone"></i>
                     </div>
-                    <div class="w-1/3">
+                    <div>
                         <h2 class="text-lg font-semibold">Phone</h2>
                         <ul>
                             @foreach ($data->phones as $phone)
@@ -71,7 +71,7 @@
                 <div class="w-6 h-1 bg-primary"></div>
                 <span class="text-sm font-semibold uppercase">Drop Us a Line</span>
             </div>
-            <h1 class="mb-5 text-4xl font-semibold uppercase">Send us a Message</h1>
+            <h1 class="mb-5 text-2xl font-semibold uppercase sm:text-4xl">Send us a Message</h1>
             <form action="" method="POST" class="flex flex-col gap-3">
                 @csrf
                 <input class="px-3 py-2 rounded-sm" type="text" name="name" id="name" placeholder="Your Name">

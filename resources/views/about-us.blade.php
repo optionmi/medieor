@@ -52,7 +52,7 @@
 
     <section class="container flex flex-col items-center mx-auto my-10">
         <div class="px-2 sm:w-1/2">
-            <h1 class="text-5xl font-semibold text-green-800 uppercase">{{ $data->heading1 }}</h1>
+            <h1 class="text-2xl font-semibold text-green-800 uppercase sm:text-4xl">{{ $data->heading1 }}</h1>
             <p class="my-5 text-lg montserrat-regular">{!! $data->section1 !!}</p>
         </div>
     </section>
@@ -64,7 +64,8 @@
                     <img src="{{ asset($data->img2) }}" alt="">
                 </div>
                 <div class="px-10 sm:w-1/2">
-                    <h1 class="mb-10 text-4xl font-semibold text-green-800 uppercase">{{ $data->heading2 }}</h1>
+                    <h1 class="mb-10 text-2xl font-semibold text-center text-green-800 uppercase sm:text-4xl">
+                        {{ $data->heading2 }}</h1>
                     <p class="text-lg">{!! $data->section2 !!}</p>
                 </div>
             </div>
@@ -74,7 +75,7 @@
     <section>
         <div class="container flex flex-col items-center py-10 mx-auto text-center">
             <div class="flex flex-col items-center w-2/3">
-                <h1 class="my-5 text-4xl font-semibold text-green-800">{{ $data->heading3 }}</h1>
+                <h1 class="my-5 text-2xl font-semibold text-center text-green-800 sm:text-4xl">{{ $data->heading3 }}</h1>
             </div>
         </div>
     </section>

@@ -1,10 +1,10 @@
     <nav
         class="sticky top-0 text-white  bg-gradient-to-b from-[#00000088] to-bg-[#00000044] h-16 flex items-center py-2">
         <div class="container flex items-center justify-between px-2 mx-auto">
-            <div class="flex items-center flex-grow-0 flex-shrink-0 gap-4">
+            <a class="flex items-center flex-grow-0 flex-shrink-0 gap-4" href="{{ route('web.home') }}">
                 <img class="w-auto h-12" id="logo" src="{{ asset('img/logo.jpg') }}" alt="logo" />
                 <span class="text-2xl font-semibold text-shadow-sm shadow-black">Medieor</span>
-            </div>
+            </a>
             <ul class="hidden gap-5 text-lg sm:flex">
                 <li class="uppercase hover:underline text-shadow-sm shadow-black"><a
                         href="{{ route('web.home') }}">Home</a>
