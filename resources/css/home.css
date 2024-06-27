@@ -107,7 +107,7 @@
 #tagline {
   font-family: "somethingwild";
   font-size: 4rem;
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
 }
 .f_size1 {
   font-size: 3.3rem;

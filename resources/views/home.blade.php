@@ -142,8 +142,9 @@
 
                     </div>
                 </div>
-                <p id="tagline" class="text-center">
-                    WE WILL 'HEAL IT TOGETHER'
+
+                <p class="mt-5 font-bold text-center fs-4 fw-bold">
+                    A Movement called MEDIEOR
                 </p>
                 <!-- Default Tab -->
                 {{-- <div class="mt-5 flex-column justify-content-between" :class="activeTab == 0 ? 'd-flex' : 'd-none'"
@@ -235,8 +236,8 @@
 
 
                 <div class="btn-container">
-                    <p class="font-bold text-center fs-4 fw-bold">
-                        A Movement called MEDIEOR
+                    <p id="tagline" class="text-center">
+                        WE WILL 'HEAL IT TOGETHER'
                     </p>
                     <div class="gap-2 elementBtnContainer d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
