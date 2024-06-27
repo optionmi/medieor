@@ -5,12 +5,12 @@
 
 @section('content')
     @include('partials.header')
-    <section class="hidden mb-10 sm:block">
+    <section class="mb-10">
         <div class="relative">
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute left-0 right-0 flex flex-col items-center w-full p-5 text-3xl text-white sm:top-60 sm:text-6xl top-4 sm:bottom-60 sm:right-20 banner-content">
+                    class="absolute left-0 right-0 flex-col items-center hidden w-full p-5 text-3xl text-white sm:flex sm:top-60 sm:text-6xl top-4 sm:bottom-60 sm:right-20 banner-content">
                     {!! $category->img_text !!}
                 </div>
             </div>
