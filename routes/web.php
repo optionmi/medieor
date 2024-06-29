@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'category-posts'], function () {
         Route::get('/detail/{categoryPost}', [CategoryPostController::class, 'show'])->name('category.post.detail');
         Route::post('/comment/{categoryPost}', [CPCommentController::class, 'store'])->name('web.category.post.comment.store');
+        Route::delete('/comment/delete/{comment}', [CPCommentController::class, 'destroy'])->name('web.category.post.comment.delete');
     });
 
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');

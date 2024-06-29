@@ -1,46 +1,21 @@
 import React, { useState } from "react";
 import ReactTimeago from "react-timeago";
+import DropdownButton from "./components/DropdownButton";
+import toastr from "toastr";
+import "/node_modules/toastr/build/toastr.min.css";
 
-function Comment(props) {
-  return (
-    <div className="flex items-center gap-2 my-2">
-      <div className="flex-grow-0 flex-shrink-0 w-12 h-12">
-        <img
-          className="rounded-full"
-          src={`/images/user_avatar/${props.comment.author.img}`}
-          alt=""
-        />
-      </div>
-
-      <div className="flex flex-col p-4 bg-gray-100 rounded-lg">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-gray-900 dark:text-white">
-            {props.comment.author.name}
-          </span>
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            <ReactTimeago date={props.comment.created_at} />
-          </span>
-        </div>
-        <p className="w-full">{props.comment.content}</p>
-      </div>
-    </div>
-  );
-}
-
-const CategoryPostDetail = ({ user, categoryPost, postComments }) => {
+export default function CategoryPostDetail({
+  user,
+  categoryPost,
+  postComments,
+}) {
   const [comments, setComments] = useState(postComments);
   const [comment, setCommentText] = useState("");
 
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
   const handleSubmitComment = async () => {
     if (comment.length === 0) {
-      return;
-    }
-
-    const csrfToken = document.querySelector(
-      'meta[name="csrf-token"]'
-    )?.content;
-    if (!csrfToken) {
-      console.error("CSRF token not found");
       return;
     }
 
@@ -76,6 +51,52 @@ const CategoryPostDetail = ({ user, categoryPost, postComments }) => {
     }
   };
 
+  const options = [
+    {
+      label: "Delete Comment",
+      iconClass: "fa-regular fa-trash-can",
+      action: ({ commentId }) => handleDeleteComment(commentId),
+    },
+    {
+      label: "Mute User",
+      iconClass: "fa-solid fa-volume-xmark",
+      action: ({ userId }) => handleMuteUser(userId),
+    },
+  ];
+
+  async function handleDeleteComment(commentId) {
+    const response = await fetch(
+      route("web.category.post.comment.delete", commentId),
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": csrfToken,
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      toastr.error(data.message);
+    } else {
+      setComments(comments.filter((comment) => comment.id !== commentId));
+      toastr.success(data.message);
+    }
+
+    // toastr.success(response.json());
+  }
+
+  async function handleMuteUser(userId) {
+    const response = await fetch(route("admin.user.mute", userId));
+
+    if (response.ok) {
+      toastr.success("User muted successfully");
+    } else {
+      toastr.error("Failed to mute user");
+    }
+  }
+
   return (
     <div className="min-h-[calc(100vh-6rem)] bg-gray-200">
       <div className="justify-center py-10 mx-auto sm:container sm:p-10">
@@ -108,39 +129,77 @@ const CategoryPostDetail = ({ user, categoryPost, postComments }) => {
           <div className="px-6 py-3 border-t-2 border-gray-200 dark:border-white/10 text-surface/75 dark:text-neutral-300">
             <div className="flex flex-col gap-3">
               {comments.map((comment, index) => (
-                <Comment key={comment.id} comment={comment}></Comment>
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  options={options}
+                  user={user}
+                ></Comment>
               ))}
             </div>
 
-            <div className="flex items-center gap-4 my-3">
-              <div className="flex-grow-0 flex-shrink-0 w-12 h-12 rounded-full">
-                <img
-                  className="rounded-full"
-                  src={`/images/user_avatar/${user.img}`}
-                  alt=""
+            {!user.isMuted && (
+              <div className="flex items-center gap-4 my-3">
+                <div className="flex-grow-0 flex-shrink-0 w-12 h-12 rounded-full">
+                  <img
+                    className="rounded-full"
+                    src={`/images/user_avatar/${user.img}`}
+                    alt=""
+                  />
+                </div>
+                <input
+                  className="w-11/12 bg-gray-100 rounded-full"
+                  type="text"
+                  placeholder="Write something..."
+                  value={comment}
+                  onChange={(e) => setCommentText(e.target.value)}
                 />
+                <button
+                  className="p-2 rounded-full bg-primary"
+                  onClick={handleSubmitComment}
+                >
+                  <span>
+                    <i className="font-bold text-white fa-2x fa-regular fa-paper-plane"></i>
+                  </span>
+                </button>
               </div>
-              <input
-                className="w-11/12 bg-gray-100 rounded-full"
-                type="text"
-                placeholder="Write something..."
-                value={comment}
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-              <button
-                className="p-2 rounded-full bg-primary"
-                onClick={handleSubmitComment}
-              >
-                <span>
-                  <i className="font-bold text-white fa-2x fa-regular fa-paper-plane"></i>
-                </span>
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default CategoryPostDetail;
+function Comment(props) {
+  return (
+    <div className="flex items-center gap-2 my-2">
+      <div className="flex-grow-0 flex-shrink-0 w-12 h-12">
+        <img
+          className="rounded-full"
+          src={`/images/user_avatar/${props.comment.author.img}`}
+          alt=""
+        />
+      </div>
+
+      <div className="flex flex-col p-4 bg-gray-100 rounded-lg">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">
+            {props.comment.author.name}
+          </span>
+          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <ReactTimeago date={props.comment.created_at} />
+          </span>
+          {props.user.isAdmin && (
+            <DropdownButton
+              options={props.options}
+              commentId={props.comment.id}
+              userId={props.comment.author.id}
+            />
+          )}
+        </div>
+        <p className="w-full">{props.comment.content}</p>
+      </div>
+    </div>
+  );
+}

@@ -29,7 +29,8 @@ class CPCommentController extends Controller
      */
     public function store(Request $request, CategoryPost $categoryPost)
     {
-        // dd($request);
+        if (auth()->user()->isRestrictedFrom('can_comment')) return $this->restrictedAction();
+
         $request->validate([
             'comment' => 'required',
         ]);
@@ -72,8 +73,14 @@ class CPCommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, CPComment $comment)
     {
-        //
+        $authorized = $request->user()->hasRole('admin');
+
+        if ($authorized && $comment->delete()) {
+            return response()->json(['message' => 'Comment deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Unauthorized Action'], 403);
     }
 }

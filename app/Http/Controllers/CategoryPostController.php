@@ -51,6 +51,8 @@ class CategoryPostController extends Controller
     public function show(Request $request, CategoryPost $categoryPost)
     {
         $user = auth()->user();
+        $user->isAdmin = $user->hasRole('admin');
+        $user->isMuted = $user->is_muted;
         $categoryPost->increment('views');
         $postComments = $categoryPost->comments()->with('author')->get();
         return  Inertia::render('CategoryPostDetail', compact('user', 'categoryPost', 'postComments'));

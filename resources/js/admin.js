@@ -35,8 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const updateRoute = el.dataset.updateRoute;
     const rowData = JSON.parse(el.dataset.rowData);
+    let selectOptionsData;
     if (el.dataset.selectOptions) {
-      const selectOptionsData = JSON.parse(el.dataset.selectOptions);
+      selectOptionsData = JSON.parse(el.dataset.selectOptions);
     }
     const form = document.getElementById("updateDataForm");
     form.setAttribute("action", updateRoute);
