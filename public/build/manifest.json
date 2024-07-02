@@ -15,6 +15,9 @@
       "__commonjsHelpers-de833af9.js"
     ]
   },
+  "_tw-elements.es.min-563fcd5f.js": {
+    "file": "assets/tw-elements.es.min-563fcd5f.js"
+  },
   "public/fonts/Montserrat-Regular.ttf": {
     "file": "assets/Montserrat-Regular-c3fb0280.ttf",
     "src": "public/fonts/Montserrat-Regular.ttf"
@@ -45,7 +48,7 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-24826e19.css",
+    "file": "assets/app-b87e8df0.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -101,7 +104,7 @@
     "src": "resources/js/admin.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-a927c671.js",
+    "file": "assets/app-2fc1f229.js",
     "imports": [
       "_jquery-4fdff1bf.js",
       "_toastr-87efd738.js",
@@ -123,11 +126,20 @@
     "isEntry": true,
     "src": "resources/js/app.jsx"
   },
+  "resources/js/events.js": {
+    "file": "assets/events-572fc577.js",
+    "imports": [
+      "_tw-elements.es.min-563fcd5f.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/events.js"
+  },
   "resources/js/groupDetail.js": {
-    "file": "assets/groupDetail-1eceb4c1.js",
+    "file": "assets/groupDetail-a1f0ded9.js",
     "imports": [
       "_jquery-4fdff1bf.js",
       "_toastr-87efd738.js",
+      "_tw-elements.es.min-563fcd5f.js",
       "__commonjsHelpers-de833af9.js"
     ],
     "isEntry": true,
