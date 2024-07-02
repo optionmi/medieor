@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
@@ -39,6 +40,8 @@ Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.gro
 
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 Route::post('/donation-submission/{id}', [CategoryController::class, 'donationSubmission'])->name('web.donation.submission');
+
+Route::get('/events/{category}', [EventController::class, 'index'])->name('web.events');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');

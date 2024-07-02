@@ -45,7 +45,7 @@
                         <span class="sm:text-2xl"> Registered Members</span>
                     </p>
                     <p>
-                        <span class="text-3xl sm:text-5xl">27+</span> <br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->events->count() }}+</span> <br />
                         <span class="sm:text-2xl"> Upcoming Events</span>
                     </p>
                 </div>
@@ -83,12 +83,12 @@
 
                 <div
                     class="flex items-center justify-center my-5 transition-all duration-300 border shadow-lg hover:shadow-xl hover:bg-primary">
-                    <div class="flex flex-col items-center gap-4 py-10">
+                    <a class="flex flex-col items-center gap-4 py-10" href="{{ route('web.events', $category->id) }}">
                         <div class="w-24">
                             <img src="{{ asset('img/event_icon.png') }}" alt="">
                         </div>
                         <h1 class="text-xl">Upcoming Events</h1>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>

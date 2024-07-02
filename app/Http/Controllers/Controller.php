@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Str;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -25,7 +26,7 @@ class Controller extends BaseController
      * @param mixed $repository The repository used to retrieve the data.
      * @return array The generated data for the DataTable.
      */
-    public function generateDataTableData($repository,)
+    public function generateDataTableData($repository)
     {
         $start = request()->get('start');
         $length = request()->get('length');
@@ -57,5 +58,19 @@ class Controller extends BaseController
             'error' => !$action,
             'message' => !$action ? 'Error' : $message,
         ]);
+    }
+
+    /**
+     * Uploads a file to the specified directory and returns the generated filename.
+     *
+     * @param \Illuminate\Http\UploadedFile $file The file to be uploaded.
+     * @param string $directory The directory where the file will be stored.
+     * @return string The generated filename.
+     */
+    protected function uploadFile($file, $directory)
+    {
+        $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
+        $file->storeAs($directory, $filename, 'public_dir');
+        return $filename;
     }
 }

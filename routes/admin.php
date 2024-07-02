@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\InfoPageController;
 use App\Http\Controllers\Admin\CategoryPostController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/login', function () {
@@ -30,6 +31,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/topics/{category}', [CategoryController::class, 'getTopics'])->name('admin.category.topics');
     });
 
+    // Events
+    Route::group(['prefix' => 'events'], function () {
+        Route::get('/', [EventController::class, 'index'])->name('admin.events');
+        Route::post('/store', [EventController::class, 'store'])->name('admin.event.store');
+        Route::get('/delete/{event}', [EventController::class, 'destroy'])->name('admin.event.destroy');
+        Route::get('/data', [EventController::class, 'dataTable'])->name('admin.events.datatable');
+    });
+
+    // Donations
     Route::get('/donations', [DonationController::class, 'index'])->name('admin.donations');
     Route::get('/donations-datatable', [DonationController::class, 'datatable'])->name('admin.donations.datatable');
 

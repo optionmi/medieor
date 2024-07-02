@@ -43,4 +43,9 @@ class Category extends Model
             $query->where('id', $this->id);
         })->get();
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

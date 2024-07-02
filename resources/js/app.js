@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const donationSubmitModalElement = document.getElementById(
       "donationSubmitModal"
     );
-    const donationSubmitModal = new Modal(donationSubmitModalElement);
+    // const donationSubmitModal = new Modal(donationSubmitModalElement);
 
     showDonationSubmitModalBtn.addEventListener("click", (e) => {
       e.preventDefault();

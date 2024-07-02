@@ -15,6 +15,7 @@ export default defineConfig({
         "resources/css/community-home.css",
         "resources/js/groupDetail.js",
         "resources/js/app.jsx",
+        "resources/js/events.js",
       ],
       refresh: true,
     }),
