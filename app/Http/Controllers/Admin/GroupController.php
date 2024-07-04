@@ -250,6 +250,8 @@ class GroupController extends Controller
         if (request()->status == "true") {
             $user->groupRequest()->updateExistingPivot(request()->group_id, ['status' => 1]);
             $msg = 'approved';
+            $category = $this->group->find(request()->group_id)->category;
+            $user->categories()->syncWithoutDetaching([$category->id]);
         } else {
             $user->groupRequest()->detach(request()->group_id);
             $msg = 'declined';

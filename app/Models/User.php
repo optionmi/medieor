@@ -116,9 +116,14 @@ class User extends Authenticatable
     //         'id' // Local key on Groups table...
     //     );
     // }
-    public function getCategoriesAttribute()
+    // public function getCategoriesAttribute()
+    // {
+    //     return $this->groups()->with('category')->get()->pluck('category')->unique('id');
+    // }
+
+    public function categories()
     {
-        return $this->groups()->with('category')->get()->pluck('category')->unique('id');
+        return $this->belongsToMany(Category::class, 'user_categories')->withTimestamps();
     }
 
     public function restrictions()

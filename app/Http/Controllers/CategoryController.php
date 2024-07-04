@@ -68,6 +68,8 @@ class CategoryController extends Controller
             ];
 
             $donation = Donation::create($data);
+            if ($user) $user->categories()->attach($id);
+            if ($existingUser) $existingUser->categories()->attach($id);
 
             if ($donation) {
                 return response()->json(['error' => 0, 'message' => 'Donation submitted successfully']);
@@ -98,6 +100,8 @@ class CategoryController extends Controller
                 ];
 
                 $user = User::create($userData);
+
+                $user->categories()->attach($id);
 
                 $user->country = $userData['country'];
                 $user->phone = $userData['phone'];

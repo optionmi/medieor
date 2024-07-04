@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'country' => ['required'],
             'phone' => ['required'],
+            'categories' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -77,6 +78,10 @@ class RegisterController extends Controller
         $role = Role::where('name', 'user')->first();
         $user->roles()->attach($role);
 
+        // Assign categories to user
+        $user->categories()->attach($data['categories']);
+
+        // Set the user's country and phone number
         $user->country = $data['country'];
         $user->phone = $data['phone'];
         $user->save();

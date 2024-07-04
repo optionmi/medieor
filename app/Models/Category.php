@@ -48,4 +48,9 @@ class Category extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_categories');
+    }
 }

@@ -29,7 +29,8 @@ class CPCommentController extends Controller
      */
     public function store(Request $request, CategoryPost $categoryPost)
     {
-        if (auth()->user()->isRestrictedFrom('can_comment')) return $this->restrictedAction();
+        $user = auth()->user();
+        if ($user->isRestrictedFrom('can_comment')) return $this->restrictedAction();
 
         $request->validate([
             'comment' => 'required',
@@ -38,10 +39,11 @@ class CPCommentController extends Controller
         $data = [
             'post_id' => $categoryPost->id,
             'content' => $request->get('comment'),
-            'user_id' => auth()->user()->id
+            'user_id' => $user->id
         ];
         $isCreated = (bool) CPComment::create($data);
         $categoryPost->increment('comment_count');
+        $user->categories()->syncWithoutDetaching([$categoryPost->category_id]);
 
         return $this->jsonResponse($isCreated, 'Comment added successfully');
     }

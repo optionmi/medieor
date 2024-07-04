@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Models\User;
+use PeterColes\Countries\CountriesFacade as Countries;
+
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -21,9 +23,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $query = $this->user->select('*');
 
         if (!empty($searchValue)) {
-            $query->where(function ($q) use ($searchValue) {
+            $countryCodes = Countries::lookup()->filter(function ($countryName, $countryCode) use ($searchValue) {
+                return stripos($countryName, $searchValue) !== false;
+            })->keys();
+            $query->where(function ($q) use ($searchValue, $countryCodes) {
                 $q->orWhere('name', 'LIKE', "%$searchValue%");
                 $q->orWhere('email', 'LIKE', "%$searchValue%");
+                $q->orWhere('phone', 'LIKE', "%$searchValue%");
+                $q->orWhere('country', 'LIKE', "%$searchValue%");
+                foreach ($countryCodes as $countryCode) {
+                    $q->orWhere('country', 'LIKE', "%$countryCode%");
+                };
+                $q->orWhereHas('categories', function ($q) use ($searchValue) {
+                    $q->where('title', 'LIKE', "%$searchValue%");
+                });
             });
         }
 
