@@ -17,12 +17,24 @@ class CategoryPostController extends Controller
         // dd($request->get(''));
         $cardsPerPage = $request->get('cardsPerPage') ?? 5;
         $start = $request->get('start') ?? 0;
-        $category_posts = CategoryPost::where('category_id', $category_id)->skip($start)->take($cardsPerPage)->get();
+        $searchTerm = $request->get('search');
+        if ($request->get('search')) {
+            $category_posts = CategoryPost::where('category_id', $category_id)
+                ->where(function ($query) use ($searchTerm) {
+                    $query->where('title', 'like', "%{$searchTerm}%")
+                        ->orWhere('body', 'like', "%{$searchTerm}%");
+                })
+                ->skip($start)
+                ->take($cardsPerPage)
+                ->get();
+        } else {
+            $category_posts = CategoryPost::where('category_id', $category_id)->skip($start)->take($cardsPerPage)->get();
+        }
 
         $data = [
             'error' => false,
             'message' => 'Posts fetched successfully',
-            'count' => CategoryPost::where('category_id', $category_id)->count(),
+            'count' => $searchTerm ? $category_posts->count() : CategoryPost::where('category_id', $category_id)->count(),
             'posts' => view('components.web.category-post-list', compact('category_posts'))->render()
         ];
 

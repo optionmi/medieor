@@ -29,9 +29,19 @@
         <section class="flex flex-col justify-between gap-5 sm:flex-row ">
             <div class="w-full p-5 sm:w-3/5">
                 <h1 class="text-2xl sm:text-5xl">
-                    My Contribution in healing
-                    <span class="font-bold"> {{ $category->title }}</span>
+                    My Contribution in healing <br>
+                    @php
+                        $title = $category->title;
+                        $words = explode(' ', $title);
+                        $firstWord = array_shift($words);
+                        $lastWord = array_pop($words);
+                        $middleWords = implode(' ', $words);
+                    @endphp
+                    <span class="font-bold">{{ $firstWord }}</span>
+                    {{ $middleWords }}
+                    <span class="font-bold">{{ $lastWord }}</span>
                 </h1>
+
                 <div class="my-5 text-xl sm:text-2xl">
                     {!! $category->description !!}
                 </div>
@@ -103,10 +113,15 @@
         <div class="py-5 bg-white ">
             <div class="container flex flex-col items-center justify-center gap-5 mx-auto sm:flex-row">
                 <div class="flex">
-                    <input class="p-2 bg-[#f4f5f9]" type="text" placeholder="Search Topics" />
-                    <div class="text-white bg-[#697684] p-3">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                    <div class="relative"><input class="p-2 bg-[#f4f5f9] h-full pr-5" type="text" id="searchInput"
+                            placeholder="Search Topics" />
+                        <button id="cancelSearchBtn" class="absolute top-0 bottom-0 right-0 hidden my-auto mr-2">X</button>
                     </div>
+                    <button type="button" id="searchPostBtn">
+                        <div class="text-white bg-[#697684] p-3">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                    </button>
                 </div>
                 {{-- <button data-modal-target="start-new-topic" data-modal-toggle="start-new-topic" --}}
                 {{-- <button class="px-4 py-2 bg-[#1cbb9b] text-white rounded-sm">
@@ -165,7 +180,7 @@
                 <div class="p-5 my-5 bg-white rounded-md">
 
                     <h1 class="mb-10 text-xl ">Comment of the week</h1>
-                    <h2 class="text-lg">Which game you are playing this week?</h2>
+                    <h2 class="text-lg">Which topic you are playing this week?</h2>
                     <ul class="flex flex-col gap-2 py-5">
 
                         <li class="flex justify-between">
@@ -208,7 +223,7 @@
                         </li>
 
                     </ul>
-                    <small>Voting ends on 19th of October 2024</small>
+                    {{-- <small>Voting ends on 19th of October 2024</small> --}}
                 </div>
             </div>
         </div>
@@ -216,7 +231,7 @@
 
     <section class="my-5 bg-[#ecf0f1] py-10 px-2">
         <div class="container mx-auto">
-            <h1 class="px-5 my-10 text-3xl sm:text-5xl">
+            <h1 class="px-5 my-10 text-2xl sm:text-4xl">
                 How can I <span class="font-bold">Heal My Earth</span>
             </h1>
         </div>
@@ -432,8 +447,9 @@
             let currentPage = 1;
             let totalPages;
             let start = 0;
+            let search;
 
-            const fetchCards = async (start, perPage) => {
+            const fetchCards = async (start, perPage, search) => {
                 try {
                     const response = await fetch("{{ route('topic.all', $category->id) }}", {
                         method: "POST",
@@ -444,7 +460,8 @@
                         },
                         body: JSON.stringify({
                             cardsPerPage: perPage,
-                            start: start
+                            start: start,
+                            search
                         }),
                     });
                     return await response.json();
@@ -479,7 +496,7 @@
             };
 
             const updateDisplay = async () => {
-                const data = await fetchCards(start, cardsPerPage);
+                const data = await fetchCards(start, cardsPerPage, search);
                 if (data && data.data) {
                     totalPages = Math.ceil(data.data.count / cardsPerPage);
                     displayCards(data.data.posts);
@@ -506,6 +523,36 @@
             // Initial display
             updateDisplay();
 
+            $('#searchPostBtn').click(searchPosts);
+
+            const cancelSearchBtn = $('#cancelSearchBtn');
+            cancelSearchBtn.click(function() {
+                $("#searchInput").val('');
+                search = '';
+                start = 0;
+                currentPage = 1;
+                $('#cancelSearchBtn').addClass('hidden');
+                updateDisplay();
+            });
+
+            $('#searchInput').on('change', function(e) {
+                const searchInputElement = $("#searchInput");
+                const searchInputValue = searchInputElement.val();
+
+                if (searchInputValue) {
+                    $('#cancelSearchBtn').removeClass('hidden');
+                } else {
+                    $('#cancelSearchBtn').addClass('hidden');
+                }
+            });
+
+            function searchPosts() {
+                const searchInput = $("#searchInput").val();
+                search = searchInput;
+                start = 0;
+                currentPage = 1;
+                updateDisplay();
+            }
         });
     </script>
 @endsection
