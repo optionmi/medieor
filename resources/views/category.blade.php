@@ -69,7 +69,13 @@
                         @foreach ($category->active_groups as $group)
                             <li class="py-5 border-b-2 border-gray-600 ">
                                 <div>
-                                    <h2 class="text-xl">{{ $group->title }}</h2>
+                                    @if (auth()->user() && auth()->user()->hasRole('admin'))
+                                        <h2 class="text-xl">
+                                            <a href="{{ route('web.group.detail', $group->id) }}">{{ $group->title }}</a>
+                                        </h2>
+                                    @else
+                                        <h2 class="text-xl">{{ $group->title }}</h2>
+                                    @endif
                                     <div class="flex gap-1 text-xs text-gray-500 sm:text-sm">
                                         <span class="text-gray-500">Public Group</span>●
                                         <span>Created {{ $group->created_at->diffForHumans() }}</span>●

@@ -144,4 +144,9 @@ class User extends Authenticatable
             ->whereIn('name', $restrictedActions)
             ->exists();
     }
+
+    public function hasJoinedGroup($group_id)
+    {
+        return $this->groups()->where('groups.id', $group_id)->exists();
+    }
 }

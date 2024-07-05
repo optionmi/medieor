@@ -25,14 +25,29 @@
                             <div class="flex justify-between">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-grow-0 flex-shrink-0 w-20 h-20">
-                                        <a href="#" class="object-cover">
-                                            <img class="object-cover h-full rounded-full"
-                                                src="{{ asset($group->image_path) }}" alt="" />
-                                        </a>
+                                        @if (auth()->user() && auth()->user()->hasRole('admin'))
+                                            <a href="#" class="object-cover">
+                                                <img class="object-cover h-full rounded-full"
+                                                    src="{{ asset($group->image_path) }}" alt="" />
+                                            </a>
+                                        @else
+                                            <div class="object-cover">
+                                                <img class="object-cover h-full rounded-full"
+                                                    src="{{ asset($group->image_path) }}" alt="" />
+                                            </div>
+                                        @endif
                                     </div>
                                     <div>
-                                        <h1 class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white">
-                                            {{ $group->title }}</h1>
+                                        @if (auth()->user() && auth()->user()->hasRole('admin'))
+                                            <h1 class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white">
+                                                <a
+                                                    href="{{ route('web.group.detail', $group->id) }}">{{ $group->title }}</a>
+
+                                            </h1>
+                                        @else
+                                            <h1 class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white">
+                                                {{ $group->title }}</h1>
+                                        @endif
                                         <small>Public Group</small> ●
                                         <small>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>
                                     </div>

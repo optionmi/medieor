@@ -110,10 +110,14 @@ class GroupController extends Controller
         return view('my-groups', compact('groups'));
     }
 
-    public function groupDetail($id)
+    public function groupDetail(Request $request, Group $group)
     {
-        $group = $this->group->find($id);
-        return view('group.detail', compact('group'));
+        $user = auth()->user();
+        if ($user->hasRole('admin') || $user->hasJoinedGroup($group->id)) {
+            return view('group.detail', compact('group'));
+        }
+
+        return redirect('/');
     }
 
     public function confirmJoinRequest()

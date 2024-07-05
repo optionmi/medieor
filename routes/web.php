@@ -53,24 +53,22 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/comment/delete/{comment}', [CPCommentController::class, 'destroy'])->name('web.category.post.comment.delete');
     });
 
+    // Profile
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');
     Route::post('/update-profile/{user}', [UserController::class, 'updateDetails'])->name('web.update.profile');
     Route::post('/update-password/{user}', [UserController::class, 'updatePassword'])->name('web.update.password');
 
+    // Groups
     Route::get('/my-groups', [GroupController::class, 'myGroups'])->name('web.my.groups');
-
-    Route::get('/my-groups/{id}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
-
+    Route::get('/my-groups/{group}', [GroupController::class, 'groupDetail'])->name('web.group.detail');
     Route::post('/create-group', [GroupController::class, 'create'])->name('web.create.group');
     Route::post('/join-group', [GroupController::class, 'join'])->name('web.join.group');
-
     Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
-
     Route::post('/confirm-group-join-request', [GroupController::class, 'confirmJoinRequest'])->name('confirm.group.join.request');
-    Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.groups');
+    // Route::get('/air/groups', [GroupController::class, 'index'])->name('web.air.groups');
 
+    // Posts
     Route::post('/save-post/{group_id}', [PostController::class, 'store'])->name('web.save.post');
-
     Route::post('/post-list', [PostController::class, 'postList'])->name('web.post.list');
     Route::delete('/delete-post/{post}', [PostController::class, 'destroy'])->name('web.post.delete');
 
