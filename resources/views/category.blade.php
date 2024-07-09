@@ -10,7 +10,7 @@
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute left-0 right-0 flex-col items-center hidden w-full p-5 text-3xl text-white sm:flex sm:top-60 sm:text-6xl top-4 sm:bottom-60 sm:right-20 banner-content">
+                    class="absolute flex-col items-center hidden p-5 text-3xl text-white right-16 sm:flex sm:text-6xl bottom-60 banner-content">
                     {!! $category->img_text !!}
                 </div>
             </div>
@@ -110,7 +110,7 @@
         </section>
     </main>
 
-    <section class="my-5 bg-[#ecf0f1] py-5 sm:py-10 px-2">
+    <section class="my-5 bg-[#f6f2ee] py-5 sm:py-10 px-2">
         <div class="container mx-auto">
             <h1 class="px-5 my-10 text-2xl sm:text-4xl">
                 Topics for <span class="font-bold">Discussion</span>
@@ -235,7 +235,7 @@
         </div>
     </section>
 
-    <section class="my-5 bg-[#ecf0f1] py-10 px-2">
+    <section class="my-5 bg-[#f6f2ee] py-10 px-2">
         <div class="container mx-auto">
             <h1 class="px-5 my-10 text-2xl sm:text-4xl">
                 How can I <span class="font-bold">Heal My Earth</span>
