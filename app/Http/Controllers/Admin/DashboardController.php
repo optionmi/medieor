@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\CommentRepository;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Donation;
+use App\Models\Group;
+use App\Models\Post;
+use App\Repositories\CommentRepository;
 
 class DashboardController extends Controller
 {
@@ -20,8 +24,14 @@ class DashboardController extends Controller
     public function index()
     {
         $data = $this->comment->getCommentsCountByCategory();
+        // dd($data);
+        $cardData = new \stdClass();
+        $cardData->usersCount = User::all()->count();
+        $cardData->donationsCount = Donation::all()->count();
+        $cardData->groupsCount = Group::all()->count();
+        $cardData->postsCount = Post::all()->count();
 
-        return view('admin.dashboard.index', compact('data'));
+        return view('admin.dashboard.index', compact('data', 'cardData'));
     }
 
     /**

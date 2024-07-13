@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/post-list', [PostController::class, 'postList'])->name('web.post.list');
     Route::delete('/delete-post/{post}', [PostController::class, 'destroy'])->name('web.post.delete');
 
-
+    // Comments
     Route::prefix('comment')->group(function () {
         Route::post('/save', [CommentController::class, 'store'])->name('web.comment.save');
         Route::get('/post-comments', [CommentController::class, 'comments'])->name('web.post.comments');

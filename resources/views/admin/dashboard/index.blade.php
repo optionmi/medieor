@@ -3,6 +3,73 @@
 @section('content')
     <div class="body flex-grow-1">
         <div class="px-4 container-lg">
+
+            <div class="mb-4 row g-4">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="text-white card bg-primary">
+                        <div class="pb-0 card-body d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="fs-3 fw-semibold">
+                                    {{ $cardData->usersCount }}
+                                </div>
+                                <div>Users</div>
+                            </div>
+                        </div>
+                        <div class="mx-3 mt-3 c-chart-wrapper" style="height: 70px">
+                            <canvas class="chart" id="card-chart1" height="70"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-xl-3">
+                    <div class="text-white card bg-info">
+                        <div class="pb-0 card-body d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="fs-3 fw-semibold">
+                                    {{ $cardData->donationsCount }}
+                                </div>
+                                <div>Donations</div>
+                            </div>
+                        </div>
+                        <div class="mx-3 mt-3 c-chart-wrapper" style="height: 70px">
+                            <canvas class="chart" id="card-chart2" height="70"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-xl-3">
+                    <div class="text-white card bg-warning">
+                        <div class="pb-0 card-body d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="fs-3 fw-semibold">
+                                    {{ $cardData->groupsCount }}
+                                </div>
+                                <div>Groups</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 c-chart-wrapper" style="height: 70px">
+                            <canvas class="chart" id="card-chart3" height="70"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-xl-3">
+                    <div class="text-white card bg-danger">
+                        <div class="pb-0 card-body d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="fs-3 fw-semibold">
+                                    {{ $cardData->postsCount }}
+                                </div>
+                                <div>Posts</div>
+                            </div>
+                        </div>
+                        <div class="mx-3 mt-3 c-chart-wrapper" style="height: 70px">
+                            <canvas class="chart" id="card-chart4" height="70"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+            </div>
             <!-- /.row-->
             <div class="mb-4 card">
                 <div class="card-body">
@@ -13,17 +80,15 @@
                             </div>
                         </div>
                         <div class="btn-toolbar d-none d-md-block" role="toolbar" aria-label="Toolbar with buttons">
-                            {{-- <div class="mx-3 btn-group btn-group-toggle" data-coreui-toggle="buttons">
-                                    <input class="btn-check" id="option1" type="radio" name="options"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary"> Day</label>
-                                    <input class="btn-check" id="option2" type="radio" name="options" autocomplete="off"
-                                        checked="" />
-                                    <label class="btn btn-outline-secondary active"> Month</label>
-                                    <input class="btn-check" id="option3" type="radio" name="options"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary"> Year</label>
-                                </div> --}}
+                            <div class="mx-3 btn-group btn-group-toggle" data-coreui-toggle="buttons">
+                                {{-- <input class="btn-check" id="option1" type="radio" name="options" autocomplete="off" /> --}}
+                                <button id="dayChartBtn" class="btn btn-outline-secondary chart-btn active"> Day</button>
+                                {{-- <input class="btn-check" id="option2" type="radio" name="options" autocomplete="off" --}}
+                                {{-- checked="" /> --}}
+                                <button id="monthChartBtn" class="btn btn-outline-secondary chart-btn"> Month</button>
+                                {{-- <input class="btn-check" id="option3" type="radio" name="options" autocomplete="off" /> --}}
+                                <button id="yearChartBtn" class="btn btn-outline-secondary chart-btn"> Year</button>
+                            </div>
                             {{-- <button class="btn btn-primary" type="button">
                                     <svg class="icon">
                                         <use
@@ -95,10 +160,57 @@
     <script src="{{ asset('coreui/js/main.js') }}"></script>
 
     <script>
-        const labels = @json($data->pluck('title'));
-        const data = @json($data->pluck('total'));
+        const labels = @json($data->today->pluck('title'));
+        const todayData = @json($data->today->pluck('total_comments'));
+        const monthData = @json($data->month->pluck('total_comments'));
+        const yearData = @json($data->year->pluck('total_comments'));
+        let currentChart;
+
         document.addEventListener('DOMContentLoaded', function() {
-            const mainChart = new Chart(document.getElementById("main-chart"), {
+            const ctx = document.getElementById('main-chart').getContext('2d');
+
+            // Initial chart creation
+            currentChart = drawChart(ctx, labels, todayData);
+
+            const dayChartBtn = document.getElementById('dayChartBtn');
+            const monthChartBtn = document.getElementById('monthChartBtn');
+            const yearChartBtn = document.getElementById('yearChartBtn');
+
+            dayChartBtn.addEventListener('click', function() {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                currentChart = drawChart(ctx, labels, todayData);
+                setActiveButton(this);
+            });
+
+            monthChartBtn.addEventListener('click', function() {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                currentChart = drawChart(ctx, labels, monthData);
+                setActiveButton(this);
+            });
+
+            yearChartBtn.addEventListener('click', function() {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                currentChart = drawChart(ctx, labels, yearData);
+                setActiveButton(this);
+            });
+
+        });
+
+        function setActiveButton(activeButton) {
+            document.querySelectorAll('.chart-btn').forEach(button => {
+                button.classList.remove('active');
+            });
+            activeButton.classList.add('active');
+        }
+
+        function drawChart(ctx, labels, data) {
+            return mainChart = new Chart(ctx, {
                 type: "line",
                 data: {
                     labels: labels,
@@ -186,6 +298,6 @@
                     },
                 },
             });
-        });
+        }
     </script>
 @endsection

@@ -15,4 +15,9 @@ class CPComment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function post()
+    {
+        return $this->belongsTo(CategoryPost::class, 'post_id');
+    }
 }

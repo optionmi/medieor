@@ -16,7 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function deleteRow() {
-    fetch(deleteRoute)
+    fetch(deleteRoute, {
+      method: "delete",
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error == true) {
