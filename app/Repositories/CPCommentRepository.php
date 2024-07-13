@@ -78,7 +78,7 @@ class CPCommentRepository extends BaseRepository implements CPCommentRepositoryI
         return $topics->map(function ($cpcomment, $key) use ($start) {
             $cpcomment->serial = $start + 1 + $key;
             $cpcomment->category = $cpcomment->post->category;
-            $cpcomment->name = $cpcomment->author->name;
+            $cpcomment->name = $cpcomment?->author?->name;
             $cpcomment->comment = $cpcomment->content;
             unset($cpcomment->content);
             $cpcomment->setHidden(['author']);

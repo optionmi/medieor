@@ -143,7 +143,7 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     {
         return $comments->map(function ($comment, $key) use ($start) {
             $comment->serial = $start + 1 + $key;
-            $comment->name = $comment->author->name;
+            $comment->name = $comment?->author?->name;
             $comment->group = $comment?->post?->group?->title;
             $comment->comment = $comment->content;
             unset($comment->content);
