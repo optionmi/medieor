@@ -63,7 +63,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
     {
         return $groups->map(function ($group, $key) use ($start) {
             $group->serial = $start + 1 + $key;
-            $group->category;
+            $group->category_title = $group?->category?->title;
             $group->members = "<a target='_blank' href=" . route('admin.group.members', $group->id) . ">" . $group->users->count() . "</a>";
             $group->created_by = $group->owner ? $group->owner->name : null;
             $group->created_at_formated = $group->created_at->format('d M, Y');
@@ -96,6 +96,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
                     </svg>
                     </button>
                     </div>';
+            $group->setHidden(['category', 'users', 'owner']);
             return $group;
         });
     }

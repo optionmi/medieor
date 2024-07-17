@@ -67,7 +67,7 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'group_name',
+                        data: 'group_title',
                         name: 'group',
                         searchable: true,
                         orderable: true,

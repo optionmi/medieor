@@ -144,9 +144,9 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
         return $comments->map(function ($comment, $key) use ($start) {
             $comment->serial = $start + 1 + $key;
             $comment->name = $comment?->author?->name;
-            $comment->group = $comment?->post?->group?->title;
+            $comment->group_title = $comment?->post?->group?->title;
             $comment->comment = $comment->content;
-            unset($comment->content);
+            $comment->setHidden(['content', 'author', 'post']);
             $comment->actions = view('admin.comments.actions', compact('comment'))->render();
             return $comment;
         });

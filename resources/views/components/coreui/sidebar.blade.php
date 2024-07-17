@@ -77,6 +77,13 @@
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}"></use>
                 </svg> Join Requests</a></li>
+
+
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.posts') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
+                </svg> All Posts</a></li>
+
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.comments') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">

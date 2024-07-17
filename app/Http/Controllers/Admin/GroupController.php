@@ -227,7 +227,7 @@ class GroupController extends Controller
         return $users->map(function ($user, $key) {
             $user->serial = $key + 1;
             $user->name = $user->user->name;
-            $user->group_name = $user->group->title;
+            $user->group_title = $user->group->title;
             // $user->created_at_formated = $user->created_at->format('d M, Y');
             // $user->status_formated = $user->status == 1 ? 'Active' : 'Inactive';
             $user->actions = '<div class="form-group"><div class="form-check form-check-inline">
@@ -239,6 +239,7 @@ class GroupController extends Controller
                 <input data-group="' . $user->group_id . '" data-user="' . $user->user_id . '" class="form-check-input join-request-radio" type="radio" name="approvalStatus" id="disapproveRadio" value="false">
                 <label class="form-check-label" for="disapproveRadio">Decline</label>
             </div></div>';
+            $user->setHidden(['user', 'group']);
             return $user;
         });
     }

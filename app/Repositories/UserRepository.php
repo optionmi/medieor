@@ -64,6 +64,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $user->categories_names = $user->categories->pluck('title')->implode('</br>');
             $user->country = $user->country_name;
             $user->actions = view('admin.users.actions', compact('user'))->render();
+            $user->setHidden(['categories']);
             return $user;
         });
     }

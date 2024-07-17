@@ -92,7 +92,7 @@
                         @endforeach
                     </ul>
                     <div class="flex justify-center my-5">
-                        <a class="px-3 py-2 font-bold text-white bg-blue-600 rounded-sm shadow-sm"
+                        <a class="px-3 py-2 font-bold text-white rounded-sm shadow-sm bg-primary"
                             href="{{ route('web.groups', $category->id) }}">Explore Groups</a>
                     </div>
                 </div>
@@ -186,7 +186,21 @@
                 <div class="p-5 my-5 bg-white rounded-md">
 
                     <h1 class="mb-10 text-xl ">Comment of the week</h1>
-                    <h2 class="text-lg">Which topic you are playing this week?</h2>
+                    <ul class="flex flex-col gap-2">
+                        @if ($category->topics->count() > 0)
+                            @foreach ($category->topics as $topic)
+                                <li class="flex justify-between">
+                                    <a href="">{{ $topic->name }}</a>
+                                    <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
+                                        {{ $topic->posts->count() }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="text-center text-gray-400">No topics found</li>
+                        @endif
+                    </ul>
+                    {{-- <h2 class="text-lg">Which topic you are playing this week?</h2>
                     <ul class="flex flex-col gap-2 py-5">
 
                         <li class="flex justify-between">
@@ -228,7 +242,7 @@
                             </div>
                         </li>
 
-                    </ul>
+                    </ul> --}}
                     {{-- <small>Voting ends on 19th of October 2024</small> --}}
                 </div>
             </div>

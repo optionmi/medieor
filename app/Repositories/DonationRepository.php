@@ -77,7 +77,8 @@ class DonationRepository extends BaseRepository implements DonationRepositoryInt
             } else {
                 $donation->country = $donation->country_name;
             }
-            $donation->category;
+            $donation->category_title = $donation->category->title;
+            $donation->setHidden(['category', 'user']);
             return $donation;
         });
     }

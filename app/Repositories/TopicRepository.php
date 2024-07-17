@@ -60,10 +60,9 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
     {
         return $topics->map(function ($topic, $key) use ($start) {
             $topic->serial = $start + 1 + $key;
-            $topic->category;
-            $topic->created_at_formated = $topic->created_at ? $topic->created_at->format('d M, Y') : null;
-            $topic->status_formated = $topic->status == 1 ? 'Active' : 'Inactive';
+            $topic->category_title = $topic?->category?->title;
             $topic->actions = view('admin.topics.actions', compact('topic'))->render();
+            $topic->setHidden(['category']);
             return $topic;
         });
     }

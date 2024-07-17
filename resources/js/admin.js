@@ -130,9 +130,11 @@ document.addEventListener("DOMContentLoaded", function () {
             $(this).text() === "#"
               ? "serial"
               : $(this).text() === "Category"
-              ? "category.title"
+              ? "category_title"
+              : $(this).text() === "Group"
+              ? "group_title"
               : $(this).text() === "Topic"
-              ? "topic.name"
+              ? "topic_name"
               : $(this).text() === "Categories"
               ? "categories_names"
               : $(this).text().toLowerCase(),

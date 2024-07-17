@@ -48,7 +48,7 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-7f31c0d9.css",
+    "file": "assets/app-2d0daf2d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -99,7 +99,7 @@
     "src": "resources/js/Pages/components/DropdownSelect.jsx"
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-b54e3b57.js",
+    "file": "assets/admin-30ae1341.js",
     "isEntry": true,
     "src": "resources/js/admin.js"
   },

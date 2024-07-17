@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\InfoPageController;
 use App\Http\Controllers\Admin\CPCommentController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GroupPostController;
 use App\Http\Controllers\Admin\CategoryPostController;
 
 Route::get('/login', function () {
@@ -102,6 +103,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/join-requests', [GroupController::class, 'joinRequest'])->name('admin.group.join.request');
         Route::get('/group-join-request-data', [GroupController::class, 'userJoinRequest'])->name('admin.group.join.request.data');
         Route::post('/toggle-join-request', [GroupController::class, 'toggleJoinRequest'])->name('admin.group.join.request.toggle');
+
+        // Posts
+        Route::get('/posts', [GroupPostController::class, 'index'])->name('admin.group.posts');
+        Route::get('/posts-data', [GroupPostController::class, 'dataTable'])->name('admin.group.posts.datatable');
+        Route::delete('/post/{post}', [GroupPostController::class, 'destroy'])->name('admin.group.post.destroy');
 
         // Comments
         Route::get('/comments', [CommentController::class, 'index'])->name('admin.group.comments');

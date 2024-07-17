@@ -84,7 +84,7 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'category.title',
+                        data: 'category_title',
                         name: 'Category',
                         searchable: true,
                         orderable: true,

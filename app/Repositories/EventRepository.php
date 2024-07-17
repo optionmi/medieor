@@ -60,9 +60,10 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
     {
         return $events->map(function ($event, $key) use ($start) {
             $event->serial = $start + 1 + $key;
-            $event->category;
+            $event->category_title = $event?->category?->title;
             $event->video = view('admin.events.video', compact('event'))->render();
             $event->actions = view('admin.events.actions', compact('event'))->render();
+            $event->setHidden(['category']);
             return $event;
         });
     }
