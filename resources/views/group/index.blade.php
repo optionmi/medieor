@@ -73,7 +73,7 @@
                             </div>
                             <div class="my-4">
                                 <h2 class="font-bold text-gray-800">About</h2>
-                                <p class="my-2">{{ $group->description }}</p>
+                                <p class="my-2">{!! $group->description !!}</p>
                             </div>
                             <div class="my-4">
                                 <x-web.members-image :users="$group->users" />

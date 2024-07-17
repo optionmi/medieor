@@ -44,7 +44,7 @@
                                     class="w-6 fa-solid fa-users"></i>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>
                             <div class="my-4">
                                 <strong>About</strong>
-                                <p>{{ $group->description }}</p>
+                                <p>{!! $group->description !!}</p>
                             </div>
 
                             @if ($group->users->count() > 0)

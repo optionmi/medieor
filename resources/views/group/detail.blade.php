@@ -5,7 +5,7 @@
         <div class="container mx-auto ">
             <div class="my-5">
                 <h1 class="text-4xl font-bold">{{ $group->title }}</h1>
-                <p class="my-5">{{ $group->description }}</p>
+                <p class="my-5">{!! $group->description !!}</p>
             </div>
 
             <div class="flex flex-col items-center gap-8 mb-10">
