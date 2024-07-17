@@ -52,7 +52,7 @@
                                         <small>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</small>
                                     </div>
                                 </div>
-                                <div class="hidden sm:block">
+                                <div class="hidden sm:block shrink-0">
                                     @if (auth()->user() && in_array($group->id, auth()->user()->groups->pluck('id')->toArray()))
                                         <a href="#" data-id="{{ $group->id }}"
                                             class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded-lg pointer-events-none hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 join-group">
