@@ -103,7 +103,8 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
         if (!empty($sortColumn)) {
             switch (strtolower($sortColumn)) {
                 case "#":
-                    $sortColumn = 'id';
+                    $sortColumn = 'created_at';
+                    $sortDirection = 'DESC';
                     break;
                 case "name":
                     $sortColumn = 'user_id';

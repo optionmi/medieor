@@ -39,7 +39,8 @@ class GroupPostRepository extends BaseRepository implements GroupPostRepositoryI
         if (!empty($sortColumn)) {
             switch (strtolower($sortColumn)) {
                 case "#":
-                    $sortColumn = 'id';
+                    $sortColumn = 'created_at';
+                    $sortDirection = 'DESC';
                     break;
                 case "name":
                     $sortColumn = 'user_id';

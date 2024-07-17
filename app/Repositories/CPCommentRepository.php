@@ -37,7 +37,8 @@ class CPCommentRepository extends BaseRepository implements CPCommentRepositoryI
         if (!empty($sortColumn)) {
             switch (strtolower($sortColumn)) {
                 case "#":
-                    $sortColumn = 'id';
+                    $sortColumn = 'created_at';
+                    $sortDirection = 'DESC';
                     break;
                 case "name":
                     $sortColumn = 'user_id';
