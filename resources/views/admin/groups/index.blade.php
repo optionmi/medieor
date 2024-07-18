@@ -1,6 +1,9 @@
 @extends('layouts.coreui')
+
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.snow.css" rel="stylesheet" />
 @endsection
+
 
 @section('content')
     <div class="body flex-grow-1">
@@ -128,86 +131,21 @@
                         // "width": "10%"
                     },
                 ],
-                // columnDefs: [{
-                //         "targets": 0,
-                //         "width": "4%"
-                //     },
-                //     {
-                //         "targets": 3,
-                //         "className": "text-center",
-                //     }
-                // ],
             });
+        });
+    </script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.js"></script>
 
-            // $('#edit-group').on('show.bs.modal', function(event) {
-            //     var button = $(event.relatedTarget);
-            //     var id = button.data('id');
-
-            //     var id = button.data('id');
-            //     var title = button.data('title');
-            //     var description = button.data('description');
-            //     var status = button.data('status');
-            //     var image_path = button.data('image_path');
-
-            //     $('#id').val(id);
-            //     $('#title').val(title);
-            //     $('#description').val(description);
-            //     $('input:radio[name="status"][value="' + status + '"]').prop('checked', true);
-            //     $('#image_preview').attr('src', image_path);
-            // });
-
-            // $('#save-group-form').submit(function(e) {
-            //     e.preventDefault();
-
-            //     var form = $(this);
-            //     var submitUrl = form.attr('action');
-            //     var method = form.attr('method');
-
-            //     var submitButton = form.find('button[type="submit"]');
-            //     submitButton.html('<i class="fas fa-2x fa-sync-alt fa-spin"></i>');
-
-            //     var formData = new FormData(this);
-
-            //     $.ajax({
-            //         url: submitUrl,
-            //         type: method,
-            //         data: formData,
-            //         contentType: false,
-            //         processData: false,
-            //         success: function(data) {
-
-            //             submitButton.html('Save changes');
-            //             $('#save-group-form')[0].reset();
-            //             $('#edit-group').modal('hide');
-            //             $('#group-table').DataTable().draw();
-
-            //             if (data.error == true) {
-            //                 Swal.fire({
-            //                     title: 'Error!',
-            //                     text: data.message,
-            //                     icon: 'error',
-            //                     showConfirmButton: true,
-            //                 }).then((value) => {
-
-            //                 });
-            //                 return false;
-            //             } else {
-            //                 Swal.fire({
-            //                     title: 'Success!',
-            //                     text: data.message,
-            //                     icon: 'success',
-            //                     showConfirmButton: true,
-            //                 }).then((value) => {
-
-            //                 });
-            //             }
-            //         },
-            //         error: function(error) {
-            //             submitButton.html('Save changes');
-            //             console.error('Error:', error);
-            //         }
-            //     });
-            // });
+    <script>
+        const quill1 = new Quill("#description", {
+            theme: "snow",
+        });
+        $('.modal').on('shown.coreui.modal', function() {
+            quill1.root.innerHTML = $('#hiddenDescription').val();
+            quill1.on('text-change', function(delta, oldDelta, source) {
+                $('#hiddenDescription').val(quill1.root.innerHTML);
+            });
         });
     </script>
 @endsection

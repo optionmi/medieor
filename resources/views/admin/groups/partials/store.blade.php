@@ -16,7 +16,9 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control updateDataField" id="description" rows="3" name="description"></textarea>
+                        <div id="description">
+                        </div>
+                        <input class="updateDataField" id="hiddenDescription" type="hidden" name="description">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="category">Category</label>

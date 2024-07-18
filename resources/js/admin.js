@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
       error: function (error) {
         $("#loading").toggleClass("d-none");
         $("body").css("overflow", "auto");
+        toastr.error("Something went wrong!", "Admin Panel");
         console.error("Error:", error);
       },
     });
