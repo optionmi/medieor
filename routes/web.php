@@ -15,6 +15,7 @@ use App\Http\Controllers\InfoPageController;
 use App\Http\Controllers\CPCommentController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CommentReplyController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/comment/{categoryPost}', [CPCommentController::class, 'store'])->name('web.category.post.comment.store');
         Route::delete('/comment/delete/{comment}', [CPCommentController::class, 'destroy'])->name('web.category.post.comment.delete');
     });
+
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
 
     // Profile
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');

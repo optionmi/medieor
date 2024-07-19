@@ -138,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
               ? "topic_name"
               : $(this).text() === "Categories"
               ? "categories_names"
+              : $(this).text() === "Media"
+              ? "media_file"
               : $(this).text().toLowerCase(),
           name: $(this).text(),
           searchable: $(this).text() !== "#" && $(this).text() !== "Actions",

@@ -26,9 +26,9 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="eventVideo">Video</label>
-                        <input class="form-control updateDataField" id="eventVideo" type="file" name="video"
-                            accept="video/mp4">
+                        <label class="form-label" for="eventMedia">Media File</label>
+                        <input class="form-control updateDataField" id="eventMedia" type="file" name="media_file"
+                            accept="video/* , image/*">
                     </div>
                 </div>
                 <div class="modal-footer">

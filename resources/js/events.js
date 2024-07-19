@@ -14,4 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
   videoModal.addEventListener("hide.twe.modal", (e) => {
     modalVideo.src = "";
   });
+
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  imageModal.addEventListener("show.twe.modal", (e) => {
+    const imageUrl = e.relatedTarget.dataset.imageUrl;
+    modalImage.src = imageUrl;
+  });
 });
