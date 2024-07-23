@@ -99,6 +99,12 @@ document.addEventListener("DOMContentLoaded", function () {
           toastr.success(data.message, "Admin Panel");
           if (form.parents(".modal").length > 0) {
             form[0].reset();
+            const hiddenInputs = document.querySelectorAll(
+              'form input[type="hidden"]'
+            );
+            hiddenInputs.forEach((input) => {
+              input.value = ""; // Clears hidden fields
+            });
           }
           $(".modal").modal("hide");
           $(".dataTable").DataTable().draw();
