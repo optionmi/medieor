@@ -17,7 +17,7 @@ class Category extends Model
     }
     public function active_groups()
     {
-        return $this->hasMany(Group::class, 'category_id')->where('status', 1);
+        return $this->hasMany(Group::class, 'category_id')->where('status', 1)->orderBy('created_at', 'desc');
     }
     // public function users()
     // {

@@ -41,7 +41,7 @@
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-be6dab98.css",
+    "file": "assets/app-fcf82128.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -92,7 +92,7 @@
     "src": "resources/js/Pages/components/DropdownSelect.jsx"
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-9f5f73e7.js",
+    "file": "assets/admin-167953d7.js",
     "isEntry": true,
     "src": "resources/js/admin.js"
   },
@@ -119,7 +119,7 @@
     "src": "resources/js/app.jsx"
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-fd6249b1.js",
+    "file": "assets/dashboard-0b4a6e7c.js",
     "imports": [
       "_tw-elements.es.min-563fcd5f.js"
     ],

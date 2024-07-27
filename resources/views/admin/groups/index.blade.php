@@ -141,7 +141,7 @@
         const quill1 = new Quill("#description", {
             theme: "snow",
         });
-        $('.modal').on('show.coreui.modal', function() {
+        $('.modal').on('shown.coreui.modal', function() {
             quill1.root.innerHTML = $('#hiddenDescription').val();
             quill1.on('text-change', function(delta, oldDelta, source) {
                 $('#hiddenDescription').val(quill1.root.innerHTML);

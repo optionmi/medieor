@@ -10,7 +10,7 @@
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute flex-col items-center hidden p-5 text-3xl text-white right-16 sm:flex sm:text-6xl bottom-60 banner-content">
+                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content">
                     {!! $category->img_text !!}
                 </div>
             </div>
@@ -47,15 +47,15 @@
                 </div>
                 <div class="flex justify-between gap-4 px-2 my-10">
                     <p>
-                        <span class="text-3xl sm:text-5xl">{{ $category->active_groups->count() }}+</span><br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->active_groups->count() }}</span><br />
                         <span class="sm:text-2xl"> Community Groups</span>
                     </p>
                     <p>
-                        <span class="text-3xl sm:text-5xl">{{ $category->users->count() }}+</span> <br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->users->count() }}</span> <br />
                         <span class="sm:text-2xl"> Registered Members</span>
                     </p>
                     <p>
-                        <span class="text-3xl sm:text-5xl">{{ $category->events->count() }}+</span> <br />
+                        <span class="text-3xl sm:text-5xl">{{ $category->events->count() }}</span> <br />
                         <span class="sm:text-2xl"> Upcoming Events</span>
                     </p>
                 </div>
@@ -63,7 +63,7 @@
             <div class="w-full p-2 sm:w-2/5">
                 <div class="p-5 border border-black sm:p-10 bottom-1">
                     <h1 class="pb-5 text-3xl border-b-2 border-gray-600">
-                        Last Active Groups
+                        Lastest Active Groups
                     </h1>
                     <ul class="max-h-[35rem] overflow-auto">
                         @foreach ($category->active_groups as $group)
@@ -185,7 +185,7 @@
 
                 <div class="p-5 my-5 bg-white rounded-md">
 
-                    <h1 class="mb-10 text-xl ">Comment of the week</h1>
+                    <h1 class="mb-10 text-xl ">Most Popular Topics</h1>
                     <ul class="flex flex-col gap-2">
                         @if ($category->topics->count() > 0)
                             @foreach ($category->topics as $topic)

@@ -120,8 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Reset form on modal hidden
-  $(".modal").on("hidden.coreui.modal", function () {
+  $(".modal").on("hide.coreui.modal", function () {
     $(this).find("form").trigger("reset");
+    const hiddenInputs = document.querySelectorAll('form input[type="hidden"]');
+    hiddenInputs.forEach((input) => {
+      input.value = ""; // Clears hidden fields
+    });
   });
 
   // DataTable

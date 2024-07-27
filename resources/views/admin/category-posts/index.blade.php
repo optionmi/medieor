@@ -43,7 +43,7 @@
         const quill1 = new Quill("#body", {
             theme: "snow",
         });
-        $('.modal').on('show.coreui.modal', function() {
+        $('.modal').on('shown.coreui.modal', function() {
             quill1.root.innerHTML = $('#hiddenBody').val();
             quill1.on('text-change', function(delta, oldDelta, source) {
                 $('#hiddenBody').val(quill1.root.innerHTML);
