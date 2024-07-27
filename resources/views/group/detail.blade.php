@@ -5,6 +5,11 @@
         <div class="container mx-auto ">
             <div class="my-5">
                 <h1 class="text-4xl font-bold">{{ $group->title }}</h1>
+                @if ($group->desc_img)
+                    <div class="max-w-3xl my-5">
+                        <img src="{{ asset('images/group_desc/' . $group->desc_img) }}" alt="">
+                    </div>
+                @endif
                 <div class="my-5">{!! $group->description !!}</div>
             </div>
 

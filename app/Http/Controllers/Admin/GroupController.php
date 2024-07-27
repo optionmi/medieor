@@ -92,6 +92,7 @@ class GroupController extends Controller
             'description' => 'required',
             'category' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+            'desc_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ], [
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
@@ -110,17 +111,16 @@ class GroupController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $randomString = \Illuminate\Support\Str::random(40);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = $randomString . '.' . $extension;
-
-            $path = $request->file('image')->storeAs('images/group_logos', $filename, 'public_dir');
-            $data['image_path'] = $path;
+            $filename = $this->uploadFile($request->file('image'), 'images/group_logos');
+            $data['image_path'] = $filename;
+        }
+        if ($request->hasFile('desc_img')) {
+            $filename = $this->uploadFile($request->file('desc_img'), 'images/group_desc');
+            $data['desc_img'] = $filename;
         }
 
         $group = $this->group->store($data, $id);
-
-        return response()->json(['error' => 0, 'message' => 'Group ' . $mode . ' successfully']);
+        return $this->jsonResponse((bool)$group, 'Group ' . $mode . ' successfully');
     }
 
     /**

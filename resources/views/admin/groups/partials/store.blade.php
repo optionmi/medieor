@@ -36,8 +36,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="image">Image</label>
+                        <label class="form-label" for="image">Logo</label>
                         <input class="form-control" id="image" type="file" name="image" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="desc_img">Description Image</label>
+                        <input class="form-control" id="desc_img" type="file" name="desc_img" accept="image/*">
                     </div>
                 </div>
                 <div class="modal-footer">
