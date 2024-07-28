@@ -67,4 +67,9 @@ class Group extends Model
         }
         return $message;
     }
+
+    public function isOwned()
+    {
+        return $this->created_by == auth()->user()->id;
+    }
 }
