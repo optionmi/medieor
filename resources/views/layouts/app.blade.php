@@ -11,7 +11,7 @@
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
-    {{-- <script src="{{ asset('toastr/toastr.min.js') }}"></script> --}}
+    <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/all.min.css') }}">
@@ -62,6 +62,11 @@
             }, 500);
         });
     </script>
+    @if (session('message'))
+        <script>
+            toastr.success("{{ session('message') }}");
+        </script>
+    @endif
 
 </body>
 
