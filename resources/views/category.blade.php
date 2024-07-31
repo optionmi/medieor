@@ -10,7 +10,7 @@
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content">
+                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content bg-[#000000aa] rounded-lg">
                     {!! $category->img_text !!}
                 </div>
             </div>
