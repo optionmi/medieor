@@ -136,4 +136,54 @@ class GroupController extends Controller
 
         return response()->json(['error' => 0, 'message' => 'Requested to joined ' . $msg . ' successfully']);
     }
+
+    public function update(Request $request, Group $group)
+    {
+        if ($group->isOwned()) {
+            $id = request()->get('id');
+            $mode = $id ? 'updated' : 'created';
+
+            $validator = validator()->make(request()->all(), [
+                'title' => 'required|max:100',
+                'description' => 'required',
+                // 'image' => 'mimes:jpeg,png,jpg,gif,svg|max:20480',
+            ], [
+                'title.required' => 'Title is required',
+                'description.required' => 'Description is required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['error' => 1, 'message' => $validator->errors()->first()]);
+            }
+
+            $data = [
+                'title' => request()->get('title'),
+                'description' => request()->get('description'),
+            ];
+
+            if ($request->hasFile('image')) {
+                $filename = $this->uploadFile($request->file('image'), 'images/group_logos');
+                $data['image_path'] = $filename;
+            }
+            if ($request->hasFile('desc_img')) {
+                $filename = $this->uploadFile($request->file('desc_img'), 'images/group_desc');
+                $data['desc_img'] = $filename;
+            }
+
+            $group = $this->group->store($data, $id);
+            return back()->with('message', 'Group ' . $mode . ' successfully');
+        } else {
+            return back()->with('message', 'Unauthorized');
+        }
+    }
+
+    public function destroy(Request $request, Group $group)
+    {
+        if ($group->isOwned()) {
+            $deletion = $group->delete();
+            return $this->jsonResponse($deletion, 'Group Deleted Successfully!');
+        } else {
+            return back()->with('message', 'Unauthorized');
+        }
+    }
 }

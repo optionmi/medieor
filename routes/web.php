@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
+    Route::post('/update-group/{group}', [GroupController::class, 'update'])->name('web.update.group');
+    Route::delete('/delete-group/{group}', [GroupController::class, 'destroy'])->name('web.group.delete');
 
     // Profile
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');

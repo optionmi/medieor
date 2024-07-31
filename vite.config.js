@@ -16,6 +16,7 @@ export default defineConfig({
         "resources/js/groupDetail.js",
         "resources/js/app.jsx",
         "resources/js/events.js",
+        "resources/js/dashboard.js",
       ],
       refresh: true,
     }),
