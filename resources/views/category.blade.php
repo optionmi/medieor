@@ -63,7 +63,7 @@
             <div class="w-full p-2 sm:w-2/5">
                 <div class="p-5 border border-black sm:p-10 bottom-1">
                     <h1 class="pb-5 text-3xl border-b-2 border-gray-600">
-                        Lastest Active Groups
+                        Latest Active Groups
                     </h1>
                     <ul class="max-h-[35rem] overflow-auto">
                         @foreach ($category->active_groups as $group)
