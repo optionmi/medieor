@@ -24,7 +24,7 @@
                                 <a class="flex flex-col items-center gap-5 sm:flex-row"
                                     href="{{ route('web.group.detail', $group->id) }}">
                                     <div class="w-20 h-20 p-1 border rounded-full border-primary shrink-0"><img
-                                            class="object-cover h-full rounded-full" src="{{ $group->image_path }}"
+                                            class="object-cover w-full h-full rounded-full" src="{{ $group->image_path }}"
                                             alt="">
                                     </div>
                                     <div class="flex flex-col">

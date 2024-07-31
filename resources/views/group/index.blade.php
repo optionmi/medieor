@@ -27,12 +27,12 @@
                                     <div class="flex-grow-0 flex-shrink-0 w-20 h-20">
                                         @if (auth()->user() && auth()->user()->hasRole('admin'))
                                             <a href="#" class="object-cover">
-                                                <img class="object-cover h-full rounded-full"
+                                                <img class="object-cover w-full h-full rounded-full"
                                                     src="{{ asset($group->image_path) }}" alt="" />
                                             </a>
                                         @else
                                             <div class="object-cover">
-                                                <img class="object-cover h-full rounded-full"
+                                                <img class="object-cover w-full h-full rounded-full"
                                                     src="{{ asset($group->image_path) }}" alt="" />
                                             </div>
                                         @endif

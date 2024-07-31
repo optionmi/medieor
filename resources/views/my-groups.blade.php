@@ -21,7 +21,7 @@
                                 <div class="flex items-center gap-4">
                                     <div class="flex-grow-0 flex-shrink-0 w-20 h-20">
                                         <a href="{{ route('web.group.detail', $group->id) }}" class="object-cover">
-                                            <img class="object-cover h-full rounded-full"
+                                            <img class="object-cover w-full h-full rounded-full"
                                                 src="{{ asset($group->image_path) }}" alt="" />
                                         </a>
                                     </div>
