@@ -103,7 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
               'form input[type="hidden"]'
             );
             hiddenInputs.forEach((input) => {
-              input.value = ""; // Clears hidden fields
+              if (input.name !== "_token") {
+                input.value = ""; // Clears hidden fields
+              }
             });
           }
           $(".modal").modal("hide");
@@ -124,7 +126,9 @@ document.addEventListener("DOMContentLoaded", function () {
     $(this).find("form").trigger("reset");
     const hiddenInputs = document.querySelectorAll('form input[type="hidden"]');
     hiddenInputs.forEach((input) => {
-      input.value = ""; // Clears hidden fields
+      if (input.name !== "_token") {
+        input.value = ""; // Clears hidden fields
+      }
     });
   });
 
