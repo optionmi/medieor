@@ -65,12 +65,12 @@ class GroupController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $randomString = \Illuminate\Support\Str::random(40);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = $randomString . '.' . $extension;
-
-            $path = $request->file('image')->storeAs('images/group_logos', $filename, 'public_dir');
-            $data['image_path'] = $path;
+            $filename = $this->uploadFile($request->file('image'), 'images/group_logos');
+            $data['image_path'] = $filename;
+        }
+        if ($request->hasFile('desc_img')) {
+            $filename = $this->uploadFile($request->file('desc_img'), 'images/group_desc');
+            $data['desc_img'] = $filename;
         }
 
         $group = $this->group->store($data);

@@ -69,8 +69,8 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
             $group->created_at_formated = $group->created_at->format('d M, Y');
             $group->status_formated = $group->status == 1 ? 'Active' : 'Inactive';
             $group->image_formated = $group->image_path ? (filter_var($group->image_path, FILTER_VALIDATE_URL) ?
-                '<img src="' . $group->image_path . '" width="150px" />' :
-                '<img src="' . asset($group->image_path) . '" width="150px" />') : null;
+                '<img src="images/group_logos/' . $group->image_path . '" width="150px" />' :
+                '<img src="' . asset('images/group_logos/' . $group->image_path) . '" width="150px" />') : null;
             $group->action =
                 // '<button class="btn btn-primary btn-sm" data-id="' . $group->id . '" data-toggle="modal" data-target="#edit-group" data-title="' . $group->title . '" data-description="' . $group->description . '" data-image_path="' . $group->image_path . '" data-status="' . $group->status . '">Edit</button><button class="btn btn-danger btn-sm" data-id="' . $group->id . '">Delete</button>' .
                 '<div class="d-flex">

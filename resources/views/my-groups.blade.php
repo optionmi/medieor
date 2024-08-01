@@ -22,7 +22,8 @@
                                     <div class="flex-grow-0 flex-shrink-0 w-20 h-20">
                                         <a href="{{ route('web.group.detail', $group->id) }}" class="object-cover">
                                             <img class="object-cover w-full h-full rounded-full"
-                                                src="{{ asset($group->image_path) }}" alt="" />
+                                                src="{{ asset('images/group_logos/' . $group->image_path) }}"
+                                                alt="" />
                                         </a>
                                     </div>
                                     <div>

@@ -28,12 +28,14 @@
                                         @if (auth()->user() && auth()->user()->hasRole('admin'))
                                             <a href="#" class="object-cover">
                                                 <img class="object-cover w-full h-full rounded-full"
-                                                    src="{{ asset($group->image_path) }}" alt="" />
+                                                    src="{{ asset('images/group_logos/' . $group->image_path) }}"
+                                                    alt="" />
                                             </a>
                                         @else
                                             <div class="object-cover">
                                                 <img class="object-cover w-full h-full rounded-full"
-                                                    src="{{ asset($group->image_path) }}" alt="" />
+                                                    src="{{ asset('images/group_logos/' . $group->image_path) }}"
+                                                    alt="" />
                                             </div>
                                         @endif
                                     </div>
