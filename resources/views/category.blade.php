@@ -10,7 +10,7 @@
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content bg-[#000000aa] rounded-lg">
+                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content backdrop-blur bg-black/10 rounded-lg">
                     {!! $category->img_text !!}
                 </div>
             </div>
@@ -187,13 +187,13 @@
 
                     <h1 class="mb-10 text-xl ">Most Popular Topics</h1>
                     <ul class="flex flex-col gap-2">
-                        @if ($category->topics->count() > 0)
-                            @foreach ($category->topics as $topic)
+                        @if ($category->mostPopularTopics->count() > 0)
+                            @foreach ($category->mostPopularTopics as $topic)
                                 <li class="flex justify-between">
                                     <a href="">{{ $topic->name }}</a>
-                                    <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
+                                    {{-- <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
                                         {{ $topic->posts->count() }}
-                                    </span>
+                                    </span> --}}
                                 </li>
                             @endforeach
                         @else

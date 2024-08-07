@@ -36,6 +36,13 @@ class Category extends Model
         return $this->hasMany(Topic::class);
     }
 
+    public function mostPopularTopics()
+    {
+        return $this->hasMany(Topic::class)
+            ->join('category_posts', 'topics.id', '=', 'category_posts.topic_id')
+            ->orderBy('category_posts.comment_count', 'desc');
+    }
+
     public function getUsersAttribute()
     {
         // return $this->groups()->with('users')->get()->pluck('users')->unique('id');
