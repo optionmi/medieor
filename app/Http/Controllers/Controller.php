@@ -57,7 +57,7 @@ class Controller extends BaseController
         return response()->json([
             'error' => !$action,
             'message' => !$action ? 'Error' : $message,
-        ]);
+        ], $action ? 200 : 500);
     }
 
     /**

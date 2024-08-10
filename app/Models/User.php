@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function ownedGroups()
     {
-        return $this->hasMany('\App\Models\Group', 'created_by');
+        return $this->hasMany('\App\Models\Group', 'created_by')->orderBy('created_at', 'desc');
     }
 
     public function likes()

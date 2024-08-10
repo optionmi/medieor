@@ -13,9 +13,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InfoPageController;
 use App\Http\Controllers\CPCommentController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GroupMemberController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CommentReplyController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
     Route::post('/update-group/{group}', [GroupController::class, 'update'])->name('web.update.group');
     Route::delete('/delete-group/{group}', [GroupController::class, 'destroy'])->name('web.group.delete');
+
+    // Members Management
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/members-management/{group}', [GroupMemberController::class, 'index'])->name('web.members.management');
+        Route::delete('/members-management/remove/{group}/{user}', [GroupMemberController::class, 'destroy'])->name('web.member.delete');
+    });
+
 
     // Profile
     Route::get('/my-profile', [UserController::class, 'myProfile'])->name('web.user.profile');

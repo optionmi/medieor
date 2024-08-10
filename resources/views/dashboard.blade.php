@@ -34,6 +34,15 @@
                                 </a>
 
                                 <div class="flex gap-5 shrink-0">
+                                    @if ($group->users->count())
+                                        <button
+                                            class="px-4 py-2 font-semibold text-white transition-colors duration-100 bg-blue-600 rounded-md hover:bg-blue-700""><a
+                                                href="{{ route('web.members.management', $group->id) }}">{{ $group->users->count() . Str::plural(' Member', $group->users->count()) }}</a></button>
+                                    @else
+                                        <button
+                                            class="px-4 py-2 font-semibold text-white transition-colors duration-100 bg-gray-600 rounded-md hover:bg-gray-700"">{{ $group->users->count() . Str::plural(' Member', $group->users->count()) }}</button>
+                                    @endif
+
                                     <button
                                         class="px-4 py-2 font-semibold text-white transition-colors duration-100 bg-green-600 rounded-md hover:bg-green-700"
                                         data-twe-toggle="modal" data-twe-target="#editGroupModal" data-twe-ripple-init

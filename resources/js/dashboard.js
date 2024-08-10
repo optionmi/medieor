@@ -1,47 +1,9 @@
-import { Modal, Ripple, initTWE } from "tw-elements";
-initTWE({ Modal, Ripple });
-
 document.addEventListener("DOMContentLoaded", function () {
   const quill1 = new Quill("#description", {
     theme: "snow",
   });
 
   const groupLogoPreview = document.getElementById("groupLogoPreview");
-
-  // Delete
-  document.addEventListener("click", handleDeleteClick);
-
-  var deleteBtn;
-  var deleteRoute;
-
-  function handleDeleteClick(event) {
-    deleteBtn = event.target.closest("[data-delete-route]");
-    if (!deleteBtn) return;
-    event.preventDefault();
-    deleteRoute = deleteBtn.dataset.deleteRoute;
-  }
-
-  document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-    deleteRow();
-  });
-
-  function deleteRow() {
-    fetch(deleteRoute, {
-      method: "delete",
-      headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error == true) {
-          toastr.error(data.message);
-        } else {
-          toastr.success(data.message);
-        }
-      });
-    deleteBtn.parentElement.parentElement.remove();
-  }
 
   // Update
   document.addEventListener("click", function (e) {
