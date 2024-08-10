@@ -36,6 +36,24 @@
   height: 100vh;
   background-size: 100% auto;
 } */
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.btn-container button {
+  background-color: #00000055;
+}
+
+.btn-extra-text {
+  display: none;
+}
+.btn-container button:hover .btn-extra-text {
+  display: inline-block;
+}
+
 .btn-container img {
   width: 100%;
 }
@@ -106,7 +124,7 @@
 }
 #tagline {
   font-family: "somethingwild";
-  font-size: 4rem;
+  font-size: 1.5rem;
   /* margin-top: 3rem; */
 }
 .f_size1 {

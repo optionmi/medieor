@@ -236,9 +236,9 @@
 
 
                 <div class="btn-container">
-                    <p id="tagline" class="text-center">
-                        WE WILL 'HEAL IT TOGETHER'
-                    </p>
+                    <button id="tagline" class="px-3 text-center btn btn-dark">
+                        WE WILL 'HEAL IT TOGETHER'<span class="btn-extra-text">, Click here How?</span>
+                    </button>
                     <div class="gap-2 elementBtnContainer d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
                             <img src="./img/space.png" alt="" />
