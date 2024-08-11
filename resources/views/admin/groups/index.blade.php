@@ -131,6 +131,9 @@
                         // "width": "10%"
                     },
                 ],
+                createdRow: function(row, data, dataIndex) {
+                    $(row).addClass(data.row_class);
+                }
             });
         });
     </script>

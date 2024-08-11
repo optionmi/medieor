@@ -97,6 +97,9 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
                     </button>
                     </div>';
             $group->setHidden(['category', 'users', 'owner']);
+            if ($group->owner->hasRole('user')) {
+                $group->row_class = 'bg-warning';
+            }
             return $group;
         });
     }
