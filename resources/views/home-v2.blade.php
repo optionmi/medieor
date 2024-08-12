@@ -83,80 +83,69 @@
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
-                                    <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
-                                    <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
-                                </div>
+                            <div class="p-3 shadow card">
+                                <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                                <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
+                                <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Will pollution win or you will win in wiping it out
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Will pollution win or you will win in wiping it out
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Let us make a waters blue, not brown
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Let us make a waters blue, not brown
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Environment is a gift to us, save and secure it
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Environment is a gift to us, save and secure it
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Consume responsibly to get your health back
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Consume responsibly to get your health back
+                                </h4>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <div class="mt-5 flex-column justify-content-between">
-                                <div class="p-3 shadow card">
-                                    {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
+                            <div class="p-3 shadow card">
+                                {{-- <h1 class="text-center l_height1 f_size1 fw-bold">SAVE</h1>
                                     <h1 class="text-center l_height1 f_size2 fw-bold">MY</h1>
                                     <h1 class="text-center l_height1 f_size3 fw-bold">EARTH</h1> --}}
-                                    <h4 class="mt-5 text-center f_size3 fw-bold capitalise">
-                                        Environment is for enjoying, not for destroying
-                                    </h4>
-                                </div>
+                                <h4 class="text-center f_size3 fw-bold capitalise">
+                                    Environment is for enjoying, not for destroying
+                                </h4>
                             </div>
                         </div>
 
                     </div>
-                    <p id="tagline" class="mt-5 text-center">
-                        WE WILL 'HEAL IT TOGETHER'
-                    </p>
                 </div>
+
+                <p class="mt-5 font-bold text-center fs-4 fw-bold">
+                    A Movement called MEDIEOR
+                </p>
                 <!-- Default Tab -->
                 {{-- <div class="mt-5 flex-column justify-content-between" :class="activeTab == 0 ? 'd-flex' : 'd-none'"
                     x-clock>
@@ -247,9 +236,14 @@
 
 
                 <div class="btn-container">
-                    <p class="font-bold text-center fs-4 fw-bold">
-                        A Movement called MEDIEOR
-                    </p>
+                    <button id="tagline" class="px-3 text-center btn btn-dark">
+                        @auth
+                            <span class="btn-extra-text">Click here 'How'</span> WE WILL 'HEAL IT TOGETHER'
+                        @else
+                            <a href="/register"><span class="btn-extra-text">Click here 'How'</span> WE WILL 'HEAL IT
+                                TOGETHER'</a>
+                        @endauth
+                    </button>
                     <div class="gap-2 elementBtnContainer d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
                             <img src="./img/space.png" alt="" />
@@ -280,15 +274,13 @@
 
                         {{-- @foreach ($categories as $category)
                             <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
-                                class="elementBtn"
-                                onmouseover="playGif(this,{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.gif') }})"
-                                onmouseout="pauseGif(this,{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }})"><img
-                                    src={{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }}
+                                class="elementBtn"><img src={{ asset($category->logo_image) }}
                                     alt="{{ $category->title }}" />
                                 <p class="elementBtnText">
                                     {{ strtok($category->title, ' ') }}</p>
                             </a>
                         @endforeach --}}
+
                         @foreach ($categories as $category)
                             <a href="{{ route('category.detail', $category->id) }}" title="{{ $category->title }}"
                                 class="elementBtn">
@@ -299,7 +291,6 @@
                                     onmouseout="this.src='{{ asset('category_images/logo/old/' . strtok($category->title, ' ') . '.png') }}'">
                             </a>
                         @endforeach
-
                         <a href="{{ route('web.about.us') }}"><img id="logo" src="{{ asset('img/logo.jpg') }}"
                                 alt="logo" /></a>
                     </div>

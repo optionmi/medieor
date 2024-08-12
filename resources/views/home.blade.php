@@ -237,7 +237,12 @@
 
                 <div class="btn-container">
                     <button id="tagline" class="px-3 text-center btn btn-dark">
-                        WE WILL 'HEAL IT TOGETHER'<span class="btn-extra-text">, Click here How?</span>
+                        @auth
+                            <span class="btn-extra-text">Click here 'How'</span> WE WILL 'HEAL IT TOGETHER'
+                        @else
+                            <a href="/register"><span class="btn-extra-text">Click here 'How'</span> WE WILL 'HEAL IT
+                                TOGETHER'</a>
+                        @endauth
                     </button>
                     <div class="gap-2 elementBtnContainer d-flex justify-content-center align-items-center">
                         {{-- <button @click="activeTab = 1" class="m-2 elementBtn" title="Space">
