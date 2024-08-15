@@ -54,13 +54,13 @@ a:hover {
 
 .btn-container button {
   background: url("/public/img/btn-bg.jpg") no-repeat center;
-  background-color: #501d07;
+  background-color: #633b1a;
   padding: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
 }
 .btn-container button:hover {
-  background-color: #501d07;
+  background-color: #633b1a;
   scale: 1.005;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
 }
