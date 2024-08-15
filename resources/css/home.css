@@ -19,8 +19,10 @@ a:hover {
 }
 .card {
   color: white;
-  /* background-color: #00000044; */
   background-color: transparent;
+  /* background-color: #00000044; */
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* backdrop-filter: blur(1px); */
 }
 
 .capitalise {
@@ -51,7 +53,16 @@ a:hover {
 }
 
 .btn-container button {
-  background-color: #00000055;
+  background: url("/public/img/btn-bg.jpg") no-repeat center;
+  background-color: #501d07;
+  padding: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+.btn-container button:hover {
+  background-color: #501d07;
+  scale: 1.005;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .btn-extra-text {

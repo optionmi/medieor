@@ -42,6 +42,10 @@
     "file": "assets/bg-da0f907b.jpg",
     "src": "public/img/bg.jpg"
   },
+  "public/img/btn-bg.jpg": {
+    "file": "assets/btn-bg-104ffbdc.jpg",
+    "src": "public/img/btn-bg.jpg"
+  },
   "resources/css/admin.css": {
     "file": "assets/admin-ce5095af.css",
     "isEntry": true,
@@ -58,7 +62,7 @@
     "src": "resources/css/community-home.css"
   },
   "resources/css/home.css": {
-    "file": "assets/home-d328eaad.css",
+    "file": "assets/home-70aa8a66.css",
     "isEntry": true,
     "src": "resources/css/home.css"
   },
