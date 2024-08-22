@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\TopicController;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DonationController;
@@ -40,6 +41,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/store', [EventController::class, 'store'])->name('admin.event.store');
         Route::delete('/delete/{event}', [EventController::class, 'destroy'])->name('admin.event.destroy');
         Route::get('/data', [EventController::class, 'dataTable'])->name('admin.events.datatable');
+    });
+
+    // Articles
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('admin.articles');
+        Route::post('/store', [ArticleController::class, 'store'])->name('admin.article.store');
+        Route::delete('/delete/{article}', [ArticleController::class, 'destroy'])->name('admin.article.destroy');
+        Route::get('/data', [ArticleController::class, 'dataTable'])->name('admin.articles.datatable');
     });
 
     // Donations

@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InfoPageController;
@@ -43,7 +44,11 @@ Route::get('/groups/{cat_id}', [GroupController::class, 'index'])->name('web.gro
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category.detail');
 Route::post('/donation-submission/{id}', [CategoryController::class, 'donationSubmission'])->name('web.donation.submission');
 
+// Events
 Route::get('/events/{category}', [EventController::class, 'index'])->name('web.events');
+
+// Articles
+Route::get('/articles/{category}', [ArticleController::class, 'index'])->name('web.articles');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/group-join-requests', [GroupController::class, 'joinRequest'])->name('web.group.join.requests');
@@ -65,6 +70,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/members-management/{group}', [GroupMemberController::class, 'index'])->name('web.members.management');
         Route::delete('/members-management/remove/{group}/{user}', [GroupMemberController::class, 'destroy'])->name('web.member.delete');
     });
+
+
 
 
     // Profile

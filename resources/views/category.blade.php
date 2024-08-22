@@ -58,6 +58,10 @@
                         <span class="text-3xl sm:text-5xl">{{ $category->events->count() }}</span> <br />
                         <span class="sm:text-2xl"> Upcoming Events</span>
                     </p>
+                    <a href="{{ route('web.articles', $category->id) }}">
+                        <span class="text-3xl sm:text-5xl">{{ $category->articles->count() }}</span> <br />
+                        <span class="sm:text-2xl"> Articles</span>
+                    </a>
                 </div>
             </div>
             <div class="w-full p-2 sm:w-2/5">

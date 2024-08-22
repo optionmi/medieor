@@ -25,10 +25,16 @@
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
                 </svg> Categories</a></li>
+
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.events') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
                 </svg> Events</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="{{ route('admin.articles') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
+                </svg> Articles</a></li>
 
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.donations') }}">
                 <svg class="nav-icon">
@@ -75,7 +81,8 @@
                 </svg> All Groups</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.join.request') }}">
                 <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}"></use>
+                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}">
+                    </use>
                 </svg> Join Requests</a></li>
 
 
