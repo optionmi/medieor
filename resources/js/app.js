@@ -20,9 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteRoute = deleteBtn.dataset.deleteRoute;
   }
 
-  document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-    deleteRow(deleteBtn);
-  });
+  const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", () => {
+      deleteRow(deleteBtn);
+    });
+  }
 
   function deleteRow(deleteBtn) {
     fetch(deleteRoute, {
