@@ -35,7 +35,8 @@
                                 <a class="hover:underline" href="{{ route('password.request') }}">Forgot password?</a>
                             </div>
 
-                            <button class="w-full p-2 font-bold text-white bg-blue-500 rounded-md">Login</button>
+                            <button id="submitBtn"
+                                class="w-full p-2 font-bold text-white bg-blue-500 rounded-md">Login</button>
                     </div>
                     </form>
                 </div>
@@ -43,4 +44,14 @@
         </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script>
+        const form = document.querySelector('form');
+        const submitBtn = document.querySelector('#submitBtn')
+        form.addEventListener('submit', function(e) {
+            submitBtn.disabled = true;
+        });
+    </script>
 @endsection
