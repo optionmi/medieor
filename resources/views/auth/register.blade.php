@@ -55,7 +55,7 @@
                                     <label class="text-sm" for="phone">Phone</label>
                                     <input type="number" name="phone"
                                         class="w-full p-2 border border-gray-300 rounded-md" placeholder="Your Phone Number"
-                                        min="1000000000" max="9999999999" required>
+                                        min="1000000000" max="9999999999">
                                 </div>
                             </div>
                             <div class="mb-5">
