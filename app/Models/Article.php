@@ -22,13 +22,13 @@ class Article extends Model
         parent::boot();
 
         static::deleting(function ($article) {
-            foreach ($article->media as $media) {
+            if ($article->media && Storage::disk('public_dir')->exists('images/articles/' . $article->media)) {
                 $dir = 'images/articles/';
                 // Delete the file from storage
-                Storage::disk('public_dir')->delete($dir . $media);
+                Storage::disk('public_dir')->delete($dir . $article->media);
 
                 // Delete the media record
-                $media->delete();
+                $article->delete();
             }
         });
     }
