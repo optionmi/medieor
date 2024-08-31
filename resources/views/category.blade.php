@@ -101,13 +101,20 @@
                     </div>
                 </div>
 
-                <div
-                    class="flex items-center justify-center my-5 transition-all duration-300 border shadow-lg hover:shadow-xl hover:bg-primary">
-                    <a class="flex flex-col items-center gap-4 py-10" href="{{ route('web.events', $category->id) }}">
+                <div class="flex items-center justify-center w-full gap-5 my-5 transition-all duration-300">
+                    <a class="flex flex-col items-center w-1/2 gap-4 py-10 border shadow-lg hover:shadow-xl hover:bg-primary"
+                        href="{{ route('web.events', $category->id) }}">
                         <div class="w-24">
                             <img src="{{ asset('img/event_icon.png') }}" alt="">
                         </div>
                         <h1 class="text-xl">Upcoming Events</h1>
+                    </a>
+                    <a class="flex flex-col items-center w-1/2 gap-4 py-10 border shadow-lg hover:shadow-xl hover:bg-primary"
+                        href="{{ route('web.articles', $category->id) }}">
+                        <div class="w-24">
+                            <img src="{{ asset('img/article_icon.png') }}" alt="">
+                        </div>
+                        <h1 class="text-xl">Articles</h1>
                     </a>
                 </div>
             </div>
