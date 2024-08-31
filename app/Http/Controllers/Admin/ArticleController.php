@@ -41,7 +41,6 @@ class ArticleController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'category' => 'required',
-            'content' => 'required',
             'media_file' => 'file|mimes:jpeg,png,jpg', //,gif,mp4,mov,ogg',
         ]);
 

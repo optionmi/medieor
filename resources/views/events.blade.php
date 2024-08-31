@@ -20,15 +20,15 @@
                         <div class="relative flex flex-col w-full my-5 sm:w-1/4 group">
                             <div class="flex items-center justify-center rounded-md shadow-md">
                                 @if ($event->media->first()->media_type === 'video')
-                                    <button type="button" data-twe-toggle="modal" data-twe-target="#videoModal"
-                                        data-twe-ripple-init data-twe-ripple-color="dark"
+                                    <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
+                                        data-twe-target="#videoModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                         data-video-url="{{ asset('/videos/events/' . $event->media->first()->media_file) }}">
                                         <video class="rounded-md"
                                             src="{{ asset('/videos/events/' . $event->media->first()->media_file) }}"></video>
                                     </button>
                                 @else
-                                    <button type="button" data-twe-toggle="modal" data-twe-target="#imageModal"
-                                        data-twe-ripple-init data-twe-ripple-color="dark"
+                                    <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
+                                        data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                         data-image-url="{{ asset('/images/events/' . $event->media->first()->media_file) }}">
                                         <img src="{{ asset('/images/events/' . $event->media->first()->media_file) }}"
                                             alt="">
