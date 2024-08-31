@@ -17,7 +17,7 @@
                     <p class="text-center">No articles found in this category.</p>
                 @else
                     @foreach ($articles as $article)
-                        <div class="relative flex flex-col w-full my-5 sm:w-1/4 group">
+                        <div class="flex flex-col w-full my-5 sm:w-1/4 group">
                             <div class="flex items-center justify-center rounded-md shadow-md">
                                 <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
                                     data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
@@ -26,7 +26,7 @@
                                 </button>
                             </div>
                             <div
-                                class="absolute bottom-[-1.5rem] mx-auto left-0 right-0 w-11/12 px-4 py-2 bg-white border-2 border-gray-500 rounded-md transition-all duration-300 ease-in-out group-hover:bottom-[-3.5rem]">
+                                class="w-11/12 px-4 py-2 mx-auto transition-transform duration-300 ease-in-out transform translate-y-[-1.5rem] bg-white border-2 border-gray-500 rounded-md group-hover:translate-y-1">
                                 <h1 class="text-xl text-center">
                                     {{ $article->title }}
                                 </h1>

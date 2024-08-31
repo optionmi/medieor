@@ -17,7 +17,7 @@
                     <p class="text-center">No events found in this category.</p>
                 @else
                     @foreach ($events as $event)
-                        <div class="relative flex flex-col w-full my-5 sm:w-1/4 group">
+                        <div class="flex flex-col w-full pb-5 my-5 sm:w-1/4 group">
                             <div class="flex items-center justify-center rounded-md shadow-md">
                                 @if ($event->media->first()->media_type === 'video')
                                     <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
@@ -36,9 +36,8 @@
                                 @endif
                             </div>
                             <div
-                                class="absolute bottom-[-1.5rem] mx-auto left-0 right-0 w-11/12 px-4 py-2 bg-white border-2 border-gray-500 rounded-md transition-all duration-300 ease-in-out group-hover:bottom-[-3.5rem]">
-                                <h1 class="text-xl text-center">
-                                    {{ $event->title }}
+                                class="w-11/12 px-4 py-2 mx-auto transition-transform duration-300 ease-in-out transform translate-y-[-1.5rem] bg-white border-2 border-gray-500 rounded-md group-hover:translate-y-1">
+                                {{ $event->title }}
                                 </h1>
                             </div>
                         </div>
