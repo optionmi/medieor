@@ -153,7 +153,7 @@ class CommentController extends Controller
 
     public function comments(Request $request)
     {
-        if ($post = Post::find($request->post_id)) {
+        if ($post = Post::find($request->post_id)->orderBy('created_at', 'desc')->get()) {
 
             $data = [
                 'error' => false,

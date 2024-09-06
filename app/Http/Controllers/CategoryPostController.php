@@ -66,7 +66,7 @@ class CategoryPostController extends Controller
         $user->isAdmin = $user->hasRole('admin');
         $user->isMuted = $user->is_muted;
         if (!$user->isAdmin) $categoryPost->increment('views');
-        $postComments = $categoryPost->comments()->with('author')->get();
+        $postComments = $categoryPost->comments()->with('author')->orderBy('created_at', 'desc')->get();
         return  Inertia::render('CategoryPostDetail', compact('user', 'categoryPost', 'postComments'));
     }
 

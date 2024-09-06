@@ -43,8 +43,8 @@ export default function CategoryPostDetail({
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
-      console.log("New comment:", newComment);
-      setComments([...comments, newComment]);
+      // console.log("New comment:", newComment);
+      setComments([newComment, ...comments]);
       setCommentText("");
     } catch (error) {
       console.error("Error submitting comment:", error);
@@ -126,19 +126,8 @@ export default function CategoryPostDetail({
             ></div>
           </div>
 
-          <div className="px-6 py-3 border-t-2 border-gray-200 dark:border-white/10 text-surface/75 dark:text-neutral-300">
-            <div className="flex flex-col gap-3">
-              {comments.map((comment, index) => (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  options={options}
-                  user={user}
-                ></Comment>
-              ))}
-            </div>
-
-            {!user.isMuted && (
+          {!user.isMuted && (
+            <div className="px-6 py-3 border-t-2 border-gray-200 dark:border-white/10 text-surface/75 dark:text-neutral-300">
               <div className="flex items-center gap-4 my-3">
                 <div className="flex-grow-0 flex-shrink-0 w-12 h-12 rounded-full">
                   <img
@@ -163,7 +152,20 @@ export default function CategoryPostDetail({
                   </span>
                 </button>
               </div>
-            )}
+            </div>
+          )}
+
+          <div className="px-6 py-3 border-t-2 border-gray-200 dark:border-white/10 text-surface/75 dark:text-neutral-300">
+            <div className="flex flex-col gap-3">
+              {comments.map((comment, index) => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  options={options}
+                  user={user}
+                ></Comment>
+              ))}
+            </div>
           </div>
         </div>
       </div>
