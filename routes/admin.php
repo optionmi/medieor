@@ -14,7 +14,9 @@ use App\Http\Controllers\Admin\InfoPageController;
 use App\Http\Controllers\Admin\CPCommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GroupPostController;
+use App\Http\Controllers\Superadmin\AdminController;
 use App\Http\Controllers\Admin\CategoryPostController;
+use App\Http\Controllers\Superadmin\SuperAdminController;
 
 Route::get('/login', function () {
     return view('admin.login');
@@ -121,6 +123,23 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         // Comments
         Route::get('/comments', [CommentController::class, 'index'])->name('admin.group.comments');
         Route::get('/data', [CommentController::class, 'dataTable'])->name('admin.group.comments.datatable');
+    });
+
+    // Super Admin
+    Route::middleware(['auth', 'role:superadmin'])->group(function () {
+        Route::group(['prefix' => 'superadmin'], function () {
+            Route::get('/superadmins', [SuperAdminController::class, 'index'])->name('superadmin.superadmins.index');
+            Route::get('/superadmins-datatable', [SuperAdminController::class, 'datatable'])->name('superadmin.superadmins.datatable');
+
+            Route::get('/admins', [AdminController::class, 'index'])->name('superadmin.admins.index');
+            Route::get('/admins-datatable', [AdminController::class, 'datatable'])->name('superadmin.admins.datatable');
+            Route::delete('/remove-admin/{user}', [AdminController::class, 'removeAdmin'])->name('superadmin.admin.remove.admin');
+
+
+            Route::get('/users', [App\Http\Controllers\Superadmin\UserController::class, 'index'])->name('superadmin.users.index');
+            Route::get('/users-datatable', [App\Http\Controllers\Superadmin\UserController::class, 'datatable'])->name('superadmin.users.datatable');
+            Route::post('/make-admin/{user}', [App\Http\Controllers\Superadmin\UserController::class, 'makeAdmin'])->name('superadmin.user.make.admin');
+        });
     });
 });
 

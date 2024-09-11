@@ -85,7 +85,6 @@
                     </use>
                 </svg> Join Requests</a></li>
 
-
         <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.posts') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
@@ -96,6 +95,25 @@
                     <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
                     </use>
                 </svg> Comments</a></li>
+
+        @if (Auth::user()->hasRole('superadmin'))
+            <li class="nav-title">Super Admin</li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('superadmin.superadmins.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
+                        </use>
+                    </svg> Super Admins</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('superadmin.admins.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
+                        </use>
+                    </svg> Admins</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('superadmin.users.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
+                        </use>
+                    </svg> Users</a></li>
+        @endif
     </ul>
     <div class="sidebar-footer border-top d-none d-md-flex">
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>

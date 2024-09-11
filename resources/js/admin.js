@@ -11,10 +11,21 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteRoute = deleteBtn.dataset.deleteRoute;
   }
 
-  document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-    deleteRow();
-  });
+  const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", () => {
+      deleteRow();
+    });
+  }
 
+  const confirmDemoteBtn = document.getElementById("confirmDemoteBtn");
+  if (confirmDemoteBtn) {
+    confirmDemoteBtn.addEventListener("click", () => {
+      console.log("h");
+
+      deleteRow();
+    });
+  }
   function deleteRow() {
     fetch(deleteRoute, {
       method: "delete",
@@ -35,14 +46,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Update
   document.addEventListener("click", function (e) {
-    const el = e.target.closest("[data-row-data]");
+    const el =
+      e.target.closest("[data-row-data]") ||
+      e.target.closest("[data-restricted-permissions]");
     if (!el) return;
     e.preventDefault();
     const updateRoute = el.dataset.updateRoute;
-    const rowData = JSON.parse(el.dataset.rowData);
+    let rowData;
+    if (el.dataset.rowData) {
+      rowData = JSON.parse(el.dataset.rowData);
+    }
     let selectOptionsData;
     if (el.dataset.selectOptions) {
       selectOptionsData = JSON.parse(el.dataset.selectOptions);
+    }
+    let restrictedPermissionsData;
+    if (el.dataset.restrictedPermissions) {
+      restrictedPermissionsData = JSON.parse(el.dataset.restrictedPermissions);
     }
     const form = document.getElementById("updateDataForm");
     form.setAttribute("action", updateRoute);
@@ -74,9 +94,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     );
+    if (restrictedPermissionsData) {
+      Array.from(document.querySelectorAll(".permissionCheckBox")).forEach(
+        (el, index) => {
+          el.checked = !restrictedPermissionsData.includes(parseInt(el.value));
+        }
+      );
+    }
   });
 
-  $("form").submit(function (e) {
+  // Submit form
+  $("form").on("submit", function (e) {
     $("#loading").toggleClass("d-none");
     $("body").css("overflow", "hidden");
     e.preventDefault();
@@ -84,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitUrl = form.attr("action");
     const method = form.attr("method");
     const formData = new FormData(this);
+
     $.ajax({
       url: submitUrl,
       type: method,

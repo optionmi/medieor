@@ -96,12 +96,12 @@
     "src": "resources/js/Pages/components/DropdownSelect.jsx"
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-1a2d5117.js",
+    "file": "assets/admin-8ca98b3a.js",
     "isEntry": true,
     "src": "resources/js/admin.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-d2936d75.js",
+    "file": "assets/app-862f0b0e.js",
     "imports": [
       "_toastr-19c08aa3.js",
       "_tw-elements.es.min-563fcd5f.js",
