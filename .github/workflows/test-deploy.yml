@@ -1,9 +1,7 @@
-name: Deploy to DreamHost
+name: Test Deploy to DreamHost
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # Allows manual trigger for testing purposes
 
 jobs:
   build:
@@ -12,12 +10,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Ensure we fetch at least 2 commits to compare HEAD and HEAD^
 
       # Check if there are changes in .css, .js, .jsx files
       - name: Check for frontend changes
         id: frontend_changes
         run: |
-          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          # Handle case where there's no HEAD^ (e.g., on first commit)
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          else
+            CHANGED_FILES=$(git diff --name-only HEAD)
+          fi
           echo "$CHANGED_FILES"
           if [[ $CHANGED_FILES == *".css"* || $CHANGED_FILES == *".js"* || $CHANGED_FILES == *".jsx"* ]]; then
             echo "Frontend changes detected."
@@ -57,7 +62,9 @@ jobs:
       - name: Rsync build folder to DreamHost
         if: env.frontend_changed == 'true'
         run: |
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
+          mkdir -p public/test-build  # Create a dummy folder for testing
+          echo "This is a test file." > public/test-build/test.txt  # Create dummy file for rsync test
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/test-build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/test-build
 
       # SSH to DreamHost and deploy the changes (always runs)
       - name: Deploy to DreamHost
