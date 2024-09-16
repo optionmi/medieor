@@ -35,6 +35,14 @@
     </div>
 @endif --}}
 <div class="d-flex">
+
+    <button class="px-2 py-2 btn btn-link nav-link d-flex align-items-center" type="button" title="Make Superadmin"
+        data-btn-route="{{ route('superadmin.admin.make.superadmin', $user->id) }}">
+        <svg class="icon icon-lg text-success">
+            <use xlink:href="{{ url('coreui/vendors/@coreui/icons/svg/free.svg#cil-user') }}">
+            </use>
+        </svg>
+    </button>
     <button class="px-2 py-2 btn btn-link nav-link d-flex align-items-center" type="button" title="Manage Permissions"
         data-coreui-toggle="modal" data-coreui-target="#permissionModal"
         data-restricted-permissions="{{ json_encode($user->restrictions->pluck('id')->toArray()) }}"

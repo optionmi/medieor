@@ -53,6 +53,14 @@ class AdminController extends Controller
         return $this->jsonResponse((bool)$demotion, 'Admin is user Now!');
     }
 
+    public function makeSuperAdmin(Request $request, User $user)
+    {
+        $superadmin_role = Role::where('name', 'superadmin')->first();
+        $promotion = $user->roles()->sync($superadmin_role->id);
+        $user->restrictions()->delete();
+        return $this->jsonResponse((bool)$promotion, 'Admin is superadmin Now!');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
