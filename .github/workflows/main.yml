@@ -15,6 +15,18 @@ jobs:
         with:
           fetch-depth: 2 # Ensure we fetch at least 2 commits to compare HEAD and HEAD^
 
+      # SSH to DreamHost and deploy the changes (always runs)
+      - name: Deploy to DreamHost
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /home/medieor/medieor.earth
+            git pull origin main
+            php artisan optimize
+
       # Check if there are changes in .css, .js, .jsx files
       - name: Check for frontend changes
         id: frontend_changes
@@ -26,7 +38,7 @@ jobs:
             CHANGED_FILES=$(git diff --name-only HEAD)
           fi
           echo "$CHANGED_FILES"
-          if [[ $CHANGED_FILES == *".css"* || $CHANGED_FILES == *".js"* || $CHANGED_FILES == *".jsx"* ]]; then
+          if [[ $CHANGED_FILES == *".blade.php"* || $CHANGED_FILES == *".css"* || $CHANGED_FILES == *".js"* || $CHANGED_FILES == *".jsx"* ]]; then
             echo "Frontend changes detected."
             echo "frontend_changed=true" >> $GITHUB_ENV
           else
@@ -66,15 +78,3 @@ jobs:
         if: env.frontend_changed == 'true'
         run: |
           sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
-
-      # SSH to DreamHost and deploy the changes (always runs)
-      - name: Deploy to DreamHost
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            cd /home/medieor/medieor.earth
-            git pull origin main
-            php artisan optimize
