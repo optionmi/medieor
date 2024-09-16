@@ -1,6 +1,5 @@
 name: Test Deploy to DreamHost
 
-# This allows you to trigger the workflow manually
 on:
   workflow_dispatch:
 
@@ -18,21 +17,25 @@ jobs:
           mkdir -p ~/.ssh  # Create .ssh directory if it doesn't exist
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
-      # Deploy to DreamHost to test SSH and rsync functionality
-      - name: Deploy to DreamHost
+      # Install sshpass to enable password-based rsync authentication
+      - name: Install sshpass
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      # Test SSH connection and deploy to DreamHost
+      - name: Test SSH connection
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            echo "Test SSH connection successful!"  # Test SSH connection
+            echo "SSH connection successful!"
 
-      # Use rsync to sync a test folder
+      # Use sshpass with rsync for password-based SSH authentication
       - name: Sync test folder using rsync with password
         run: |
           mkdir -p public/test-build  # Create a dummy folder
           echo "This is a test file." > public/test-build/test.txt  # Create dummy file
-          rsync -avz --delete public/test-build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/test-build
-        env:
-          RSYNC_PASSWORD: ${{ secrets.PASSWORD }}
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/test-build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/test-build
