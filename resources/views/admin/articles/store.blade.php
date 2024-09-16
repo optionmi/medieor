@@ -14,7 +14,7 @@
                         <select class="form-select updateDataField" id="articleCategory" name="category"">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    data-topics-route="{{ route('admin.category.topics', $category->id) }}">
+                                    data-topics-route="{{ route('admin.categories.topics', $category->id) }}">
                                     {{ $category->title }}
                                 </option>
                             @endforeach
