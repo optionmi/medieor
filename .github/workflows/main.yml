@@ -11,10 +11,27 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4 # Latest version of checkout action
 
+      # Check if there are changes in .css, .js, .jsx files
+      - name: Check for frontend changes
+        id: frontend_changes
+        run: |
+          git diff --name-only HEAD^ HEAD | grep -E '\.(css|js|jsx)$' || echo "no"
+
+      # Conditionally run npm build if changes are found in .css, .js, .jsx files
+      - name: Set up Node.js and Build Frontend
+        if: steps.frontend_changes.outputs.frontend_changed != 'no'
+        uses: actions/setup-node@v4 # Use latest version of setup-node action
+        with:
+          node-version: "lts/*" # Automatically picks the latest LTS version
+        run: |
+          npm install
+          npm run build
+
+      # SSH to DreamHost and deploy the changes
       - name: Deploy to DreamHost
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3 # Latest version of ssh-action
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
@@ -23,3 +40,11 @@ jobs:
             cd /home/medieor/medieor.earth
             git pull origin main
             php artisan optimize
+
+      # Conditionally sync the build folder if there were frontend changes
+      - name: Rsync Build Folder
+        if: steps.frontend_changes.outputs.frontend_changed != 'no'
+        run: |
+          rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
+        env:
+          RSYNC_PASSWORD: ${{ secrets.PASSWORD }}
