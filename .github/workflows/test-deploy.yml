@@ -1,7 +1,9 @@
-name: Test Deploy to DreamHost
+name: Deploy to DreamHost
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -11,31 +13,60 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Add server to known_hosts to avoid host key verification failure
-      - name: Add server to known_hosts
+      # Check if there are changes in .css, .js, .jsx files
+      - name: Check for frontend changes
+        id: frontend_changes
         run: |
-          mkdir -p ~/.ssh  # Create .ssh directory if it doesn't exist
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          echo "$CHANGED_FILES"
+          if [[ $CHANGED_FILES == *".css"* || $CHANGED_FILES == *".js"* || $CHANGED_FILES == *".jsx"* ]]; then
+            echo "Frontend changes detected."
+            echo "frontend_changed=true" >> $GITHUB_ENV
+          else
+            echo "No frontend changes."
+            echo "frontend_changed=false" >> $GITHUB_ENV
 
-      # Install sshpass to enable password-based rsync authentication
+      # Conditionally set up Node.js and run npm build if there are frontend changes
+      - name: Set up Node.js
+        if: env.frontend_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies and build frontend
+        if: env.frontend_changed == 'true'
+        run: |
+          npm install
+          npm run build
+
+      # Install sshpass to enable password-based rsync authentication if needed
       - name: Install sshpass
+        if: env.frontend_changed == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass
 
-      # Test SSH connection and deploy to DreamHost
-      - name: Test SSH connection
+      # Add server to known_hosts if there are frontend changes
+      - name: Add server to known_hosts
+        if: env.frontend_changed == 'true'
+        run: |
+          mkdir -p ~/.ssh  # Create .ssh directory if it doesn't exist
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+      # Rsync build folder using sshpass only if there are frontend changes
+      - name: Rsync build folder to DreamHost
+        if: env.frontend_changed == 'true'
+        run: |
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
+
+      # SSH to DreamHost and deploy the changes (always runs)
+      - name: Deploy to DreamHost
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            echo "SSH connection successful!"
-
-      # Use sshpass with rsync for password-based SSH authentication
-      - name: Sync test folder using rsync with password
-        run: |
-          mkdir -p public/test-build  # Create a dummy folder
-          echo "This is a test file." > public/test-build/test.txt  # Create dummy file
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/test-build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/test-build
+            cd /home/medieor/medieor.earth
+            git pull origin main
+            php artisan optimize
