@@ -30,6 +30,7 @@ jobs:
           else
             echo "No frontend changes."
             echo "frontend_changed=false" >> $GITHUB_ENV
+          fi  # <-- Closing the if block
 
       # Conditionally set up Node.js and run npm build if there are frontend changes
       - name: Set up Node.js
