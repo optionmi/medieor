@@ -21,4 +21,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageUrl = e.relatedTarget.dataset.imageUrl;
     modalImage.src = imageUrl;
   });
+
+  document.querySelectorAll(".read-more-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const preview = this.previousElementSibling.previousElementSibling;
+      const fullContent = this.previousElementSibling;
+
+      if (fullContent.classList.contains("hidden")) {
+        fullContent.classList.remove("hidden");
+        preview.classList.add("hidden");
+        this.textContent = "Read Less";
+      } else {
+        fullContent.classList.add("hidden");
+        preview.classList.remove("hidden");
+        this.textContent = "Read More";
+      }
+    });
+  });
 });

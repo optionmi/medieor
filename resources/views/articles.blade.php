@@ -22,7 +22,8 @@
                                 <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
                                     data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                     data-image-url="{{ asset('/images/articles/' . $article->media) }}">
-                                    <img src="{{ asset('/images/articles/' . $article->media) }}" alt="">
+                                    <img src="{{ asset('/images/articles/' . $article->media) }}" alt=""
+                                        class="object-cover w-full h-60">
                                 </button>
                             </div>
                             <div
@@ -31,7 +32,13 @@
                                     {{ $article->title }}
                                 </h1>
                                 <div class="py-2">
-                                    {!! $article->content !!}
+                                    <div class="content-preview">
+                                        {!! \Illuminate\Support\Str::limit($article->content, 100) !!}
+                                    </div>
+                                    <div class="hidden content-full">
+                                        {!! $article->content !!}
+                                    </div>
+                                    <button class="text-blue-500 read-more-button hover:underline">Read More</button>
                                 </div>
                             </div>
                         </div>

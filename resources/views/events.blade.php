@@ -24,14 +24,15 @@
                                         data-twe-target="#videoModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                         data-video-url="{{ asset('/videos/events/' . $event->media->first()->media_file) }}">
                                         <video class="rounded-md"
-                                            src="{{ asset('/videos/events/' . $event->media->first()->media_file) }}"></video>
+                                            src="{{ asset('/videos/events/' . $event->media->first()->media_file) }}"
+                                            class="object-cover w-full h-60"></video>
                                     </button>
                                 @else
                                     <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
                                         data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                         data-image-url="{{ asset('/images/events/' . $event->media->first()->media_file) }}">
                                         <img src="{{ asset('/images/events/' . $event->media->first()->media_file) }}"
-                                            alt="">
+                                            alt="" class="object-cover w-full h-60">
                                     </button>
                                 @endif
                             </div>
