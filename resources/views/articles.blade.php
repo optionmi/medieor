@@ -23,7 +23,7 @@
                                     data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                     data-image-url="{{ asset('/images/articles/' . $article->media) }}">
                                     <img src="{{ asset('/images/articles/' . $article->media) }}" alt=""
-                                        class="object-cover w-full h-60">
+                                        class="object-cover w-full h-80">
                                 </button>
                             </div>
                             <div
