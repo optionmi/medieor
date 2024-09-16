@@ -1,3 +1,6 @@
+@php
+    $user = auth()->user();
+@endphp
 <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
     <div class="sidebar-header border-bottom">
         <div class="sidebar-brand">
@@ -21,82 +24,125 @@
                 </svg> Dashboard</a></li>
         {{-- </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li> --}}
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.categories') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
-                </svg> Categories</a></li>
+        @if (!$user->hasRestriction('can_manage_categories'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.categories.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
+                    </svg> Categories</a></li>
+        @endif
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.events') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
-                </svg> Events</a></li>
+        @if (!$user->hasRestriction('can_manage_events'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.events') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
+                    </svg> Events</a></li>
+        @endif
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.articles') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
-                </svg> Articles</a></li>
+        @if (!$user->hasRestriction('can_manage_articles'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.articles') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
+                    </svg> Articles</a></li>
+        @endif
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.donations') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-heart') }}"></use>
-                </svg> Donations</a></li>
+        @if (!$user->hasRestriction('can_manage_donations'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.donations') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-heart') }}"></use>
+                    </svg> Donations</a></li>
+        @endif
 
-        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-info') }}"></use>
-                </svg> Info Pages</a>
-            <ul class="nav-group-items compact">
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.aboutus') }}"><span
-                            class="nav-icon"><span class="nav-icon-bullet"></span></span> About Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.ourpurpose') }}"><span
-                            class="nav-icon"><span class="nav-icon-bullet"></span></span> Our Purpose</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.contactus') }}"><span
-                            class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact Us</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-people') }}"></use>
-                </svg> Users</a></li>
+        @if (!$user->hasRestriction('can_manage_infopages'))
+            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-info') }}"></use>
+                    </svg> Info Pages</a>
+                <ul class="nav-group-items compact">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.aboutus') }}"><span
+                                class="nav-icon"><span class="nav-icon-bullet"></span></span> About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.ourpurpose') }}"><span
+                                class="nav-icon"><span class="nav-icon-bullet"></span></span> Our Purpose</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.info-pages.contactus') }}"><span
+                                class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact Us</a></li>
+                </ul>
+            </li>
+        @endif
 
-        <li class="nav-title">Category Posts</li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.topics.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
-                </svg> Topics</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.posts.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
-                </svg> All Posts</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.posts.comments') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
-                    </use>
-                </svg> Comments</a></li>
+        @if (!$user->hasRestriction('can_manage_users'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-people') }}"></use>
+                    </svg> Users</a></li>
+        @endif
 
-        <li class="nav-title">Groups</li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}"></use>
-                </svg> All Groups</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.join.request') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}">
-                    </use>
-                </svg> Join Requests</a></li>
+        @if (
+            !$user->hasRestriction('can_manage_category_topics') ||
+                !$user->hasRestriction('can_manage_category_posts') ||
+                !$user->hasRestriction('can_manage_category_comments'))
+            <li class="nav-title">Category Posts</li>
+        @endif
+        @if (!$user->hasRestriction('can_manage_category_topics'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.topics.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
+                    </svg> Topics</a></li>
+        @endif
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.posts') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
-                </svg> All Posts</a></li>
+        @if (!$user->hasRestriction('can_manage_category_posts'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.posts.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
+                    </svg> All Posts</a></li>
+        @endif
 
-        <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.comments') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
-                    </use>
-                </svg> Comments</a></li>
+        @if (!$user->hasRestriction('can_manage_category_comments'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.posts.comments') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
+                        </use>
+                    </svg> Comments</a></li>
+        @endif
 
-        @if (Auth::user()->hasRole('superadmin'))
+        @if (
+            !$user->hasRestriction('can_manage_groups') ||
+                !$user->hasRestriction('can_manage_group_join_requests') ||
+                !$user->hasRestriction('can_manage_group_posts') ||
+                !$user->hasRestriction('can_manage_group_comments'))
+            <li class="nav-title">Groups</li>
+        @endif
+        @if (!$user->hasRestriction('can_manage_groups'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
+                        </use>
+                    </svg> All Groups</a></li>
+        @endif
+
+        @if (!$user->hasRestriction('can_manage_group_join_requests'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.join.request') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}">
+                        </use>
+                    </svg> Join Requests</a></li>
+        @endif
+
+        @if (!$user->hasRestriction('can_manage_group_posts'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.posts') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}">
+                        </use>
+                    </svg> All Posts</a></li>
+        @endif
+
+        @if (!$user->hasRestriction('can_manage_group_comments'))
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.group.comments') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
+                        </use>
+                    </svg> Comments</a></li>
+        @endif
+
+        @if ($user->hasRole('superadmin'))
             <li class="nav-title">Super Admin</li>
             <li class="nav-item"><a class="nav-link" href="{{ route('superadmin.superadmins.index') }}">
                     <svg class="nav-icon">
