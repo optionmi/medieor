@@ -11,28 +11,63 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Latest version of checkout action
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Ensure we fetch at least 2 commits to compare HEAD and HEAD^
 
       # Check if there are changes in .css, .js, .jsx files
       - name: Check for frontend changes
         id: frontend_changes
         run: |
-          git diff --name-only HEAD^ HEAD | grep -E '\.(css|js|jsx)$' || echo "no" > no-changes.txt
+          # Handle case where there's no HEAD^ (e.g., on first commit)
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          else
+            CHANGED_FILES=$(git diff --name-only HEAD)
+          fi
+          echo "$CHANGED_FILES"
+          if [[ $CHANGED_FILES == *".css"* || $CHANGED_FILES == *".js"* || $CHANGED_FILES == *".jsx"* ]]; then
+            echo "Frontend changes detected."
+            echo "frontend_changed=true" >> $GITHUB_ENV
+          else
+            echo "No frontend changes."
+            echo "frontend_changed=false" >> $GITHUB_ENV
+          fi
 
-      # Conditionally run npm build if changes are found in .css, .js, .jsx files
+      # Conditionally set up Node.js and run npm build if there are frontend changes
       - name: Set up Node.js
-        if: steps.frontend_changes.outputs.frontend_changed != 'no'
+        if: env.frontend_changed == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*" # Automatically picks the latest LTS version
+          node-version: "lts/*"
 
       - name: Install dependencies and build frontend
-        if: steps.frontend_changes.outputs.frontend_changed != 'no'
+        if: env.frontend_changed == 'true'
         run: |
           npm install
           npm run build
 
-      # SSH to DreamHost and deploy the changes
+      # Install sshpass to enable password-based rsync authentication if needed
+      - name: Install sshpass
+        if: env.frontend_changed == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      # Add server to known_hosts if there are frontend changes
+      - name: Add server to known_hosts
+        if: env.frontend_changed == 'true'
+        run: |
+          mkdir -p ~/.ssh  # Create .ssh directory if it doesn't exist
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+      # Rsync build folder using sshpass only if there are frontend changes
+      - name: Rsync build folder to DreamHost
+        if: env.frontend_changed == 'true'
+        run: |
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
+
+      # SSH to DreamHost and deploy the changes (always runs)
       - name: Deploy to DreamHost
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -43,12 +78,3 @@ jobs:
             cd /home/medieor/medieor.earth
             git pull origin main
             php artisan optimize
-
-      # Conditionally sync the build folder if there were frontend changes
-      - name: Rsync Build Folder
-        if: steps.frontend_changes.outputs.frontend_changed != 'no'
-        run: |
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-          rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
-        env:
-          RSYNC_PASSWORD: ${{ secrets.PASSWORD }}
