@@ -64,7 +64,7 @@
                     type="button"><i class="fa-solid fa-pencil"></i></button>
             @endif
         </div>
-        @if (!auth()->user()->isRestrictedFrom('can_reply'))
+        @if (!auth()->user()->hasRestriction('can_reply'))
             <button class="ml-16 text-sm text-blue-500 reply-button" type="button">Reply</button>
         @endif
         <div class="flex flex-col gap-4 mt-5 replies">

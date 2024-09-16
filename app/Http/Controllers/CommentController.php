@@ -29,7 +29,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->isRestrictedFrom('can_comment')) return $this->restrictedAction();
+        if (auth()->user()->hasRestriction('can_comment')) return $this->restrictedAction();
         $validator = validator()->make($request->all(), [
             'post_id' => 'required|exists:posts,id',
             'content' => 'required|string',

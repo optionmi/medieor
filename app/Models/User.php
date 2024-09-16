@@ -131,7 +131,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class, 'restrictions', 'user_id', 'permission_id');
     }
 
-    public function isRestrictedFrom($restriction)
+    public function hasRestriction($restriction)
     {
         return $this->restrictions()->where('name', $restriction)->exists();
     }

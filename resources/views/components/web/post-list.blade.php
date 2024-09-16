@@ -99,7 +99,7 @@
                             @endif
                         </button>
                     </div>
-                    @if (!auth()->user()->isRestrictedFrom('can_comment'))
+                    @if (!auth()->user()->hasRestriction('can_comment'))
                         <div class="flex-1 text-center">
                             <button
                                 class="create-comment-btn hover:bg-[#00000033] w-full py-3 rounded-md transition-colors"

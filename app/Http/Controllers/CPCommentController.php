@@ -30,7 +30,7 @@ class CPCommentController extends Controller
     public function store(Request $request, CategoryPost $categoryPost)
     {
         $user = auth()->user();
-        if ($user->isRestrictedFrom('can_comment')) return $this->restrictedAction();
+        if ($user->hasRestriction('can_comment')) return $this->restrictedAction();
 
         $request->validate([
             'comment' => 'required',

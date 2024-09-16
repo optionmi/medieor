@@ -31,7 +31,7 @@ class CommentReplyController extends Controller
     public function store(Request $request)
     {
 
-        if (auth()->user()->isRestrictedFrom('can_reply')) return $this->restrictedAction();
+        if (auth()->user()->hasRestriction('can_reply')) return $this->restrictedAction();
 
         $validator = validator()->make($request->all(), [
             'content' => 'required|string',

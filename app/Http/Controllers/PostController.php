@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->isRestrictedFrom('can_post')) return $this->restrictedAction();
+        if (auth()->user()->hasRestriction('can_post')) return $this->restrictedAction();
         $request->validate([
             'content' => 'required|string',
             'post_media' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

@@ -14,7 +14,7 @@
             </div>
 
             <div class="flex flex-col items-center gap-8 mb-10">
-                @if (!auth()->user()->isRestrictedFrom('can_post'))
+                @if (!auth()->user()->hasRestriction('can_post'))
                     <div class="w-full p-5 bg-white rounded-md shadow-md sm:w-1/2">
                         <div class="flex items-center gap-5">
                             <div class="w-14 h-14"><img src="{{ asset('images/user_avatar/' . auth()->user()->img) }}"
