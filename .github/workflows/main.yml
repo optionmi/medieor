@@ -48,6 +48,7 @@ jobs:
       - name: Rsync Build Folder
         if: steps.frontend_changes.outputs.frontend_changed != 'no'
         run: |
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
           rsync -avz --delete public/build/ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/medieor/medieor.earth/public/build
         env:
           RSYNC_PASSWORD: ${{ secrets.PASSWORD }}
