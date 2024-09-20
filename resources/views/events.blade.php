@@ -17,7 +17,7 @@
                     <p class="text-center">No events found in this category.</p>
                 @else
                     @foreach ($events as $event)
-                        <div class="flex flex-col w-full pb-5 my-5 sm:w-1/4 group">
+                        <div class="relative flex flex-col w-full my-5 h-[25rem] max-h-[60rem] sm:w-1/4 group/event">
                             <div class="flex items-center justify-center rounded-md shadow-md">
                                 @if ($event->media->first()->media_type === 'video')
                                     <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
@@ -36,9 +36,18 @@
                                 @endif
                             </div>
                             <div
-                                class="w-11/12 px-4 py-2 mx-auto transition-transform duration-300 ease-in-out transform translate-y-[-1.5rem] bg-white border-2 border-gray-500 rounded-md group-hover:translate-y-1">
-                                {{ $event->title }}
-                                </h1>
+                                class="group/content absolute left-0 right-0 top-[calc(84%-1.5rem)] w-11/12 px-4 py-2 mx-auto transition-transform duration-300 ease-in-out transform translate-y-[-1.5rem] bg-white border border-gray-200 rounded-md group-hover/event:translate-y-[1px] z-10">
+                                <div
+                                    class="overflow-hidden transition-[max-height] duration-300 ease-in-out max-h-14 group-hover/content:max-h-[500px]">
+                                    <h1 class="text-xl text-center">
+                                        {{ $event->title }}
+                                    </h1>
+                                </div>
+                                <div class="absolute rounded-md bottom-0 left-0 right-0 w-full bg-[#ffffffaa]">
+                                    <button
+                                        class="w-full h-5 py-1 mt-4 font-semibold text-center text-blue-500 bg-white rounded-md read-more-button group-hover/content:hidden">Read
+                                        More</button>
+                                </div>
                             </div>
                         </div>
                     @endforeach
