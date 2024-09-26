@@ -61,7 +61,9 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
         return $events->map(function ($event, $key) use ($start) {
             $event->serial = $start + 1 + $key;
             $event->category_title = $event?->category?->title;
-            $event->media_file = view('admin.events.media', compact('event'))->render();
+            if ($event->media->first()) {
+                $event->media_file = view('admin.events.media', compact('event'))->render();
+            }
             $event->actions = view('admin.events.actions', compact('event'))->render();
             $event->setHidden(['category']);
             return $event;
