@@ -23,8 +23,6 @@ class UserController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email,' . $user->id,
-                'country' => 'required',
-                'phone' => 'required',
                 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             ]
         );
