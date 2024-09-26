@@ -8,7 +8,7 @@
                     title="{{ $category->title }}"><img class="rounded-full shadow-lg"
                         src="{{ asset($category->logo_image) }}" alt="{{ $category->title }}" width="55" />
                     <span
-                        class="absolute top-0 left-0 right-0 text-xs text-center text-white rounded-full text-shadow-sm shadow-black bg-[#00000066] w-full h-full pt-4 font-bold">
+                        class="absolute top-0 left-0 right-0 text-[0.58rem] text-center text-white rounded-full text-shadow-sm shadow-black bg-[#00000066] w-full h-full pt-3 sm:pt-4 font-bold sm:text-xs">
                         {{ strtok($category->title, ' ') }}</span></a>
             @endforeach
         </div>
