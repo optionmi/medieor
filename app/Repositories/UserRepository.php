@@ -96,6 +96,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $query->whereHas('roles', function ($q) use ($role) {
                 $q->where('name', 'LIKE', "$role");
             });
+        } else {
+            $query->whereHas('roles', function ($q) use ($role) {
+                $q->where('name', 'LIKE', "user");
+            });
         }
 
         // Search logic
@@ -120,7 +124,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         // Sorting logic
         if (!empty($sortColumn)) {
             $sortColumn = strtolower($sortColumn) === '#' ? 'id' : strtolower($sortColumn);
-            $sortDirection = strtolower($sortDirection) === 'asc' && strtolower($sortColumn) === '#' ? 'DESC' : 'ASC';
+            $sortDirection = strtolower($sortDirection) === 'asc' && strtolower($sortColumn) === 'id' ? 'DESC' : 'ASC';
             $query->orderBy($sortColumn, $sortDirection);
         }
 
