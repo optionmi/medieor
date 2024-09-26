@@ -41,22 +41,10 @@ class EventController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'category' => 'required',
-            'media_file' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,ogg',
+            'media_file' => 'file|mimes:jpeg,png,jpg,gif,mp4,mov,ogg',
         ]);
 
-        // Determine the media type
-        $mediaType = $request->file('media_file')->getMimeType();
-        $isImage = str_starts_with($mediaType, 'image/');
-        $isVideo = str_starts_with($mediaType, 'video/');
 
-        // Set media type accordingly
-        if ($isImage) {
-            $mediaType = 'image';
-        } elseif ($isVideo) {
-            $mediaType = 'video';
-        } else {
-            return back()->withErrors(['media_file' => 'The uploaded file must be an image or video.']);
-        }
 
         $data = [
             'title' => $request->input('title'),
@@ -64,11 +52,28 @@ class EventController extends Controller
         ];
 
         if ($request->hasFile('media_file')) {
+            // Determine the media type
+            $mediaType = $request->file('media_file')->getMimeType();
+            $isImage = str_starts_with($mediaType, 'image/');
+            $isVideo = str_starts_with($mediaType, 'video/');
+
+            // Set media type accordingly
+            if ($isImage) {
+                $mediaType = 'image';
+            } elseif ($isVideo) {
+                $mediaType = 'video';
+            } else {
+                return back()->withErrors(['media_file' => 'The uploaded file must be an image or video.']);
+            }
+
             if ($mediaType === 'video') $filename = $this->uploadFile($request->file('media_file'), 'videos/events');
             if ($mediaType === 'image') $filename = $this->uploadFile($request->file('media_file'), 'images/events');
+
+            $event = $this->event->store($data, $request->input('id'));
+            $event->media()->create(['media_file' => $filename, 'media_type' => $mediaType]);
+        } else {
+            $event = $this->event->store($data, $request->input('id'));
         }
-        $event = $this->event->store($data, $request->input('id'));
-        $event->media()->create(['media_file' => $filename, 'media_type' => $mediaType]);
 
         return $this->jsonResponse((bool)$event, 'Event ' . ($request->input('id') ? 'updated' : 'created') . ' successfully');
     }
