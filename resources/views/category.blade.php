@@ -177,11 +177,13 @@
                     <ul class="flex flex-col gap-2">
                         @if ($category->topics->count() > 0)
                             @foreach ($category->topics as $topic)
-                                <li class="flex justify-between">
-                                    <a href="">{{ $topic->name }}</a>
-                                    <span class="bg-[#d0d4d7] px-2 py-1 font-bold text-white rounded-xl">
-                                        {{ $topic->posts->count() }}
-                                    </span>
+                                <li class="flex items-center justify-between gap-2">
+                                    <div class="flex-grow"><a href="">{{ $topic->name }}</a></div>
+                                    <div class="flex bg-[#d0d4d7] justify-center rounded-xl flex-shrink-0 min-w-[2rem]">
+                                        <span class="w-full px-2 py-1 font-bold text-center text-white ">
+                                            {{ $topic->posts->count() }}
+                                        </span>
+                                    </div>
                                 </li>
                             @endforeach
                         @else
