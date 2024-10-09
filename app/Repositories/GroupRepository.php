@@ -36,6 +36,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
             switch (strtolower($sortColumn)) {
                 case "#":
                     $sortColumn = 'id';
+                    $sortDirection = strtolower($sortDirection) === 'asc' && strtolower($sortColumn) === 'id' ? 'DESC' : 'ASC';
                     break;
                 case "category":
                     $sortColumn = 'category_id';
@@ -71,6 +72,10 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
             $group->image_formated = $group->image_path ? (filter_var($group->image_path, FILTER_VALIDATE_URL) ?
                 '<img src="images/group_logos/' . $group->image_path . '" width="150px" />' :
                 '<img src="' . asset('images/group_logos/' . $group->image_path) . '" width="150px" />') : null;
+
+            $group->img = $group->desc_img ? (filter_var($group->desc_img, FILTER_VALIDATE_URL) ?
+                '<img src="images/group_desc/' . $group->desc_img . '" width="150px" />' :
+                '<img src="' . asset('images/group_desc/' . $group->desc_img) . '" width="150px" />') : null;
             $group->action =
                 // '<button class="btn btn-primary btn-sm" data-id="' . $group->id . '" data-toggle="modal" data-target="#edit-group" data-title="' . $group->title . '" data-description="' . $group->description . '" data-image_path="' . $group->image_path . '" data-status="' . $group->status . '">Edit</button><button class="btn btn-danger btn-sm" data-id="' . $group->id . '">Delete</button>' .
                 '<div class="d-flex">
@@ -135,7 +140,7 @@ class GroupRepository extends BaseRepository implements GroupRepositoryInterface
         $users = $query->skip($start)->take($length)->get();
 
         // Modify the collection if needed
-        $users = UserRepository::CollectionModifier($users, $start);
+        $users = UserRepository::CollectionModifier($users, $start, 'user');
 
         return $users;
     }

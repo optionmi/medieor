@@ -34,6 +34,7 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
             switch (strtolower($sortColumn)) {
                 case "#":
                     $sortColumn = 'id';
+                    $sortDirection = strtolower($sortDirection) === 'asc' && strtolower($sortColumn) === 'id' ? 'DESC' : 'ASC';
                     break;
                 case "category":
                     $sortColumn = 'category_id';

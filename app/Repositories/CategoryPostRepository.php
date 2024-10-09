@@ -37,8 +37,8 @@ class CategoryPostRepository extends BaseRepository implements CategoryPostRepos
         if (!empty($sortColumn)) {
             switch (strtolower($sortColumn)) {
                 case "#":
-                    $sortColumn = 'created_at';
-                    $sortDirection = 'DESC';
+                    $sortColumn = 'id';
+                    $sortDirection = strtolower($sortDirection) === 'asc' && strtolower($sortColumn) === 'id' ? 'DESC' : 'ASC';
                     break;
                 case "category":
                     $sortColumn = 'category_id';
