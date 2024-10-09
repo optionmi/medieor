@@ -130,4 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // Check All Checkboxes
+  $("#checkAll").on("change", function () {
+    $("input:checkbox").prop("checked", $(this).prop("checked"));
+  });
+  // Refresh Captcha
+  $("#refresh-captcha").on("click", function () {
+    fetch("/refresh-captcha")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.captcha);
+        document.querySelector("#captchaImg").innerHTML = data.captcha;
+      });
+  });
 }); // DOMContentLoaded

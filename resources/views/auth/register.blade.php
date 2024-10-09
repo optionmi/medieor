@@ -13,13 +13,11 @@
                     </div>
                     <div class="my-5">
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li class="text-sm text-red-500">{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            <ul class="flex flex-col gap-5 my-5">
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-sm text-center text-red-500">{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         @endif
 
                         <form action="" method="POST">
@@ -61,6 +59,10 @@
                             <div class="mb-5">
                                 <label class="text-sm" for="phone">I am Interested in</label>
                                 <div class="flex flex-wrap my-1">
+                                    <div class="flex items-center gap-2 my-1 sm:w-full">
+                                        <input type="checkbox" id="checkAll">
+                                        <label for="checkAll">Check All</label>
+                                    </div>
                                     @foreach ($categories as $category)
                                         <div class="flex items-center gap-2 my-1 sm:w-1/3">
                                             <input type="checkbox" value="{{ $category->id }}" name="categories[]"
@@ -81,6 +83,20 @@
                                     <label class="text-sm" for="password_confirmation">Confirm Password</label>
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                         class="w-full p-2 border border-gray-300 rounded-md" placeholder="Confirm Password"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-between sm:gap-5 sm:flex-row">
+                                <div class="flex justify-between flex-1 mb-5">
+                                    <div class="flex flex-grow" id="captchaImg">{!! captcha_img() !!}</div>
+                                    <button type="button" id="refresh-captcha" title="Refresh Captcha Image">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                    </button>
+                                </div>
+                                <div class="flex-1 mb-5">
+                                    <label class="text-sm" for="captcha">Captcha Verification</label>
+                                    <input type="text" id="captcha" name="captcha"
+                                        class="w-full p-2 border border-gray-300 rounded-md" placeholder="Captcha code"
                                         required>
                                 </div>
                             </div>

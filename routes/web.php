@@ -18,6 +18,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupMemberController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CommentReplyController;
+use Mews\Captcha\Captcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,10 @@ use App\Http\Controllers\CommentReplyController;
 */
 
 Auth::routes();
+
+Route::get('/refresh-captcha', function () {
+    return response()->json(['captcha' => captcha_img()]);
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('web.home');
 Route::get('/v2', [HomeController::class, 'v2'])->name('web.home-v2');
