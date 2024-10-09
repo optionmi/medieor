@@ -23,7 +23,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Image</th>
+                                <th scope="col">Logo</th>
+                                <th scope="col">About Image</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Members</th>
                                 <th scope="col">Status</th>
@@ -85,6 +86,14 @@
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
+                    },
+                    {
+                        data: 'img',
+                        name: 'img',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        // "width": "10%"
                     },
                     {
                         data: 'category_title',
