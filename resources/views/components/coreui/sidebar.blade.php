@@ -1,6 +1,3 @@
-@php
-    $user = auth()->user();
-@endphp
 <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
     <div class="sidebar-header border-bottom">
         <div class="sidebar-brand">
@@ -28,28 +25,36 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.categories.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
-                    </svg> Categories</a></li>
+                    </svg> Categories<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newCategoriesCount != 0 ?? $newCategoriesCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_events'))
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.events') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
-                    </svg> Events</a></li>
+                    </svg> Events<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newEventsCount != 0 ?? $newEventsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_articles'))
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.articles') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
-                    </svg> Articles</a></li>
+                    </svg> Articles<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newArticlesCount != 0 ?? $newArticlesCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_donations'))
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.donations') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-heart') }}"></use>
-                    </svg> Donations</a></li>
+                    </svg> Donations<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newDonationsCount != 0 ?? $newDonationsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_infopages'))
@@ -72,7 +77,9 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-people') }}"></use>
-                    </svg> Users</a></li>
+                    </svg> Users<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newUsersCount != 0 ?? $newUsersCount }}</span></a>
+            </li>
         @endif
 
         @if (
@@ -85,14 +92,18 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.topics.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
-                    </svg> Topics</a></li>
+                    </svg> Topics<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newTopicsCount != 0 ?? $newTopicsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_category_posts'))
             <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.posts.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
-                    </svg> All Posts</a></li>
+                    </svg> All Posts<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newCategoryPostsCount != 0 ?? $newCategoryPostsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_category_comments'))
@@ -100,7 +111,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
                         </use>
-                    </svg> Comments</a></li>
+                    </svg> Comments<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newCPCommentsCount != 0 ?? $newCPCommentsCount }}</span></a>
+            </li>
         @endif
 
         @if (
@@ -115,7 +128,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
                         </use>
-                    </svg> All Groups</a></li>
+                    </svg> All Groups<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newAllGroupsCount != 0 ?? $newAllGroupsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_group_join_requests'))
@@ -123,7 +138,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}">
                         </use>
-                    </svg> Join Requests</a></li>
+                    </svg> Join Requests<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newArticlesCount != 0 ?? $newArticlesCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_group_posts'))
@@ -131,7 +148,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}">
                         </use>
-                    </svg> All Posts</a></li>
+                    </svg> All Posts<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newAllPostsCount != 0 ?? $newAllPostsCount }}</span></a>
+            </li>
         @endif
 
         @if (!$user->hasRestriction('can_manage_group_comments'))
@@ -139,7 +158,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-comment-bubble') }}">
                         </use>
-                    </svg> Comments</a></li>
+                    </svg> Comments<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newCommentsCount != 0 ?? $newCommentsCount }}</span></a>
+            </li>
         @endif
 
         @if ($user->hasRole('superadmin'))
@@ -148,7 +169,8 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
                         </use>
-                    </svg> Super Admins</a></li>
+                    </svg> Super Admins</a>
+            </li>
             <li class="nav-item"><a class="nav-link" href="{{ route('superadmin.admins.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
@@ -158,7 +180,9 @@
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('coreui/vendors/@coreui/icons/svg/free.svg#cil-address-book') }}">
                         </use>
-                    </svg> Users</a></li>
+                    </svg> Users<span
+                        class="badge badge-sm bg-info ms-auto">{{ $newUsersCount != 0 ?? $newUsersCount }}</span></a>
+            </li>
         @endif
     </ul>
     <div class="sidebar-footer border-top d-none d-md-flex">

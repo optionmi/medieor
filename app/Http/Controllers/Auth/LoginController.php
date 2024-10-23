@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -40,13 +41,26 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function sendLoginResponse(Request $request)
+    // protected function sendLoginResponse(Request $request)
+    // {
+    //     $request->session()->regenerate();
+
+    //     $this->clearLoginAttempts($request);
+
+    //     return $this->authenticated($request, $this->guard()->user())
+    //         ?: redirect()->intended($request->session()->pull('previous_url', '/'));
+    // }
+
+    protected function authenticated(Request $request, $user)
     {
-        $request->session()->regenerate();
+        // Store the previous last login time in the session
+        // session('last_login_at', $user->last_login_at);
+        $request->session()->put('last_login_at', $user->last_login_at);
 
-        $this->clearLoginAttempts($request);
+        // Update last login time to the current time
+        $user->last_login_at = Carbon::now();
+        $user->save();
 
-        return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($request->session()->pull('previous_url', '/'));
+        return redirect()->intended($request->session()->pull('previous_url', '/'));
     }
 }

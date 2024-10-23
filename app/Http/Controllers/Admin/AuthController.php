@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -60,6 +61,14 @@ class AuthController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        // Store the previous last login time in the session
+        // session('last_login_at', $user->last_login_at);
+        $request->session()->put('last_login_at', $user->last_login_at);
+
+        // Update last login time to the current time
+        $user->last_login_at = Carbon::now();
+        $user->save();
+
         return redirect('/admin/dashboard');
     }
 
