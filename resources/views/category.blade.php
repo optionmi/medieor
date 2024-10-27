@@ -10,7 +10,7 @@
             <div class="relative main-bg w-full h-[35vh] sm:h-[95vh]">
                 <img src="{{ asset($category->image) }}" alt="">
                 <div
-                    class="absolute flex-col items-center hidden p-5 text-3xl text-white sm:leading-[4.5rem] right-16 sm:flex sm:text-6xl bottom-60 banner-content backdrop-blur bg-black/10 rounded-lg">
+                    class="absolute flex-col items-center hidden p-5 text-2xl text-white sm:leading-[3.5rem] right-16 sm:flex sm:text-5xl bottom-60 banner-content backdrop-blur bg-black/10 rounded-lg">
                     {!! $category->img_text !!}
                 </div>
             </div>
@@ -76,9 +76,9 @@
                                     @else
                                         <h2 class="text-xl">{{ $group->title }}</h2>
                                     @endif
-                                    <div class="flex gap-1 text-xs text-gray-500 sm:text-sm">
-                                        <span class="text-gray-500">Public Group</span>●
-                                        <span>Created {{ $group->created_at->diffForHumans() }}</span>●
+                                    <div class="flex flex-wrap text-xs text-gray-500 gap-x-5 sm:flex-row sm:text-sm">
+                                        <span class="text-gray-500">Public Group</span>
+                                        <span>Created {{ $group->created_at->diffForHumans() }}</span>
                                         <span>{{ $group->users->count() . Str::plural(' member', $group->users->count()) }}</span>
                                     </div>
 

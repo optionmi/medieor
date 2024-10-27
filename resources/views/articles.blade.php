@@ -19,11 +19,11 @@
                     @foreach ($articles as $article)
                         <div class="relative flex flex-col w-full my-5 h-[30rem] max-h-[60rem] sm:w-1/4 group/article">
                             <div class="flex items-center justify-center rounded-md shadow-md">
-                                <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
+                                <button class="min-h-[200px] h-80 bg-white rounded-md" type="button" data-twe-toggle="modal"
                                     data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
                                     data-image-url="{{ asset('/images/articles/' . $article->media) }}">
                                     <img src="{{ asset('/images/articles/' . $article->media) }}" alt=""
-                                        class="object-cover w-full h-80">
+                                        class="w-full h-auto">
                                 </button>
                             </div>
                             <div

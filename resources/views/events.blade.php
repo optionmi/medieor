@@ -20,18 +20,20 @@
                         <div class="relative flex flex-col w-full my-5 h-[25rem] max-h-[60rem] sm:w-1/4 group/event">
                             <div class="flex items-center justify-center rounded-md shadow-md">
                                 @if ($event->media->first()->media_type === 'video')
-                                    <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
-                                        data-twe-target="#videoModal" data-twe-ripple-init data-twe-ripple-color="dark"
+                                    <button class="min-h-[200px] h-80 bg-white rounded-md" type="button"
+                                        data-twe-toggle="modal" data-twe-target="#videoModal" data-twe-ripple-init
+                                        data-twe-ripple-color="dark"
                                         data-video-url="{{ asset('/videos/events/' . $event->media->first()->media_file) }}">
-                                        <video class="object-cover w-full rounded-md h-80"
+                                        <video class="w-full h-auto rounded-md"
                                             src="{{ asset('/videos/events/' . $event->media->first()->media_file) }}"></video>
                                     </button>
                                 @else
-                                    <button class="min-h-[200px]" type="button" data-twe-toggle="modal"
-                                        data-twe-target="#imageModal" data-twe-ripple-init data-twe-ripple-color="dark"
+                                    <button class="min-h-[200px] h-80 bg-white rounded-md" type="button"
+                                        data-twe-toggle="modal" data-twe-target="#imageModal" data-twe-ripple-init
+                                        data-twe-ripple-color="dark"
                                         data-image-url="{{ asset('/images/events/' . $event->media->first()->media_file) }}">
                                         <img src="{{ asset('/images/events/' . $event->media->first()->media_file) }}"
-                                            alt="" class="object-cover w-full h-80">
+                                            alt="" class="w-full h-auto">
                                     </button>
                                 @endif
                             </div>
