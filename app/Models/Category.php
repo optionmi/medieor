@@ -53,12 +53,12 @@ class Category extends Model
 
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class)->orderBy('created_at', 'desc');
     }
 
     public function articles()
     {
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Article::class)->orderBy('created_at', 'desc');
     }
 
     public function users()
