@@ -19,11 +19,10 @@
                         <h1 class="mb-5 text-2xl font-semibold text-gray-600">Group Management</h1>
                         @if (Auth::user()->hasRole('admin'))
                             <div class="flex gap-5">
+                                <a class="px-3 py-2 border rounded-md" href="{{ route('web.dashboard') }}">My
+                                    Groups</a>
                                 <a class="px-3 py-2 text-white border rounded-md bg-primary"
-                                    href="{{ route('web.dashboard') }}">My
-                                    Groups</a>
-                                <a class="px-3 py-2 border rounded-md" href="{{ route('web.users.groups') }}">User's
-                                    Groups</a>
+                                    href="{{ route('web.users.groups') }}">User's Groups</a>
                             </div>
                         @endif
                     </div>

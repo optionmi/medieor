@@ -70,6 +70,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-group/{group}', [GroupController::class, 'update'])->name('web.update.group');
     Route::delete('/delete-group/{group}', [GroupController::class, 'destroy'])->name('web.group.delete');
 
+    Route::middleware(['auth', 'role:admin'])->group(function () {
+        Route::get('/dashboard/users-groups', [DashboardController::class, 'usersGroups'])->name('web.users.groups');
+    });
+
     // Members Management
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/members-management/{group}', [GroupMemberController::class, 'index'])->name('web.members.management');

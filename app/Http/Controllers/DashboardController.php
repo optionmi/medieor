@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Group;
 
 class DashboardController extends Controller
 {
@@ -10,5 +10,13 @@ class DashboardController extends Controller
     {
         $groups = auth()->user()->ownedGroups;
         return view('dashboard', compact('groups'));
+    }
+
+    public function usersGroups()
+    {
+        $groups = Group::whereHas('owner.roles', function ($query) {
+            $query->where('name', 'user');
+        })->get();
+        return view('dashboard-users-groups', compact('groups'));
     }
 }
