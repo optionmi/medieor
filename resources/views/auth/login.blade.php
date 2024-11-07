@@ -22,10 +22,12 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-5">
+                            <div class="relative mb-5">
                                 <label class="text-sm" for="password">Password</label>
                                 <input type="password" name="password" id="password"
                                     class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password">
+                                <span class="absolute text-gray-600 cursor-pointer bottom-2 right-2 togglePassword"><i
+                                        class="fa-solid fa-eye"></i></span>
                                 @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

@@ -144,4 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#captchaImg").innerHTML = data.captcha;
       });
   });
+
+  $(".togglePassword").on("click", function () {
+    $(this).find("i").toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).parent().find("input"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
 }); // DOMContentLoaded

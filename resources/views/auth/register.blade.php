@@ -73,17 +73,21 @@
                                 </div>
                             </div>
                             <div class="flex flex-col justify-between sm:gap-5 sm:flex-row">
-                                <div class="flex-1 mb-5">
+                                <div class="relative flex-1 mb-5">
                                     <label class="text-sm" for="password">Password</label>
                                     <input type="password" name="password" id="password"
                                         class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password"
                                         required>
+                                    <span class="absolute text-gray-600 cursor-pointer bottom-2 right-2 togglePassword"><i
+                                            class="fa-solid fa-eye"></i></span>
                                 </div>
-                                <div class="flex-1 mb-5">
+                                <div class="relative flex-1 mb-5">
                                     <label class="text-sm" for="password_confirmation">Confirm Password</label>
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                         class="w-full p-2 border border-gray-300 rounded-md" placeholder="Confirm Password"
                                         required>
+                                    <span class="absolute text-gray-600 cursor-pointer bottom-2 right-2 togglePassword"><i
+                                            class="fa-solid fa-eye"></i></span>
                                 </div>
                             </div>
                             <div class="flex flex-col justify-between sm:gap-5 sm:flex-row">
